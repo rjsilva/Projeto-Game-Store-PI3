@@ -5,5 +5,6 @@
     <li><a href="#">Cadastro Fornecedor</a></li>
     <li><a href="#">Relatório Venda</a></li>
     <li><a href="#">Relatório Estoque</a></li>
+    <li><a href="#">Consultas</a></li>
     <li><a href="#">Sair</a></li>
 </ul>

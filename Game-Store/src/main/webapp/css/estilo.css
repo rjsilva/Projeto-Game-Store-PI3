@@ -1,7 +1,6 @@
 body, input{
     font-family: Segoe UI, Arial, times;
     font-size: 12px;
-    background-color: activecaption;
 }
 input[type=text], input[type=password]{
     width: 200px ;
@@ -18,11 +17,10 @@ input[type=submit]{
 fieldset#fieldset_login{
     margin-top: 100px;
     margin: auto;
-    width: 200px;
+    width: 300px;
     padding:50px;
 }
 #login_form{
-
     margin-top: 150px;
 }
 
@@ -31,9 +29,10 @@ fieldset#fieldset_login{
     border: thin solid lightgray;
     padding: 2px;
     width: 200px;
-    background-color: #f6f6f6;
+    background-color:#e6e6ff;
     height:500px;
     border: 1px solid darkgray;
+    font-size: 15px;
 }
 
 
@@ -41,7 +40,7 @@ fieldset#fieldset_login{
     padding: 20px;
     height: 30px;
     margin-bottom: 10px;
-    background-color: #80b3ff;
+    background-color:#ccddff;
     border: 1px solid darkgray;
 }
 .logo{
@@ -84,4 +83,13 @@ fieldset#fieldset_form{
     padding:50px;
     margin-top: 50px;
     height:300px;
+}
+legend{
+    
+    font-size: 20px;
+    color: crimson;
+}
+
+#formulario{
+    font-size: 20px;
 }

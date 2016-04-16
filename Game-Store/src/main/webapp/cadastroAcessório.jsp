@@ -18,16 +18,27 @@
         <div class="conteudo">
             <fieldset id="fieldset_form">
                 <legend>Cadastro Acessório</legend>
-                <div>
-                    <form>
+                <form action="AcessorioServlet" method="post" id="formulario">
+                    <div>
                         <label>Nome:</label>
-                        <input type="text"/><br>
+                        <input type="text" name="nome"/><br>
+                    </div>
+                    <div>
                         <label>Preço:</label>
-                        <input type="text"/><br>
-                        <label>Quantidade:</label>
-                        <input type="text"/>
-                    </form>
-                </div>
+                        <input type="text" name="preco"/><br>
+                    </div>
+                    <div>
+                        <label>Descrição:</label>
+                        <input type="text" name="descricao"/><br>
+                    </div>
+                    <div>
+                        <label>Marca:</label>
+                        <input type="text" name="marca"/><br>
+                    </div>
+                    <div>
+                        <input type="submit" value="Cadastrar"/>
+                    </div>
+                </form>
             </fieldset>
         </div>
         <jsp:include page="WEB-INF/template/rodape.jsp"/>
