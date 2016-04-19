@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cadastro Acessório</title>
-        <link rel="stylesheet" href="css/estilo.css"/>
+        <link rel="stylesheet" href="css/estiloformulario.css"/>
     </head>
     <body>
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
@@ -19,25 +19,37 @@
             <fieldset id="fieldset_form">
                 <legend>Cadastro Acessório</legend>
                 <form action="AcessorioServlet" method="post" id="formulario">
-                    <div>
-                        <label>Nome:</label>
-                        <input type="text" name="nome"/><br>
-                    </div>
-                    <div>
-                        <label>Preço:</label>
-                        <input type="text" name="preco"/><br>
-                    </div>
-                    <div>
-                        <label>Descrição:</label>
-                        <input type="text" name="descricao"/><br>
-                    </div>
-                    <div>
-                        <label>Marca:</label>
-                        <input type="text" name="marca"/><br>
-                    </div>
-                    <div>
-                        <input type="submit" value="Cadastrar"/>
-                    </div>
+                    <table border="0" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                            <td>Acessório:</td>
+                            <td>
+                                <select name="acessorio">
+                                    <option value="selecao">---Selecione um Acessório---</option>
+                                    <option value="jogo">Jogo</option>
+                                    <option value="console">Console</option>
+                                    <option vaue="cabo">Cabo USB</option>
+                                    <option value="kinect">Kinect</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Preço:</td>
+                            <td><input type="text" name="txtpreco"/></td>
+                        </tr>
+                        <tr>
+                            <td>Marca:</td>
+                            <td><input type="text" name="txtmarca"/></td>
+                        </tr>
+                        <tr>
+                            <td>Quantidade:</td>
+                            <td><input type="text" name="txtquantidade"/></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" value="Cadastrar"/>
+                            </td>
+                        </tr>
+                    </table>
                 </form>
             </fieldset>
         </div>

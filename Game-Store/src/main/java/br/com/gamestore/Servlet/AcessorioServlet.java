@@ -71,6 +71,7 @@ public class AcessorioServlet extends HttpServlet {
         try {
             String nome = request.getParameter("nome");
             String preco = request.getParameter("preco");
+            String descricao = request.getParameter("acessorio");
             Double preco2 = Double.parseDouble(preco);
             ace.setNome(nome);
             ace.setPreco(preco2);

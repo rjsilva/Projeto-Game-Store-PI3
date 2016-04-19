@@ -13,23 +13,11 @@ import java.io.Serializable;
  */
 public class Usuario implements Serializable{
     
-    private int ID;
+    private Integer ID;
     private String usuario;
     private String senha;
 
-    /**
-     * @return the ID
-     */
-    public int getID() {
-        return ID;
-    }
-
-    /**
-     * @param ID the ID to set
-     */
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+ 
 
     /**
      * @return the usuario
@@ -57,6 +45,20 @@ public class Usuario implements Serializable{
      */
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    /**
+     * @return the ID
+     */
+    public Integer getID() {
+        return ID;
+    }
+
+    /**
+     * @param ID the ID to set
+     */
+    public void setID(Integer ID) {
+        this.ID = ID;
     }
     
 }

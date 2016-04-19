@@ -18,19 +18,23 @@ import java.sql.SQLException;
  */
 public class UsuarioDao{
     
-    public boolean validarUsuario(Usuario user) throws SQLException{
+    public boolean validarUsuario(Usuario user) throws SQLException, Exception{
         try{
         Connection conexao = Conexao.obterConexao();
-        String sql = "SELECT * FROM WHERE USUARIO = ? AND SENHA = ?";
+        
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM TB_USUARIO");
+        sql.append(" WHERE USUARIO = ? AND SENHA = ?");
         PreparedStatement stm = conexao.prepareStatement(sql.toString());
         stm.setString(1, user.getUsuario());
         stm.setString(2, user.getSenha());
-        ResultSet resultado = stm.executeQuery();       
+        ResultSet resultado = stm.executeQuery();  
+        
         return resultado.next();
+        
         }catch(SQLException e){
             e.printStackTrace();
+            throw new Exception (e.getMessage());
         }
-        return false;
     }
-    
 }
