@@ -11,47 +11,58 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cadastro Acessório</title>
         <link rel="stylesheet" href="css/estiloformulario.css"/>
+        <link rel="stylesheet" href="css/estiloformulario.css"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     </head>
     <body>
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
         <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
         <div class="conteudo">
-            <fieldset id="fieldset_form">
-                <legend>Cadastro Acessório</legend>
-                <form action="AcessorioServlet" method="post" id="formulario">
-                    <table border="0" cellspacing="0" cellpadding="0" align="center">
-                        <tr>
-                            <td>Acessório:</td>
-                            <td>
-                                <select name="acessorio">
-                                    <option value="selecao">---Selecione um Acessório---</option>
-                                    <option value="jogo">Jogo</option>
-                                    <option value="console">Console</option>
-                                    <option vaue="cabo">Cabo USB</option>
-                                    <option value="kinect">Kinect</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Preço:</td>
-                            <td><input type="text" name="txtpreco"/></td>
-                        </tr>
-                        <tr>
-                            <td>Marca:</td>
-                            <td><input type="text" name="txtmarca"/></td>
-                        </tr>
-                        <tr>
-                            <td>Quantidade:</td>
-                            <td><input type="text" name="txtquantidade"/></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="submit" value="Cadastrar"/>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-            </fieldset>
+            <form action="AcessorioServlet" method="post" id="formulario" class="form-horizontal">
+                <div class="imagem">
+                </div>
+                <div class="form-groupo">
+                    <label for="nome" class="col-sm-2 control-label">Acessório:</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" name="nomeacessorio">
+                            <option value="selecao">--Selecione--</option>
+                            <option value="jogo">Jogo</option>
+                            <option value="console">Console</option>
+                            <option value="cabo">Cabo USB</option>
+                            <option value="kinect">Kinect</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-groupo">
+                    <label for="marca" class="col-sm-2 control-label">Marca:</label>
+                    <div class="col-sm-5">
+                        <input type="text" class=" form-control" id="marca" placeholder="digite a marca do produto" name="marca"/>
+                    </div>
+                </div>
+                <div class="form-groupo">
+                    <label for="preco" class="col-sm-2 control-label">Preço:</label>
+                    <div class="col-sm-5">
+                        <input type="text" class=" form-control" id="preco" placeholder="digite o preço do produto" name="preco"/>
+                    </div>
+                </div>
+                <div class="form-groupo">
+                    <label for="tipo" class="col-sm-2 control-label">Tipo:</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" name="tipo">
+                            <option value="selecao">--Selecione--</option>
+                            <option value="aventura">Aventura</option>
+                            <option value="tiro">Tiro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-groupo">
+                    <div class="col-sm-5">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </div>
+            </form>
         </div>
         <jsp:include page="WEB-INF/template/rodape.jsp"/>
     </body>

@@ -14,7 +14,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -71,7 +70,6 @@ public class AcessorioServlet extends HttpServlet {
         try {
             String nome = request.getParameter("nome");
             String preco = request.getParameter("preco");
-            String descricao = request.getParameter("acessorio");
             Double preco2 = Double.parseDouble(preco);
             ace.setNome(nome);
             ace.setPreco(preco2);

@@ -1,0 +1,29 @@
+html{
+    margin: 0px;
+    padding: 0px;
+}
+.loginBox{
+    background-color: grey;
+    width: 300px;
+    height: 180px;
+    margin:auto;
+    margin-top: 20px;
+    padding: 25px;
+}
+input[type=text], input[type=password]{
+    width: 200px;
+}
+input[type=submit]{
+    margin: 0px 80px;
+    width: 80px;
+}
+h3{
+    color:#00004d;
+    text-align: center;
+    margin: 50px;
+}
+.msgErro{
+    text-align: center;
+    color: red;
+}
+

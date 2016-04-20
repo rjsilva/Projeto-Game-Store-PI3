@@ -6,8 +6,13 @@
 package br.com.gamestore.Servlet;
 
 import br.com.gamestore.controler.UsuarioControler;
+import br.com.gamestore.exception.ControleException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,27 +22,28 @@ import javax.swing.JOptionPane;
  *
  * @author rjs
  */
+@WebServlet("/UsuarioServlet")
 public class UsuarioServlet extends HttpServlet {
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String acao = req.getParameter("acao");
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String acao = request.getParameter("acao");
         String proxima = null;
-        if ("sair".equals(acao)) {
-            proxima = "logout.jsp";
-        } else if ("login".equals(acao)) {
+        if("sair".equals(acao)){
+            proxima = "login1.jsp";
+        }else if ("login1".equals(acao)) {
             try {
                 proxima = "index.jsp";
-                if (!new UsuarioControler().validarUsuario(req)) {
-                    JOptionPane.showInputDialog("login/senha inválidos");
-                    proxima = "login.jsp";
+                if (!new UsuarioControler().validarUsuario(request)) {
+                    request.setAttribute("msgErro", "Login/Senha Inválidos");
+                    proxima = "login1.jsp";
                 }
-            } catch (Exception e) {
-                JOptionPane.showInputDialog(e.getMessage());
-                proxima = "login.jsp";
+            } catch (ControleException e) {
+                request.setAttribute("msgErro", e.getMessage());
+                proxima = "login1.jsp";
             }
         }
-        req.getRequestDispatcher(proxima).forward(req, resp);
+        request.getRequestDispatcher(proxima).forward(request, response);
     }
 
 }

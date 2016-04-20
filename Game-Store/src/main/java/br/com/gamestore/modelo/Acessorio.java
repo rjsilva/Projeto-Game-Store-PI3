@@ -5,11 +5,13 @@
  */
 package br.com.gamestore.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author rjs
  */
-public class Acessorio {
+public class Acessorio implements Serializable{
     
     private String nome;
     private double preco;

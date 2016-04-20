@@ -6,6 +6,8 @@
 package br.com.gamestore.controler;
 
 import br.com.gamestore.dao.UsuarioDao;
+import br.com.gamestore.exception.ControleException;
+import br.com.gamestore.exception.PersistenciaException;
 import br.com.gamestore.modelo.Usuario;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.JOptionPane;
@@ -16,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class UsuarioControler {
 
-    public boolean validarUsuario(HttpServletRequest request) {
+    public boolean validarUsuario(HttpServletRequest request) throws ControleException {
 
         boolean valido = true;
 
@@ -32,9 +34,9 @@ public class UsuarioControler {
             UsuarioDao userDao = new UsuarioDao();
             valido = userDao.validarUsuario(user);
 
-        } catch (Exception e) {
-
-            JOptionPane.showInputDialog(e.getMessage());
+        } catch (PersistenciaException e) {
+            e.printStackTrace();
+            throw new ControleException(e);
         }
 
         return valido;

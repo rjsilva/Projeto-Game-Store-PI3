@@ -13,6 +13,11 @@
         <link rel="stylesheet" href="css/estiloformulario.css"/>
     </head>
     <body>
-        <jsp:include page="WEB-INF/template/layout.jsp"/>
+        <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
+        <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
+        <div class="conteudo">
+            
+        </div>
+        <jsp:include page="WEB-INF/template/rodape.jsp"/>
     </body>
 </html>
