@@ -9,6 +9,8 @@ import br.com.gamestore.dao.AcessorioDao;
 import br.com.gamestore.modelo.Acessorio;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,20 +67,32 @@ public class AcessorioServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String acao = request.getParameter("acao");
         Acessorio ace = new Acessorio();
         AcessorioDao aceDao = new AcessorioDao();
         try {
-            String nome = request.getParameter("nome");
+            String nome = request.getParameter("nomeacessorio");
+            String marca = request.getParameter("marca");
             String preco = request.getParameter("preco");
             Double preco2 = Double.parseDouble(preco);
+            String tipo = request.getParameter("tipo");
+            String quantidade = request.getParameter("quantidade");
+            Integer quant = Integer.parseInt(quantidade);
+
             ace.setNome(nome);
+            ace.setMarca(marca);
             ace.setPreco(preco2);
+            ace.setTipo(tipo);
+            ace.setQuantidade(quant);
             aceDao.cadastrar(ace);
 
+            request.setAttribute("msg", "Cadastrado com Sucesso");
+            
         } catch (Exception e) {
 
             e.printStackTrace();
         }
+        request.getRequestDispatcher("cadastroAcessorio.jsp").forward(request, response);
     }
 
     @Override

@@ -14,7 +14,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/validacao.js"></script>
         <link rel="stylesheet" href="css/estilologin1.css"/>
-        <title>JSP Page</title>
+        <title>Login - Game Store</title>
     </head>
     <body onload="zerarCampo()">
         <h3>GAME STORE</h3>

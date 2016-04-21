@@ -38,6 +38,18 @@
                         <input type="text" class="form-control" id="cargo" />
                     </div>
                 </div>
+                <div class="form-groupo">
+                    <label for="dtnascimento" class="col-sm-2 control-label">Data Nascimento:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="dtnascimento" />
+                    </div>
+                </div>
+                <div class="form-groupo">
+                    <label for="telefone" class="col-sm-2 control-label">Telefone:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="telefone" />
+                    </div>
+                </div>
             </form>
         </div>
         <jsp:include page="WEB-INF/template/rodape.jsp"/>

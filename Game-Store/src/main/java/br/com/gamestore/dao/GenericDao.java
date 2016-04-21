@@ -16,7 +16,7 @@ public interface GenericDao<T>{
      void cadastrar(T obj);
      void excluir(Integer id);
      void atualizar(T obj);
-     List<T> listarTodos();
+     //List<T> listarTodos(T obj);
      T buscarPorId(Integer id);
     
 }

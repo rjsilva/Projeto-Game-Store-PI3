@@ -7,16 +7,13 @@ package br.com.gamestore.Servlet;
 
 import br.com.gamestore.controler.UsuarioControler;
 import br.com.gamestore.exception.ControleException;
+import br.com.gamestore.modelo.Usuario;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,13 +26,15 @@ public class UsuarioServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String acao = request.getParameter("acao");
         String proxima = null;
+        Usuario user = new Usuario();
         if("sair".equals(acao)){
             proxima = "login1.jsp";
         }else if ("login1".equals(acao)) {
             try {
                 proxima = "index.jsp";
+                request.getSession().setAttribute("usuario", user);
                 if (!new UsuarioControler().validarUsuario(request)) {
-                    request.setAttribute("msgErro", "Login/Senha Inválidos");
+                    request.setAttribute("msgErro", "***Login/Senha Inválidos");
                     proxima = "login1.jsp";
                 }
             } catch (ControleException e) {
