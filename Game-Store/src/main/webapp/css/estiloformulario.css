@@ -1,9 +1,20 @@
 /*TEMPLATE DAS PÁGINAS*/
-fieldset#fieldset_form{
+fieldset.field_cadastro{
     width: 700px;  
-    margin:50px;
+    margin:0px 20px;
     padding: 5px;
     height:400px;
+}
+#linkvoltar{
+    float: right;
+    color: #00004d;
+    font-size: 20px;
+    margin-top:550px;
+}
+input[type=submit]{
+    
+    width: 100px;
+    margin: 20px 150px;
 }
 tabela , td, input[type=submit]{ 
    padding: 5px;
@@ -30,14 +41,14 @@ tabela, tr, td{
     font-size: 15px;
 }
 .cabecalho{
-    padding: 20px;
-    height: 72px;
+    padding: 15px;
+    height: 50px;
     margin-bottom: 10px;
     background-color:#ccddff;
     border: 1px solid darkgray;
 }
 .logo{
-    margin: -19.6px -20px;
+    margin: -10.6px -10px;
 }
 .conteudo{
     border: thin solid lightgray;
@@ -45,10 +56,10 @@ tabela, tr, td{
     position: absolute;
     right: 10px;
     left: 215px;
-    height: 503px;
-    top:95px;
+    height: 500px;
+    top:114px;
     border: 1px solid darkgray;
-    width: 1140px;
+    width: 1125px;
 }
 h3{
     text-align: center;
@@ -56,9 +67,8 @@ h3{
     color:crimson;
 }
 .rodape{
-    padding: 5px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: -10px;
 }
 .menu-esquerda a {
     text-decoration: none;

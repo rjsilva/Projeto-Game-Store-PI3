@@ -9,7 +9,12 @@ import br.com.gamestore.dao.AcessorioDao;
 import br.com.gamestore.modelo.Acessorio;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.PersistenceException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -62,37 +67,56 @@ public class AcessorioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String acao = request.getParameter("acao");
+        if (acao.equals("listar")) {
+            AcessorioDao dao = new AcessorioDao();
+            List<Acessorio> lista = new ArrayList();
+            try {
+                lista = dao.listarTodos();
+                request.setAttribute("lista", lista);
+            } catch (PersistenceException ex) {
+                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else if(acao.equals("excluir")){
+            AcessorioDao dao = new AcessorioDao();
+            dao.excluir(Integer.SIZE);
+        }
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("estoqueprodutos.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String acao = request.getParameter("acao");
-        Acessorio ace = new Acessorio();
-        AcessorioDao aceDao = new AcessorioDao();
-        try {
-            String nome = request.getParameter("nomeacessorio");
-            String marca = request.getParameter("marca");
-            String preco = request.getParameter("preco");
-            Double preco2 = Double.parseDouble(preco);
-            String tipo = request.getParameter("tipo");
-            String quantidade = request.getParameter("quantidade");
-            Integer quant = Integer.parseInt(quantidade);
+        if ("acessoriocadastro".equals(acao)) {
+            Acessorio ace = new Acessorio();
+            AcessorioDao aceDao = new AcessorioDao();
+            try {
+                String nome = request.getParameter("acessorio");
+                String marca = request.getParameter("marca");
+                String preco = request.getParameter("preco");
+                String tipo = request.getParameter("tipo");
+                String quantidade = request.getParameter("quantidade");
 
-            ace.setNome(nome);
-            ace.setMarca(marca);
-            ace.setPreco(preco2);
-            ace.setTipo(tipo);
-            ace.setQuantidade(quant);
-            aceDao.cadastrar(ace);
+                ace.setNome(nome);
+                ace.setMarca(marca);
+                ace.setPreco(Double.parseDouble(preco));
+                ace.setTipo(tipo);
+                ace.setQuantidade(Integer.parseInt(quantidade));
+                aceDao.cadastrar(ace);
 
-            request.setAttribute("msg", "Cadastrado com Sucesso");
-            
-        } catch (Exception e) {
+                response.getWriter().print("<h3>Cadastrado com Sucesso</3>");
+                // request.setAttribute("msg", "Cadastrado com Sucesso");
 
-            e.printStackTrace();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+            request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("cadastroAcessorio.jsp").forward(request, response);
     }
 
     @Override

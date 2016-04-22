@@ -11,10 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
 
 /**
@@ -28,7 +27,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
         try {
             Connection conexao = Conexao.obterConexao();
-            String sql = "insert into TB_ACESSORIOS(NOME_ACESSORIO,MARCA, PRECO, TIPO, QUANTIDADE)"
+            String sql = "INSERT INTO TB_ACESSORIOS(NOME_ACESSORIO,MARCA, PRECO, TIPO, QUANTIDADE)"
                     + "values(?,?,?,?,?)";
             PreparedStatement stm = conexao.prepareStatement(sql.toString());
             stm.setString(1, ac.getNome());
@@ -53,10 +52,12 @@ public class AcessorioDao implements GenericDao<Acessorio> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
     public List<Acessorio> listarTodos() throws PersistenceException, SQLException {
 
-        String sql = "SELECT * TB_ACESSORIOS";
+        Statement stmt = null;
+        Connection conn = null;
+
+        String sql = "SELECT * FROM TB_ACESSORIOS";
         List<Acessorio> lista = new ArrayList<Acessorio>();
         Acessorio ac = new Acessorio();
         try {
@@ -64,12 +65,12 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             PreparedStatement stm = conexao.prepareStatement(sql);
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
-                ac.setID_Acessorio(resultados.getInt(1));
-                ac.setNome(resultados.getString(2));
-                ac.setMarca(resultados.getString(3));
-                ac.setPreco(resultados.getDouble(4));
-                ac.setTipo(resultados.getString(5));
-                ac.setQuantidade(resultados.getInt(6));
+                ac.setID_Acessorio(resultados.getInt("ID_ACESSORIO"));
+                ac.setNome(resultados.getString("NOME_ACESSORIO"));
+                ac.setMarca(resultados.getString("MARCA"));
+                ac.setPreco(resultados.getDouble("PRECO"));
+                ac.setTipo(resultados.getString("TIPO"));
+                ac.setQuantidade(resultados.getInt("QUANTIDADE"));
                 lista.add(ac);
             }
 

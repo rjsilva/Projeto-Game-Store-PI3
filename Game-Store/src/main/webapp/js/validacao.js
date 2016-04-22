@@ -15,7 +15,6 @@ function validarCampo()
 
 function validaAcessorio() {
     varItens = document.getElementById('selecaoacessorio');
-
     if (varItens.value === "jogo") {
 
         document.getElementById('tipo').disabled = false;

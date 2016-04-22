@@ -66,9 +66,7 @@ public class AcessorioControler implements GenericDao<HttpServletRequest> {
 
         List<Acessorio> lista = new ArrayList<>();
         try {
-
-            String id = request.getParameter("");
-            String nome = request.getParameter("nomeacessorio");
+            String nome = request.getParameter("acessorio");
             String marca = request.getParameter("marca");
             String preco = request.getParameter("preco");
             Double preco2 = Double.parseDouble(preco);
