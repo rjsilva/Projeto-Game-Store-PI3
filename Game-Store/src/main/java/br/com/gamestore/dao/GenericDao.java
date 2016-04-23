@@ -14,7 +14,7 @@ import java.util.List;
 public interface GenericDao<T>{
     
      void cadastrar(T obj);
-     void excluir(Integer id);
+     void excluir(T Obj);
      void atualizar(T obj);
      //List<T> listarTodos(T obj);
      T buscarPorId(Integer id);

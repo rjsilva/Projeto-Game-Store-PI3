@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
 
 /**
@@ -43,13 +45,45 @@ public class AcessorioDao implements GenericDao<Acessorio> {
     }
 
     @Override
-    public void excluir(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void excluir(Acessorio ac) {
+        
+        String sql = "DELETE FROM TB_ACESSORIOS WHERE ID_ACESSORIO=?";
+        
+        try {
+            
+            Connection conexao = Conexao.obterConexao();
+
+            PreparedStatement stm = conexao.prepareStatement(sql);
+            stm.setInt(1, ac.getID_Acessorio());
+            stm.execute();            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void atualizar(Acessorio obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void atualizar(Acessorio ac) {
+
+        String sql = "UPDATE TB_ACESSORIOS SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=? WHERE ID_ACESSORIO=?";
+
+        try {
+
+            Connection conexao = Conexao.obterConexao();
+            PreparedStatement stm = conexao.prepareStatement(sql);
+
+            stm.setString(1, ac.getNome());
+            stm.setString(2, ac.getMarca());
+            stm.setDouble(3, ac.getPreco());
+            stm.setString(4, ac.getTipo());
+            stm.setInt(5, ac.getQuantidade());
+            stm.setInt(6, ac.getID_Acessorio());
+
+            stm.execute();
+            stm.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public List<Acessorio> listarTodos() throws PersistenceException, SQLException {
@@ -57,20 +91,22 @@ public class AcessorioDao implements GenericDao<Acessorio> {
         Statement stmt = null;
         Connection conn = null;
 
-        String sql = "SELECT * FROM TB_ACESSORIOS";
+        String sql = "SELECT ID_ACESSORIO, NOME_ACESSORIO, MARCA, PRECO, TIPO, QUANTIDADE"
+                + " FROM TB_ACESSORIOS";
         List<Acessorio> lista = new ArrayList<Acessorio>();
-        Acessorio ac = new Acessorio();
+
         try {
             Connection conexao = Conexao.obterConexao();
             PreparedStatement stm = conexao.prepareStatement(sql);
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
-                ac.setID_Acessorio(resultados.getInt("ID_ACESSORIO"));
-                ac.setNome(resultados.getString("NOME_ACESSORIO"));
-                ac.setMarca(resultados.getString("MARCA"));
-                ac.setPreco(resultados.getDouble("PRECO"));
-                ac.setTipo(resultados.getString("TIPO"));
-                ac.setQuantidade(resultados.getInt("QUANTIDADE"));
+                Acessorio ac = new Acessorio();
+                ac.setID_Acessorio(resultados.getInt(1));
+                ac.setNome(resultados.getString(2));
+                ac.setMarca(resultados.getString(3));
+                ac.setPreco(resultados.getDouble(4));
+                ac.setTipo(resultados.getString(5));
+                ac.setQuantidade(resultados.getInt(6));
                 lista.add(ac);
             }
 

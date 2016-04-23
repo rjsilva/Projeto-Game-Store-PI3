@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="col-sm-5">
-                    <input type="submit" class="btn btn-primary" value="Entrar" onclick="validarCampo()"/>
+                    <input type="submit" class="btn btn-primary" value="Entrar"/>
                 </div>
             </form>
         </div>

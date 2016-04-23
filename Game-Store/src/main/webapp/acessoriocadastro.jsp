@@ -17,7 +17,7 @@
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
         <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
         <div class="conteudo">
-            <form action="AcessorioServlet" method="post" class="formulariocadastro">
+            <form action="AcessorioServlet?acao=acessoriocadastro" method="post" class="formulariocadastro">
                 <h3>Cadastro</h3>
                 <fieldset class="field_cadastro">
                     <legend>Cadastro Acessório</legend>
@@ -46,11 +46,11 @@
                             <td><label for="tipo">Tipo:</label></td>
                             <td>
                                 <select id="tipo" name="tipo">
-                                    <option>--Selecione--</option>
-                                    <option>Aventura</option>
-                                    <option>Tiro</option>
-                                    <option>Corrida</option>
-                                    <option>Futebol</option>
+                                    <option value="tipo">--Selecione--</option>
+                                    <option value="aventura">Aventura</option>
+                                    <option value="tiro">Tiro</option>
+                                    <option value="corrida">Corrida</option>
+                                    <option value="futebol">Futebol</option>
                                 </select>
                             </td>
                         </tr>
@@ -59,7 +59,7 @@
                             <td><input type="text" id="quantidade" name="quantidade" placeholder="digite a quantidade" onkeypress="return SomenteNumero(event)"/></td>
                         </tr>
                     </table>
-                    <input type="submit" value="Cadastrar"/>
+                    <input type="submit" value="Cadastrar" onclick="validarCampo()"/>
                 </fieldset>
             </form>
         </div>

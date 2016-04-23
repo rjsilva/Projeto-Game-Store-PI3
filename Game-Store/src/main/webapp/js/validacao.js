@@ -1,16 +1,30 @@
 function validarCampo()
 {
-    var login = document.getElementById("login");
-    var senha = document.getElementById("senha");
 
-    if (login.value == "" || login.value == null) {
+    var acessorio = document.getElementById("selecaoacessorio").value;
+    var marca = document.getElementById("marca").value;
+    var preco = document.getElementById("preco").value;
+    var tipo = document.getElementById("tipo").value;
+    var quant = document.getElementById("quantidade").value;
 
-        alert("Favor preencher os campos em branco");
+    if (acessorio == "selecao") {
 
-        return false;
+        alert("Favor selecione um acessório acessorio");
 
+    } else if (marca == "" || marca == null) {
+
+        alert("Favor escolha uma marca");
+
+    } else if (preco == "" || marca == null) {
+
+        alert("Favor digite  um  preço");
+
+    } else if (quant == "" || quant == null) {
+
+        alert("digite uma quantidade")
     }
 
+    return false;
 }
 
 function validaAcessorio() {

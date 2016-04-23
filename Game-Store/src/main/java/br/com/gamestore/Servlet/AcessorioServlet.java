@@ -7,6 +7,7 @@ package br.com.gamestore.Servlet;
 
 import br.com.gamestore.dao.AcessorioDao;
 import br.com.gamestore.modelo.Acessorio;
+import com.sun.xml.internal.ws.wsdl.DispatchException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -67,23 +68,27 @@ public class AcessorioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String retorna = null;
+        AcessorioDao dao = new AcessorioDao();
+        Acessorio ac = new Acessorio();
         String acao = request.getParameter("acao");
         if (acao.equals("listar")) {
-            AcessorioDao dao = new AcessorioDao();
+            // AcessorioDao dao = new AcessorioDao();
             List<Acessorio> lista = new ArrayList();
             try {
                 lista = dao.listarTodos();
                 request.setAttribute("lista", lista);
-            } catch (PersistenceException ex) {
-                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (SQLException ex) {
+                ex.printStackTrace();
             }
-        }else if(acao.equals("excluir")){
-            AcessorioDao dao = new AcessorioDao();
-            dao.excluir(Integer.SIZE);
+        } else if (acao.equals("excluir")) {
+            String id = request.getParameter("id");
+            ac.setID_Acessorio(Integer.parseInt(id));
+            if (id != null) {
+                dao.excluir(ac);
+            }
+            retorna = "estoqueprodutos.jsp";
         }
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("estoqueprodutos.jsp");
         dispatcher.forward(request, response);
     }
@@ -107,7 +112,7 @@ public class AcessorioServlet extends HttpServlet {
                 ace.setTipo(tipo);
                 ace.setQuantidade(Integer.parseInt(quantidade));
                 aceDao.cadastrar(ace);
-
+                // response.sendRedirect("AcessorioServlet?acao=acessoriocadastro");
                 response.getWriter().print("<h3>Cadastrado com Sucesso</3>");
                 // request.setAttribute("msg", "Cadastrado com Sucesso");
 
