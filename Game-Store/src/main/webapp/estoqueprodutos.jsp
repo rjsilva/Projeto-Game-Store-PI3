@@ -29,7 +29,7 @@
         <div class="table-responsive">  
             <%
                 List<Acessorio> lista = (List<Acessorio>) request.getAttribute("lista");
-                
+
             %>
             <table border="1" style="width:100%" id="tabelaproduto">
                 <tr>
@@ -39,11 +39,11 @@
                     <th>PREÇO</th>
                     <th>TIPO</th>
                     <th>QUANTIDADE</th>
+                    <th>NOTA FISCAL</th>
                     <th>Atualizar</th>
                     <th>Excluir</th>
                 </tr>
-                <%
-                    for (Acessorio ace : lista) {
+                <%                    for (Acessorio ace : lista) {
                 %>
                 <tr>
                     <td name="ID_Acessorio"><%=ace.getID_Acessorio()%></td>
@@ -52,6 +52,7 @@
                     <td><%=ace.getPreco()%></td>
                     <td><%=ace.getTipo()%></td>
                     <td><%=ace.getQuantidade()%></td>
+                    <td></td>
                     <td><a href="javascript:exclusao(<%=ace.getID_Acessorio()%>)">Excluir</a></td>
                     <td><a href="AcessorioServlet?acao=atualizar&id=<%=ace.getID_Acessorio()%>">Atualizar</a></td>
                 </tr>

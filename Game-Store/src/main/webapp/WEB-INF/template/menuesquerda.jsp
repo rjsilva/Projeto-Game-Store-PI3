@@ -7,7 +7,7 @@
         <li><a href="cadastrofuncionario.jsp">Cadastro Funcionário</a></li>
         <li><a href="AcessorioServlet?acao=listar">Estoque de Produtos</a></li>
         <li><a href="abrirchamado.jsp">Abrir Chamado</a></li>
-        <li><a href="#">Consultas</a></li>
+        <li><a href="#">Inserir Vendas</a></li>
         <li><a href="login1.jsp">Sair</a></li>
     </ul>
 </nav>

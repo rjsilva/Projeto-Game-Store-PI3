@@ -1,29 +1,31 @@
 function validarCampo()
 {
 
-    var acessorio = document.getElementById("selecaoacessorio").value;
+    var acessorio = document.getElementById("acessorio").value;
     var marca = document.getElementById("marca").value;
     var preco = document.getElementById("preco").value;
     var tipo = document.getElementById("tipo").value;
     var quant = document.getElementById("quantidade").value;
 
-    if (acessorio == "selecao") {
+    if (acessorio === "" || acessorio === "null") {
 
         alert("Favor digite o nome do produto");
+        
+        return true;
 
-    } else if (marca == "" || marca == null) {
+    } else if (marca === "" || marca === "null") {
 
         alert("Favor digite o nome da marca");
 
-    } else if (preco == "" || marca == null) {
+    } else if (preco === "" || marca === "null") {
 
         alert("Favor digite  um  preço");
 
-    } else if (tipo == "" || tipo == null) {
+    } else if (tipo === "" || tipo === "null") {
 
-        alert("Favor digite o tipo do produto")
+        alert("Favor digite o tipo do produto");
 
-    } else if (quant == "" || quant == null) {
+    } else if (quant === "" || quant === "null") {
 
         alert("Favor digite a quantidade");
     }

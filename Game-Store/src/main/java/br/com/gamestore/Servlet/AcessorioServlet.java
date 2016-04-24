@@ -10,7 +10,6 @@ import br.com.gamestore.modelo.Acessorio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -92,16 +91,18 @@ public class AcessorioServlet extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+         
+        //leva os dados 
         } else if (acao.equals("atualizar")) {
             String id = request.getParameter("id");
             ac = dao.buscarPorId(Integer.parseInt(id));
             request.setAttribute("ac", ac);
-//            RequestDispatcher dispatcher =
             request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
-            //dispatcher.forward(request, response);
-        } else if (acao.equals("cadastro")) {
-            Acessorio ace = new Acessorio();
 
+       //seta objeto em branco
+        } else if (acao.equals("cadastro")) {
+            
+            Acessorio ace = new Acessorio();
             ace.setNome("");
             ace.setMarca("");
             ace.setPreco(0);
@@ -118,12 +119,11 @@ public class AcessorioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String acao = request.getParameter("acao");
-        // String adicionar = request.getParameter("adicionar");
         String id = request.getParameter("id");
         Acessorio ace = new Acessorio();
         AcessorioDao aceDao = new AcessorioDao();
 
-        if (id == null || id.isEmpty()) {
+        if (id.equals("null") || id.isEmpty()) {
 
             try {
                 String nome = request.getParameter("acessorio");
@@ -138,16 +138,15 @@ public class AcessorioServlet extends HttpServlet {
                 ace.setTipo(tipo);
                 ace.setQuantidade(Integer.parseInt(quantidade));
                 aceDao.cadastrar(ace);
-                // response.sendRedirect("AcessorioServlet?acao=acessoriocadastro");
-                response.getWriter().print("<h3>Cadastrado com Sucesso</3>");
-                // request.setAttribute("msg", "Cadastrado com Sucesso");
+
+                // response.getWriter().print("<h3>Cadastrado com Sucesso</3>");
+                response.sendRedirect("AcessorioServlet?acao=cadastro");
 
             } catch (Exception e) {
 
                 e.printStackTrace();
             }
 
-            // request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
         } else {
 
             ace.setID_Acessorio(Integer.parseInt(id));
@@ -161,9 +160,13 @@ public class AcessorioServlet extends HttpServlet {
             ace.setPreco(Double.parseDouble(preco));
             ace.setTipo(tipo);
             ace.setQuantidade(Integer.parseInt(quantidade));
-            aceDao.cadastrar(ace);
             aceDao.atualizar(ace);
+
+            response.sendRedirect("AcessorioServlet?acao=cadastro");
         }
+        
+        //request.getRequestDispatcher("AcessorioServlet?acao=cadastro").forward(request, response);
+        
     }
 
     @Override

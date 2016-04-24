@@ -30,11 +30,11 @@
                         <tr>
                             <td><label for="acessorio">Nome Produto:</label></td>
                             <td>
-                                <input type="text" id="selecaoacessorio" name="acessorio" placeholder="digite o nome do produto" value="<%=ac.getNome()%>"/>
+                                <input type="text" id="acessorio" name="acessorio" placeholder="digite o nome do produto" value="<%=ac.getNome()%>" onmouseover="validarCampo()"/>
                             </td>
                             <td><label for="acessorio">Código:</label></td>
                             <td>
-                                <input type="text" readonly="readonly" id="id" name="id" value="<%=ac.getID_Acessorio() %>"/>
+                                <input type="text" readonly="readonly" id="id" name="id" value="<%=ac.getID_Acessorio()%>"/>
                             </td>
                         </tr>
                         <tr>
@@ -42,7 +42,7 @@
                             <td><input type="text" id="marca" name="marca" placeholder="digite a marca do produto" value="<%=ac.getMarca()%>"/></td>
                         </tr>
                         <tr>
-                            <td><label for="preco">Preço:</label></td>
+                            <td><label for="preco">Preço(R$):</label></td>
                             <td><input type="text" id="preco" name="preco" placeholder="digite o preço" onkeypress="return formatar_moeda(this, ',', '.', event);" value="<%=ac.getPreco()%>"/></td>
                         </tr>
                         <tr>
@@ -55,8 +55,12 @@
                             <td><label for="quantidade">Quantidade:</label></td>
                             <td><input type="text" id="quantidade" name="quantidade" placeholder="digite a quantidade" onkeypress="return SomenteNumero(event)" value="<%=ac.getQuantidade()%>" /></td>
                         </tr>
+                        <tr>
+                            <td><label for="nf">Nota Fiscal:</label></td>
+                            <td><input type="text" id="nf" name="nf" placeholder="digite o número da Nota Fiscal" onkeypress="return SomenteNumero(event)" value="<%=ac.getQuantidade()%>" /></td>
+                        </tr>
                     </table>
-                    <input type="submit" value="Cadastrar" onclick="validarCampo()"/>
+                    <input type="submit" value="Salvar" onclick="validarCampo()"/>
                 </fieldset>
             </form>
         </div>
