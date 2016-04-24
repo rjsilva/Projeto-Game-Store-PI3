@@ -118,12 +118,12 @@ public class AcessorioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String acao = request.getParameter("acao");
-       // String adicionar = request.getParameter("adicionar");
-       //String atualizar = request.getParameter("atualizar");
+        // String adicionar = request.getParameter("adicionar");
+        String id = request.getParameter("id");
         Acessorio ace = new Acessorio();
         AcessorioDao aceDao = new AcessorioDao();
 
-        if ("acessoriocadastro".equals(acao) && request.getParameter("adicionar").equals("Cadastrar")) {
+        if (id == null || id.isEmpty()) {
 
             try {
                 String nome = request.getParameter("acessorio");
@@ -146,22 +146,22 @@ public class AcessorioServlet extends HttpServlet {
 
                 e.printStackTrace();
             }
-            
-           // request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
-            
-        }if ("acessoriocadastro".equals(acao) && request.getParameter("atualizar").equals("Atualizar")) {
 
+            // request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
+        } else {
+
+            ace.setID_Acessorio(Integer.parseInt(id));
             String nome = request.getParameter("acessorio");
             String marca = request.getParameter("marca");
             String preco = request.getParameter("preco");
             String tipo = request.getParameter("tipo");
             String quantidade = request.getParameter("quantidade");
-
             ace.setNome(nome);
             ace.setMarca(marca);
             ace.setPreco(Double.parseDouble(preco));
             ace.setTipo(tipo);
             ace.setQuantidade(Integer.parseInt(quantidade));
+            aceDao.cadastrar(ace);
             aceDao.atualizar(ace);
         }
     }
