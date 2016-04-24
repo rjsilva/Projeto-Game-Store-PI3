@@ -46,16 +46,16 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
     @Override
     public void excluir(Acessorio ac) {
-        
+
         String sql = "DELETE FROM TB_ACESSORIOS WHERE ID_ACESSORIO=?";
-        
+
         try {
-            
+
             Connection conexao = Conexao.obterConexao();
 
             PreparedStatement stm = conexao.prepareStatement(sql);
             stm.setInt(1, ac.getID_Acessorio());
-            stm.execute();            
+            stm.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,8 @@ public class AcessorioDao implements GenericDao<Acessorio> {
     @Override
     public void atualizar(Acessorio ac) {
 
-        String sql = "UPDATE TB_ACESSORIOS SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=? WHERE ID_ACESSORIO=?";
+        String sql = "UPDATE TB_ACESSORIOS SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=?"
+                + " WHERE ID_ACESSORIO=?";
 
         try {
 
@@ -118,7 +119,33 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
     @Override
     public Acessorio buscarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        String sql = "SELECT * FROM TB_ACESSORIOS WHERE ID_ACESSORIO=?";
+
+        try {
+
+            Connection conexao = Conexao.obterConexao();
+            PreparedStatement stm = conexao.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet resultados = stm.executeQuery();
+            if (resultados.next()) {
+                Acessorio ac = new Acessorio();
+                ac.setID_Acessorio(resultados.getInt("ID_ACESSORIO"));
+                ac.setNome(resultados.getString("NOME_ACESSORIO"));
+                ac.setMarca(resultados.getString("MARCA"));
+                ac.setPreco(resultados.getDouble("PRECO"));
+                ac.setTipo(resultados.getString("TIPO"));
+                ac.setQuantidade(resultados.getInt("QUANTIDADE"));
+
+                return ac;
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }

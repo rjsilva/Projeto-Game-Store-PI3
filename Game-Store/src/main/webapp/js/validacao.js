@@ -9,19 +9,23 @@ function validarCampo()
 
     if (acessorio == "selecao") {
 
-        alert("Favor selecione um acessório acessorio");
+        alert("Favor digite o nome do produto");
 
     } else if (marca == "" || marca == null) {
 
-        alert("Favor escolha uma marca");
+        alert("Favor digite o nome da marca");
 
     } else if (preco == "" || marca == null) {
 
         alert("Favor digite  um  preço");
 
+    } else if (tipo == "" || tipo == null) {
+
+        alert("Favor digite o tipo do produto")
+
     } else if (quant == "" || quant == null) {
 
-        alert("digite uma quantidade")
+        alert("Favor digite a quantidade");
     }
 
     return false;

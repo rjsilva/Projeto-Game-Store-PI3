@@ -5,41 +5,63 @@ fieldset.field_cadastro{
     padding: 5px;
     height:400px;
 }
+/*link volta da página estoque de produtos*/
 #linkvoltar{
     float: right;
     color: #00004d;
     font-size: 20px;
-    margin-top:550px;
 }
+
+/*formatação de todos os botões do tipo submit*/
 input[type=submit]{
-    
+
     width: 100px;
     margin: 20px 150px;
 }
+/*formatação da tabela de produtos*/
 tabela , td, input[type=submit]{ 
-   padding: 5px;
+    padding: 5px;
 }
 
 tabela, select{
-    
     width: 200px;
 }
 tabela , input[type=text]{
-   width:  200px;
+    width:  200px;
 }
 tabela, tr, td{
     padding: 10px;
 }
 
-.menu-esquerda{
+/*inicio do Layout do menu a esquerda*/
+#menu-esquerda{
     border: thin solid lightgray;
-    padding: 2px;
+    padding: 1px;
     width: 200px;
-    background-color:#e6e6ff;
+    background-color:gainsboro;
     height:500px;
     border: 1px solid darkgray;
-    font-size: 15px;
+    font-size: 18.5px;
 }
+#menu-esquerda a {
+    text-decoration: none;
+}
+#menu-esquerda a:hover {
+    text-decoration: underline;
+    background-color: darkgrey;
+}
+#menu-esquerda li{
+    margin: 15px 0px;
+}
+#menu-esquerda ul, #menu-esquerda li{
+    list-style: none;
+}
+#menu-esquerda{
+    margin-top: 23px;
+}
+/*fim do layout menuesquerda*/
+
+/*formatação do cabeçalho*/
 .cabecalho{
     padding: 15px;
     height: 50px;
@@ -47,9 +69,13 @@ tabela, tr, td{
     background-color:#ccddff;
     border: 1px solid darkgray;
 }
+
+/*alinha a imagem do rkf systema*/
 .logo{
     margin: -10.6px -10px;
 }
+
+/*layout da div conteudo que contém os cadastro no  corpo da página*/
 .conteudo{
     border: thin solid lightgray;
     background-color: #ffffff;
@@ -61,52 +87,36 @@ tabela, tr, td{
     border: 1px solid darkgray;
     width: 1125px;
 }
+
+/*formata titulo com a tag h3*/
 h3{
     text-align: center;
     font-size: 20px;
     color:crimson;
 }
+
+/*layout do rodapé das páginas*/
 .rodape{
     text-align: center;
-    margin-top: -10px;
 }
-.menu-esquerda a {
-    text-decoration: none;
-}
-.menu-esquerda a:hover {
-    text-decoration: underline;
-}
-.menu-esquerda li{
-    margin: 15px 20px;
-}
-.menu-esquerda ul, .menu-esquerda li{
-    list-style: none;
-}
-.menu-esquerda{
-    margin-top: 23px;
-}
-.form-groupo{
-    margin-top: 50px;
-    padding: 5px;
-}
-button[type=submit]{
-    
-    margin-left: 190px;
-}
-
 .imagem{
-    
+
     width: 450px;
     background-color: blue;
     height: 400px;
     float: right;
     margin-right:20px;
-    
+
 }
+
+/*mengem que mostra com cadastro é efetuado com sucesso*/
 .msg{
-    
     font-size: 20px;
     color:blue;
     margin: 0px 200px;
     margin-top: 10px;
+}
+/*dar estiilo aos titulos da tabela*/
+#tabelaproduto th{
+    background-color:crimson;
 }

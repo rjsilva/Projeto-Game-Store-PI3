@@ -7,7 +7,6 @@ package br.com.gamestore.Servlet;
 
 import br.com.gamestore.dao.AcessorioDao;
 import br.com.gamestore.modelo.Acessorio;
-import com.sun.xml.internal.ws.wsdl.DispatchException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -72,33 +71,60 @@ public class AcessorioServlet extends HttpServlet {
         AcessorioDao dao = new AcessorioDao();
         Acessorio ac = new Acessorio();
         String acao = request.getParameter("acao");
-        if (acao.equals("listar")) {
-            // AcessorioDao dao = new AcessorioDao();
-            List<Acessorio> lista = new ArrayList();
-            try {
-                lista = dao.listarTodos();
-                request.setAttribute("lista", lista);
-            }catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        } else if (acao.equals("excluir")) {
+        if (acao.equals("excluir")) {
             String id = request.getParameter("id");
             ac.setID_Acessorio(Integer.parseInt(id));
             if (id != null) {
                 dao.excluir(ac);
+
+                response.sendRedirect("AcessorioServlet?acao=listar");
             }
-            retorna = "estoqueprodutos.jsp";
+        } else if (acao.equals("listar")) {
+            try {
+                List<Acessorio> lista = dao.listarTodos();
+                request.setAttribute("lista", lista);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("estoqueprodutos.jsp");
+                dispatcher.forward(request, response);
+
+            } catch (PersistenceException ex) {
+                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (acao.equals("atualizar")) {
+            String id = request.getParameter("id");
+            ac = dao.buscarPorId(Integer.parseInt(id));
+            request.setAttribute("ac", ac);
+//            RequestDispatcher dispatcher =
+            request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
+            //dispatcher.forward(request, response);
+        } else if (acao.equals("cadastro")) {
+            Acessorio ace = new Acessorio();
+
+            ace.setNome("");
+            ace.setMarca("");
+            ace.setPreco(0);
+            ace.setTipo("");
+            ace.setQuantidade(0);
+
+            request.setAttribute("ac", ac);
+            request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
+
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("estoqueprodutos.jsp");
-        dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String acao = request.getParameter("acao");
-        if ("acessoriocadastro".equals(acao)) {
-            Acessorio ace = new Acessorio();
-            AcessorioDao aceDao = new AcessorioDao();
+       // String adicionar = request.getParameter("adicionar");
+       //String atualizar = request.getParameter("atualizar");
+        Acessorio ace = new Acessorio();
+        AcessorioDao aceDao = new AcessorioDao();
+
+        if ("acessoriocadastro".equals(acao) && request.getParameter("adicionar").equals("Cadastrar")) {
+
             try {
                 String nome = request.getParameter("acessorio");
                 String marca = request.getParameter("marca");
@@ -120,7 +146,23 @@ public class AcessorioServlet extends HttpServlet {
 
                 e.printStackTrace();
             }
-            request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
+            
+           // request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
+            
+        }if ("acessoriocadastro".equals(acao) && request.getParameter("atualizar").equals("Atualizar")) {
+
+            String nome = request.getParameter("acessorio");
+            String marca = request.getParameter("marca");
+            String preco = request.getParameter("preco");
+            String tipo = request.getParameter("tipo");
+            String quantidade = request.getParameter("quantidade");
+
+            ace.setNome(nome);
+            ace.setMarca(marca);
+            ace.setPreco(Double.parseDouble(preco));
+            ace.setTipo(tipo);
+            ace.setQuantidade(Integer.parseInt(quantidade));
+            aceDao.atualizar(ace);
         }
     }
 

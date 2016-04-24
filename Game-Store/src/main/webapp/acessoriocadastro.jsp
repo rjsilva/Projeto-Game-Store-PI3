@@ -4,6 +4,7 @@
     Author     : rjs
 --%>
 
+<%@page import="br.com.gamestore.modelo.Acessorio"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,6 +15,10 @@
         <title>Cadastro Acessório</title>
     </head>
     <body>
+        
+        <%
+          Acessorio ac = (Acessorio) request.getAttribute("ac");
+        %>
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
         <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
         <div class="conteudo">
@@ -23,43 +28,32 @@
                     <legend>Cadastro Acessório</legend>
                     <table>
                         <tr>
-                            <td><label for="acessorio">Acessório:</label></td>
+                            <td><label for="acessorio">Nome Produto:</label></td>
                             <td>
-                                <select id="selecaoacessorio" name="acessorio" onchange="validaAcessorio()">
-                                    <option value="selecao">--Selecione--</option>
-                                    <option value="jogo" name="jogo">Jogo</option>
-                                    <option valeu="cabo">Cabo USB</option>
-                                    <option value="console">Console</option>
-                                    <option value="kinect">Kinect</option>
-                                </select>
+                                <input type="text" id="selecaoacessorio" name="acessorio" placeholder="digite o nome do produto" value="<%=ac.getNome() %>"/>
                             </td>
                         </tr>
                         <tr>
                             <td><label for="marca">Marca:</label></td>
-                            <td><input type="text" id="marca" name="marca" placeholder="digite a marca do produto"/></td>
+                            <td><input type="text" id="marca" name="marca" placeholder="digite a marca do produto" value="<%=ac.getMarca() %>"/></td>
                         </tr>
                         <tr>
                             <td><label for="preco">Preço:</label></td>
-                            <td><input type="text" id="preco" name="preco" placeholder="digite o preço" onkeypress="return formatar_moeda(this, ',', '.', event);"/></td>
+                            <td><input type="text" id="preco" name="preco" placeholder="digite o preço" onkeypress="return formatar_moeda(this, ',', '.', event);" value="<%=ac.getPreco() %>"/></td>
                         </tr>
                         <tr>
                             <td><label for="tipo">Tipo:</label></td>
                             <td>
-                                <select id="tipo" name="tipo">
-                                    <option value="tipo">--Selecione--</option>
-                                    <option value="aventura">Aventura</option>
-                                    <option value="tiro">Tiro</option>
-                                    <option value="corrida">Corrida</option>
-                                    <option value="futebol">Futebol</option>
-                                </select>
+                                <input type="text" id="tipo" name="tipo" placeholder="digite o tipo de jogo" value="<%=ac.getTipo() %>"/>
                             </td>
                         </tr>
                         <tr>
                             <td><label for="quantidade">Quantidade:</label></td>
-                            <td><input type="text" id="quantidade" name="quantidade" placeholder="digite a quantidade" onkeypress="return SomenteNumero(event)"/></td>
+                            <td><input type="text" id="quantidade" name="quantidade" placeholder="digite a quantidade" onkeypress="return SomenteNumero(event)" value="<%=ac.getQuantidade() %>" /></td>
                         </tr>
                     </table>
-                    <input type="submit" value="Cadastrar" onclick="validarCampo()"/>
+                    <input type="submit" value="Cadastrar" onclick="validarCampo()" name="adicionar"/>
+                    <input type="hidden" value="Atualizar" name="atualizar"/>
                 </fieldset>
             </form>
         </div>

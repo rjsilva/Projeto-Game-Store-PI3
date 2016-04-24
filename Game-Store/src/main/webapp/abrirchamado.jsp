@@ -30,6 +30,10 @@
                             <td><input type="email" id="email" name="email" placeholder="digite seu email"/></td>
                         </tr>
                         <tr>
+                            <td><label for="telefone">Telefone:</label></td>
+                            <td><input type="telefone" id="telefone" name="telefone" placeholder="digite seu telefone"/></td>
+                        </tr>
+                        <tr>
                             <td><label for="assunto">Assunto:</label></td>
                             <td><input type="text" id="assunto" name="assunto" placeholder="digite o assunto"/></td>
                         </tr>
