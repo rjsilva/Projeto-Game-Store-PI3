@@ -1,3 +1,6 @@
+body{
+    background-color: black;
+}
 html{
     margin: 0px;
     padding: 0px;
@@ -18,7 +21,7 @@ input[type=submit]{
     width: 80px;
 }
 h3{
-    color:#00004d;
+    color:#ffffff;
     text-align: center;
     margin: 50px;
 }

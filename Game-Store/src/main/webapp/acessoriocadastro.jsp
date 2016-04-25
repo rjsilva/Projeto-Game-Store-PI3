@@ -43,7 +43,7 @@
                             <td><label for="marca">Marca:</label></td>
                             <td><input type="text" id="marca" name="marca" placeholder="digite a marca do produto" value="<%=ac.getMarca()%>"/></td>
                             <td></td>
-                            <td> <input id="user" type="text" value="${sessionScope.user.usuario.toUpperCase()}" onload="pegar()"/></td>
+                            <td> <input id="user" type="hidden" value="${sessionScope.user.usuario.toUpperCase()}" onload="pegar()"/></td>
                         </tr>
                         <tr>
                             <td><label for="preco">Preço(R$):</label></td>

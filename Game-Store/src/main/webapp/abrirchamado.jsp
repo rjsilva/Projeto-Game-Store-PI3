@@ -26,7 +26,7 @@
                             <td><label for="nome">Nome:</label></td>
                             <td><input type="text" id="nomechamado" name="nome" placeholder="digite seu nome"/></td>
                             <td></td>
-                            <td> <input id="user" type="text" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
+                            <td> <input id="user" type="hidden" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
                         </tr>
                         <tr>
                             <td><label for="email">Email:</label></td>

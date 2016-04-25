@@ -66,6 +66,7 @@ public class AcessorioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String retorna = null;
         AcessorioDao dao = new AcessorioDao();
         Acessorio ac = new Acessorio();

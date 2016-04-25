@@ -17,25 +17,57 @@ import java.sql.SQLException;
  *
  * @author rjs
  */
-public class UsuarioDao {
+public class UsuarioDao implements GenericDao<Usuario> {
 
     public boolean validarUsuario(Usuario user) throws PersistenciaException {
         try {
             Connection conexao = Conexao.obterConexao();
 
             StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * FROM TB_USUARIO");
+            sql.append("SELECT USUARIO, SENHA FROM TB_USUARIO");
             sql.append(" WHERE USUARIO = ? AND SENHA = ?");
             PreparedStatement stm = conexao.prepareStatement(sql.toString());
             stm.setString(1, user.getUsuario());
             stm.setString(2, user.getSenha());
 
             ResultSet resultado = stm.executeQuery();
-            return  resultado.next();
+            return resultado.next();
 
         } catch (SQLException e) {
             e.printStackTrace();
             throw new PersistenciaException(e);
         }
+    }
+
+    @Override
+    public void cadastrar(Usuario user) {
+        try {
+            Connection conexao = Conexao.obterConexao();
+            String sql = "INSERT INTO TB_USUARIO(USUARIO, SENHA, PERFIL)"
+                    + "values(?,?,?)";
+            PreparedStatement stm = conexao.prepareStatement(sql.toString());
+            stm.setString(1, user.getUsuario());
+            stm.setString(2, user.getSenha());
+            stm.setString(3, user.getPerfil());
+            stm.execute();
+            stm.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void excluir(Usuario Obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void atualizar(Usuario obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Usuario buscarPorId(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
