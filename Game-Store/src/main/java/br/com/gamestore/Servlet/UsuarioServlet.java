@@ -27,12 +27,15 @@ public class UsuarioServlet extends HttpServlet {
         String acao = request.getParameter("acao");
         String proxima = null;
         Usuario user = new Usuario();
-        if("sair".equals(acao)){
+
+        String login = request.getParameter("login");
+        user.setUsuario(login);
+
+        if ("sair".equals(acao)) {
             proxima = "login1.jsp";
-        }else if ("login1".equals(acao)) {
+        } else if ("login1".equals(acao)) {
             try {
                 proxima = "index.jsp";
-                request.getSession().setAttribute("usuario", user);
                 if (!new UsuarioControler().validarUsuario(request)) {
                     request.setAttribute("msgErro", "***Login/Senha Inválidos");
                     proxima = "login1.jsp";
@@ -42,6 +45,7 @@ public class UsuarioServlet extends HttpServlet {
                 proxima = "login1.jsp";
             }
         }
+        request.getSession().setAttribute("user", user);
         request.getRequestDispatcher(proxima).forward(request, response);
     }
 

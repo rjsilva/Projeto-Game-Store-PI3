@@ -10,9 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/estiloformulario.css"/>
+        <script type="text/javascript" src="js/validacao.js"></script>
         <title>Abrir Chamado - Suporte Técnico</title>
     </head>
-    <body>
+    <body onload="pegar()">
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
         <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
         <div class="conteudo">
@@ -23,7 +24,9 @@
                     <table>
                         <tr>
                             <td><label for="nome">Nome:</label></td>
-                            <td><input type="text" id="nome" name="nome" placeholder="digite seu nome"/></td>
+                            <td><input type="text" id="nomechamado" name="nome" placeholder="digite seu nome"/></td>
+                            <td></td>
+                            <td> <input id="user" type="text" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
                         </tr>
                         <tr>
                             <td><label for="email">Email:</label></td>
@@ -42,7 +45,7 @@
                             <td><textarea rows="5" id="comentario" name="comentario"></textarea></td>
                         </tr>
                     </table>
-                    <input type="submit" value="Enviar"/>
+                    <input id="btnenviar" type="submit" value="Enviar"/>
                 </fieldset>
             </form>
         </div>

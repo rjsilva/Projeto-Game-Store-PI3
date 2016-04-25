@@ -1,3 +1,17 @@
+function pegar() {
+
+    var user = document.getElementById("user").value;
+
+    if (user === "ADMIN") {
+        document.getElementById("nomechamado").disabled = true;
+        document.getElementById("email").disabled = true;
+        document.getElementById("telefone").disabled = true;
+        document.getElementById("assunto").disabled = true;
+        document.getElementById("comentario").disabled = true;
+        document.getElementById("btnenviar").disabled = true;
+    }
+}
+
 function validarCampo()
 {
 
@@ -10,7 +24,7 @@ function validarCampo()
     if (acessorio === "" || acessorio === "null") {
 
         alert("Favor digite o nome do produto");
-        
+
         return true;
 
     } else if (marca === "" || marca === "null") {

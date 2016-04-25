@@ -4,6 +4,7 @@
     Author     : rjs
 --%>
 
+<%@page import="br.com.gamestore.modelo.Usuario"%>
 <%@page import="br.com.gamestore.modelo.Acessorio"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,6 +19,7 @@
 
         <%
             Acessorio ac = (Acessorio) request.getAttribute("ac");
+
         %>
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
         <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
@@ -30,7 +32,7 @@
                         <tr>
                             <td><label for="acessorio">Nome Produto:</label></td>
                             <td>
-                                <input type="text" id="acessorio" name="acessorio" placeholder="digite o nome do produto" value="<%=ac.getNome()%>" onmouseover="validarCampo()"/>
+                                <input type="text" id="acessorio" name="acessorio" placeholder="digite o nome do produto" value="<%=ac.getNome()%>"/>
                             </td>
                             <td><label for="acessorio">Código:</label></td>
                             <td>
@@ -40,6 +42,8 @@
                         <tr>
                             <td><label for="marca">Marca:</label></td>
                             <td><input type="text" id="marca" name="marca" placeholder="digite a marca do produto" value="<%=ac.getMarca()%>"/></td>
+                            <td></td>
+                            <td> <input id="user" type="text" value="${sessionScope.user.usuario.toUpperCase()}" onload="pegar()"/></td>
                         </tr>
                         <tr>
                             <td><label for="preco">Preço(R$):</label></td>

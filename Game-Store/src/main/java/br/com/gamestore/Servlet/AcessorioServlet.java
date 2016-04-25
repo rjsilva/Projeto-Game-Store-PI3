@@ -139,7 +139,7 @@ public class AcessorioServlet extends HttpServlet {
                 ace.setQuantidade(Integer.parseInt(quantidade));
                 aceDao.cadastrar(ace);
 
-                // response.getWriter().print("<h3>Cadastrado com Sucesso</3>");
+                request.setAttribute("msg", "cadastrado com sucesso");
                 response.sendRedirect("AcessorioServlet?acao=cadastro");
 
             } catch (Exception e) {
