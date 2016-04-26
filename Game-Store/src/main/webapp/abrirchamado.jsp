@@ -13,7 +13,7 @@
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Abrir Chamado - Suporte Técnico</title>
     </head>
-    <body onload="pegar()">
+    <body onload="desabilitaTelaUsuario()">
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
         <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
         <div class="conteudo">

@@ -9,7 +9,6 @@ import br.com.gamestore.controler.UsuarioControler;
 import br.com.gamestore.dao.UsuarioDao;
 import br.com.gamestore.exception.ControleException;
 import br.com.gamestore.modelo.Usuario;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +32,7 @@ public class UsuarioServlet extends HttpServlet {
         String login = request.getParameter("login");
         user.setUsuario(login);
 
-        if ("sair".equals(acao)) {
+        if("sair".equals(acao)) {
             proxima = "login1.jsp";
         } else if ("login1".equals(acao)) {
             try {

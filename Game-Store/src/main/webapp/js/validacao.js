@@ -1,8 +1,29 @@
-function pegar() {
+
+/*desabilta tela de cadastro funcionário caso o usuario não seja o admin*/
+function desabilitaTelaFuncionario() {
 
     var user = document.getElementById("user").value;
 
     if (user != "ADMIN") {
+
+        document.getElementById("filial").disabled = true;
+        document.getElementById("cpf").disabled = true;
+        document.getElementById("telefone").disabled = true;
+        document.getElementById("dtnascimento").disabled = true;
+        document.getElementById("endereco").disabled = true;
+        document.getElementById("cidade").disabled = true;
+        document.getElementById("uf").disabled = true;
+        document.getElementById("cep").disabled = true;
+        document.getElementById("btncadastrar").style.display = 'none';
+    }
+}
+/*desabilta tela de criar usuario caso o usuario não seja o admin*/
+function desabilitaTelaUsuario() {
+
+    var user = document.getElementById("user").value;
+
+    if (user != "ADMIN") {
+
         document.getElementById("usuario").disabled = true;
         document.getElementById("senha").disabled = true;
         document.getElementById("perfil").disabled = true;
@@ -10,6 +31,7 @@ function pegar() {
     }
 }
 
+/*valida os campo em branco na tela de cadastro de acessório, força o usuário a digitar os produtos*/
 function validarCampo()
 {
 
@@ -54,6 +76,8 @@ function validaAcessorio() {
         document.getElementById('tipo').disabled = true;
     }
 }
+
+/*formata o valor moeda no campo preço*/
 function formatar_moeda(campo, separador_milhar, separador_decimal, tecla) {
 
     var sep = 0;
@@ -109,6 +133,8 @@ function formatar_moeda(campo, separador_milhar, separador_decimal, tecla) {
 
     return false;
 }
+
+/*função para campo do tipo números*/
 function SomenteNumero(e) {
     var tecla = (window.event) ? event.keyCode : e.which;
     if ((tecla > 47 && tecla < 58))

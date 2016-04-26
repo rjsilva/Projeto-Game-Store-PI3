@@ -12,9 +12,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/estiloformulario.css"/>
+        <script type="text/javascript" src="js/validacao.js"></script>
         <title>Cadastro Funcionário</title>
     </head>
-    <body>
+    <body onload="desabilitaTelaFuncionario()">
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
         <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
         <div class="conteudo">
@@ -26,6 +27,8 @@
                         <tr>
                             <td><label for="funcionario">Funcionário:</label></td>
                             <td><input type="text" id="filial" name="funcionario" placeholder="digite seu nome"/></td>
+                            <td></td>
+                            <td> <input id="user" type="hidden" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
                         </tr>
                         <tr>
                             <td><label for="cpf">CPF:</label></td>
@@ -48,17 +51,17 @@
                             <td><input type="text" id="cidade" name="cidade" placeholder="digite a cidade"/></td>
                             <td><label for="uf">Uf:</label></td>
                             <td>
-                                <select name="uf">
+                                <select name="uf" id="uf">
                                     <option</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td><label for="cep">Cep:</label></td>
-                            <td><input type="text" id="uf" name="cep" placeholder="digite a cep"/></td>
+                            <td><input type="text" id="cep" name="cep" placeholder="digite a cep"/></td>
                         </tr>
                     </table>
-                    <input type="submit" value="Cadastrar"/>
+                    <input type="submit" value="Cadastrar" id="btncadastrar"/>
                 </fieldset>
             </form>
         </div>
