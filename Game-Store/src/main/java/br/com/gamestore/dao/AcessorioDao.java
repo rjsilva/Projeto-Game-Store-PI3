@@ -27,14 +27,15 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
         try {
             Connection conexao = Conexao.obterConexao();
-            String sql = "INSERT INTO TB_ACESSORIOS(NOME_ACESSORIO,MARCA, PRECO, TIPO, QUANTIDADE)"
-                    + "values(?,?,?,?,?)";
+            String sql = "INSERT INTO TB_ACESSORIOS(NOME_ACESSORIO,MARCA, PRECO, TIPO, QUANTIDADE, NOTA_FISCAL)"
+                    + "values(?,?,?,?,?,?)";
             PreparedStatement stm = conexao.prepareStatement(sql.toString());
             stm.setString(1, ac.getNome());
             stm.setString(2, ac.getMarca());
             stm.setDouble(3, ac.getPreco());
             stm.setString(4, ac.getTipo());
             stm.setInt(5, ac.getQuantidade());
+            stm.setInt(6, ac.getNota_fiscal());
             stm.execute();
             stm.close();
         } catch (SQLException e) {
@@ -62,7 +63,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
     @Override
     public void atualizar(Acessorio ac) {
 
-        String sql = "UPDATE TB_ACESSORIOS SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=?"
+        String sql = "UPDATE TB_ACESSORIOS SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=? , NOTA_FISCAL=?"
                 + " WHERE ID_ACESSORIO=?";
 
         try {
@@ -75,7 +76,8 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             stm.setDouble(3, ac.getPreco());
             stm.setString(4, ac.getTipo());
             stm.setInt(5, ac.getQuantidade());
-            stm.setInt(6, ac.getID_Acessorio());
+            stm.setInt(6, ac.getNota_fiscal());
+            stm.setInt(7, ac.getID_Acessorio());
 
             stm.execute();
             stm.close();
@@ -90,7 +92,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
         Statement stmt = null;
         Connection conn = null;
 
-        String sql = "SELECT ID_ACESSORIO, NOME_ACESSORIO, MARCA, PRECO, TIPO, QUANTIDADE"
+        String sql = "SELECT ID_ACESSORIO, NOME_ACESSORIO, MARCA, PRECO, TIPO, QUANTIDADE, NOTA_FISCAL"
                 + " FROM TB_ACESSORIOS";
         List<Acessorio> lista = new ArrayList<Acessorio>();
 
@@ -106,6 +108,8 @@ public class AcessorioDao implements GenericDao<Acessorio> {
                 ac.setPreco(resultados.getDouble(4));
                 ac.setTipo(resultados.getString(5));
                 ac.setQuantidade(resultados.getInt(6));
+                ac.setNota_fiscal(resultados.getInt(7));
+                
                 lista.add(ac);
             }
 
@@ -134,7 +138,8 @@ public class AcessorioDao implements GenericDao<Acessorio> {
                 ac.setPreco(resultados.getDouble("PRECO"));
                 ac.setTipo(resultados.getString("TIPO"));
                 ac.setQuantidade(resultados.getInt("QUANTIDADE"));
-
+                ac.setNota_fiscal(resultados.getInt("NOTA_FISCAL"));
+                
                 return ac;
             }
 

@@ -19,6 +19,7 @@ public class Acessorio implements Serializable{
     private double preco;
     private String tipo;
     private int quantidade;
+    private int nota_fiscal;
 
     /**
      * @return the ID_Acessorio
@@ -102,6 +103,20 @@ public class Acessorio implements Serializable{
      */
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    /**
+     * @return the nota_fiscal
+     */
+    public int getNota_fiscal() {
+        return nota_fiscal;
+    }
+
+    /**
+     * @param nota_fiscal the nota_fiscal to set
+     */
+    public void setNota_fiscal(int nota_fiscal) {
+        this.nota_fiscal = nota_fiscal;
     }
 
     

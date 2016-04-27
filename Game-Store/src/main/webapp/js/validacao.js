@@ -1,4 +1,16 @@
+function desabilitaBotao() {
 
+    var id = document.getElementById("id").value;
+
+    if (id != "null") {
+
+        document.getElementById("btnsalvar").style.display = 'none';
+
+    } else {
+
+        document.getElementById("btnatualizar").style.display = 'none';
+    }
+}
 /*desabilta tela de cadastro funcionário caso o usuario não seja o admin*/
 function desabilitaTelaFuncionario() {
 
@@ -32,39 +44,52 @@ function desabilitaTelaUsuario() {
 }
 
 /*valida os campo em branco na tela de cadastro de acessório, força o usuário a digitar os produtos*/
-function validarCampo()
-{
+function validarCampos(frm) {
 
-    var acessorio = document.getElementById("acessorio").value;
-    var marca = document.getElementById("marca").value;
-    var preco = document.getElementById("preco").value;
-    var tipo = document.getElementById("tipo").value;
-    var quant = document.getElementById("quantidade").value;
+   
+    if (frm.acessorio.value == "null") {
+        
+        alert("Informe o nome do produto");
+        
+        return false;
+    }
+    if (frm.marca.value == "null") {
+        
+        alert("Informe a marca do produto");
+        
+        return false;
 
-    if (acessorio === "" || acessorio === "null") {
+    }
+    if (frm.preco.value == 0) {
+        
+        alert("Informe o preço");
+        
+        return false;
 
-        alert("Favor digite o nome do produto");
+    }
+    if (frm.tipo.value == "null") {
+        
+        alert("Informe o tipo do produto");
+        
+        return false;
 
-        return true;
+    }
+    if (frm.quantidade.value == 0) {
+        
+        alert("Informe a quantidade do produto");
+        
+        return false;
 
-    } else if (marca === "" || marca === "null") {
+    }
+    if (frm.nf.value == "null" || frm.acessorio.value == 0) {
+        
+        alert("Informe o número da nota fiscal");
+        
+        return false;
 
-        alert("Favor digite o nome da marca");
-
-    } else if (preco === "" || marca === "null") {
-
-        alert("Favor digite  um  preço");
-
-    } else if (tipo === "" || tipo === "null") {
-
-        alert("Favor digite o tipo do produto");
-
-    } else if (quant === "" || quant === "null") {
-
-        alert("Favor digite a quantidade");
     }
 
-    return false;
+    frm.submit();
 }
 
 function validaAcessorio() {

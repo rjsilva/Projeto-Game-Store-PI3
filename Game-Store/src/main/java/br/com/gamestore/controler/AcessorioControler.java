@@ -29,7 +29,7 @@ public class AcessorioControler implements GenericDao<HttpServletRequest> {
 
         Acessorio ace = new Acessorio();
         AcessorioDao aceDao = new AcessorioDao();
-        String sql = "SELECT ID_ACESSORIO, NOME_ACESSORIO, MARCA, PRECO, TIPO, QUANTIDADE FROM TB_ACESSORIOS";
+       // String sql = "SELECT ID_ACESSORIO, NOME_ACESSORIO, MARCA, PRECO, TIPO, QUANTIDADE FROM TB_ACESSORIOS";
         try {
 //            Connection conexao = Conexao.obterConexao();
 //            PreparedStatement stm = conexao.prepareStatement(sql);
@@ -79,7 +79,7 @@ public class AcessorioControler implements GenericDao<HttpServletRequest> {
             ace.setPreco(preco2);
             ace.setTipo(tipo);
             ace.setQuantidade(quant);
-            aceDao.cadastrar(ace);
+           // aceDao.cadastrar(ace);
 
         } catch (PersistenceException e) {
             e.printStackTrace();

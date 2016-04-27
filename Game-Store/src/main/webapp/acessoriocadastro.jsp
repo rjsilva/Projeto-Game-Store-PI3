@@ -15,16 +15,15 @@
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Cadastro Acessório</title>
     </head>
-    <body>
+    <body onload="desabilitaBotao()">
 
         <%
             Acessorio ac = (Acessorio) request.getAttribute("ac");
-
         %>
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
         <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
         <div class="conteudo">
-            <form action="AcessorioServlet" method="post" class="formulariocadastro">
+            <form id="frmcadastro" action="AcessorioServlet" method="post" onsubmit="validarCampos(this); return false;" class="formulariocadastro">
                 <h3>Cadastro</h3>
                 <fieldset class="field_cadastro">
                     <legend>Cadastro Acessório</legend>
@@ -61,10 +60,14 @@
                         </tr>
                         <tr>
                             <td><label for="nf">Nota Fiscal:</label></td>
-                            <td><input type="text" id="nf" name="nf" placeholder="digite o número da Nota Fiscal" onkeypress="return SomenteNumero(event)" value="<%=ac.getQuantidade()%>" /></td>
+                            <td><input type="text" id="nf" name="nf" placeholder="digite o número da Nota Fiscal" onkeypress="return SomenteNumero(event)"  value="<%=ac.getNota_fiscal() %>" /></td>
                         </tr>
                     </table>
-                    <input type="submit" value="Salvar" onclick="validarCampo()"/>
+                    <div class="divbotao">
+                        <input type="submit" value="Salvar" id="btnsalvar"/>
+                        <input type="submit" value="Atualizar" id="btnatualizar"/>
+                        <button type="reset">CANCELAR<a href="acessoriocadastro.jsp"></a></button>
+                    </div>
                 </fieldset>
             </form>
         </div>
