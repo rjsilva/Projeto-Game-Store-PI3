@@ -40,8 +40,8 @@
                     <th>TIPO</th>
                     <th>QUANTIDADE</th>
                     <th>NOTA FISCAL</th>
-                    <th>Atualizar</th>
                     <th>Excluir</th>
+                    <th>Atualizar</th>
                 </tr>
                 <%                    for (Acessorio ace : lista) {
                 %>
@@ -53,7 +53,6 @@
                     <td><%=ace.getTipo()%></td>
                     <td><%=ace.getQuantidade()%></td>
                     <td><%=ace.getNota_fiscal() %></td>
-                    <td></td>
                     <td><a href="javascript:exclusao(<%=ace.getID_Acessorio()%>)">Excluir</a></td>
                     <td><a href="AcessorioServlet?acao=atualizar&id=<%=ace.getID_Acessorio()%>">Atualizar</a></td>
                 </tr>

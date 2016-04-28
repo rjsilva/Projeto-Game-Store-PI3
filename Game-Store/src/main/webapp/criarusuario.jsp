@@ -34,14 +34,14 @@
                             <td><label for="senha">Senha:</label></td>
                             <td><input type="text" id="senha" name="senha" placeholder="digite a senha"/></td>
                             <td></td>
-                            <td> <input id="user" type="hidden" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
+                            <td><input type="hidden" id="user" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
                         </tr>
                         <tr>
                             <td><label for="perfil">Perfil:</label></td>
                             <td><input type="perfil" id="perfil" name="perfil" placeholder="digite seu perfil"/></td>
                         </tr>
                     </table>
-                    <input id="btnsalvar" type="submit" value="Salvar"/>
+                    <input id="btncriar" type="submit" value="Criar"/>
                 </fieldset>
             </form>
         </div>

@@ -1,3 +1,9 @@
+function BotaoCancelar(){
+    
+    window.location = "AcessorioServlet?acao=cadastro";
+}
+
+/*desabilta botões conforme a solicitação*/
 function desabilitaBotao() {
 
     var id = document.getElementById("id").value;
@@ -8,6 +14,7 @@ function desabilitaBotao() {
 
     } else {
 
+        document.getElementById("btncancelar").style.display = 'none';
         document.getElementById("btnatualizar").style.display = 'none';
     }
 }
@@ -46,45 +53,45 @@ function desabilitaTelaUsuario() {
 /*valida os campo em branco na tela de cadastro de acessório, força o usuário a digitar os produtos*/
 function validarCampos(frm) {
 
-   
+
     if (frm.acessorio.value == "null") {
-        
+
         alert("Informe o nome do produto");
-        
+
         return false;
     }
     if (frm.marca.value == "null") {
-        
+
         alert("Informe a marca do produto");
-        
+
         return false;
 
     }
     if (frm.preco.value == 0) {
-        
+
         alert("Informe o preço");
-        
+
         return false;
 
     }
     if (frm.tipo.value == "null") {
-        
+
         alert("Informe o tipo do produto");
-        
+
         return false;
 
     }
     if (frm.quantidade.value == 0) {
-        
+
         alert("Informe a quantidade do produto");
-        
+
         return false;
 
     }
     if (frm.nf.value == "null" || frm.acessorio.value == 0) {
-        
+
         alert("Informe o número da nota fiscal");
-        
+
         return false;
 
     }

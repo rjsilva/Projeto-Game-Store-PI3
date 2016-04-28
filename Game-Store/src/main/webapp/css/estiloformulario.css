@@ -124,9 +124,20 @@ h3{
     height: 100px;
     width: 400px;
 }
-.divbotao, input[type=submit]{
-    
+.divbotao, #btnsalvar{
+
+    margin: 0px;
+    margin-top: 5px;
+    margin-left: 125px;
+}
+.divbotao, #btnatualizar, #btncancelar{
+
     margin: 0px;
     margin-top: 10px;
-    margin-left: 30px;
+    margin-left: 50px;
+}
+#btncancelar{
+    
+    padding: 6px;
+    width: 110px;
 }

@@ -66,7 +66,7 @@
                     <div class="divbotao">
                         <input type="submit" value="Salvar" id="btnsalvar"/>
                         <input type="submit" value="Atualizar" id="btnatualizar"/>
-                        <button type="reset">CANCELAR<a href="acessoriocadastro.jsp"></a></button>
+                        <input type="button" value="Cancelar" id="btncancelar" onclick="BotaoCancelar()"/>
                     </div>
                 </fieldset>
             </form>
