@@ -26,7 +26,12 @@ public class Funcionario implements Serializable{
     
     private String telefone;
     
-    private Endereco endereco;
+    public Endereco endereco;
+    
+    public Funcionario(){
+        
+        this.endereco = new Endereco();
+    }
 
     /**
      * @return the Id_funcionario
@@ -112,19 +117,4 @@ public class Funcionario implements Serializable{
         this.telefone = telefone;
     }
 
-    /**
-     * @return the endereco
-     */
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    /**
-     * @param endereco the endereco to set
-     */
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-   
-    
 }

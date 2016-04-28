@@ -1,5 +1,5 @@
-function BotaoCancelar(){
-    
+function BotaoCancelar() {
+
     window.location = "AcessorioServlet?acao=cadastro";
 }
 
@@ -30,6 +30,7 @@ function desabilitaTelaFuncionario() {
         document.getElementById("telefone").disabled = true;
         document.getElementById("dtnascimento").disabled = true;
         document.getElementById("endereco").disabled = true;
+        document.getElementById("bairro").disabled = true;
         document.getElementById("cidade").disabled = true;
         document.getElementById("uf").disabled = true;
         document.getElementById("cep").disabled = true;
@@ -46,7 +47,7 @@ function desabilitaTelaUsuario() {
         document.getElementById("usuario").disabled = true;
         document.getElementById("senha").disabled = true;
         document.getElementById("perfil").disabled = true;
-        document.getElementById("btnsalvar").style.display = 'none';
+        document.getElementById("btncriar").style.display = 'none';
     }
 }
 

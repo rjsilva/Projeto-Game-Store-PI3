@@ -19,16 +19,16 @@
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
         <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
         <div class="conteudo">
-            <form action="Teste?acao=cadastrofuncionario" method="post">
+            <form action="FuncionarioServlet?acao=cadastrofuncionario" method="post">
                 <h3>Cadastro</h3>
                 <fieldset class="field_cadastro">
                     <legend>Cadastro Funcionário</legend>
                     <table>
                         <tr>
                             <td><label for="funcionario">Funcionário:</label></td>
-                            <td><input type="text" id="filial" name="funcionario" placeholder="digite seu nome"/></td>
+                            <td><input type="text" id="nomefuncionario" name="nomefuncionario" placeholder="digite seu nome"/></td>
                             <td></td>
-                            <td> <input id="user" type="hidden" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
+                            <td> <input id="user" type="text" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
                         </tr>
                         <tr>
                             <td><label for="cpf">CPF:</label></td>
@@ -36,15 +36,17 @@
                         </tr>
                         <tr>
                             <td><label for="telefone">Telefone:</label></td>
-                            <td><input type="tel" id="telefone" name="telefone" placeholder="digite o telefone" onkeypress="return formatar_moeda(this, ',', '.', event);"/></td>
+                            <td><input type="tel" id="telefone" name="telefone" placeholder="digite o telefone" onkeypress="return SomenteNumero(event)"/></td>
                         </tr>
                         <tr>
                             <td><label for="dtnascimento">Data Nascimento:</label></td>
-                            <td><input type="date" id="dtnascimento" name="dtnascimento" placeholder="digite data dascimento" onkeypress="return formatar_moeda(this, ',', '.', event);"/></td>
+                            <td><input type="date" id="dtnascimento" name="dtnascimento" placeholder="digite data dascimento"/></td>
                         </tr>
                         <tr>
                             <td><label for="endereco">Endereço:</label></td>
                             <td><input type="text" id="endereco" name="endereco" placeholder="digite a rua"/></td>
+                            <td><label for="bairro">Bairro:</label></td>
+                            <td><input type="text" id="bairro" name="bairro" placeholder="digite o bairro"/></td>
                         </tr>
                         <tr>
                             <td><label for="cidade">Cidade:</label></td>

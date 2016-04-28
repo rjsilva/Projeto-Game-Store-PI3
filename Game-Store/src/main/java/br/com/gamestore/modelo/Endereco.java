@@ -19,11 +19,8 @@ public class Endereco implements Serializable{
     
     private String bairro;
     
-    private String cidade;
-    
     private String cep;
     
-    private String estado;
 
     /**
      * @return the Id_endereco
@@ -67,19 +64,6 @@ public class Endereco implements Serializable{
         this.bairro = bairro;
     }
 
-    /**
-     * @return the cidade
-     */
-    public String getCidade() {
-        return cidade;
-    }
-
-    /**
-     * @param cidade the cidade to set
-     */
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
 
     /**
      * @return the cep
@@ -95,17 +79,4 @@ public class Endereco implements Serializable{
         this.cep = cep;
     }
 
-    /**
-     * @return the estado
-     */
-    public String getEstado() {
-        return estado;
-    }
-
-    /**
-     * @param estado the estado to set
-     */
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
 }
