@@ -28,7 +28,7 @@
                             <td><label for="funcionario">Funcionário:</label></td>
                             <td><input type="text" id="nomefuncionario" name="nomefuncionario" placeholder="digite seu nome"/></td>
                             <td></td>
-                            <td> <input id="user" type="text" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
+                            <td> <input id="user" type="hidden" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
                         </tr>
                         <tr>
                             <td><label for="cpf">CPF:</label></td>

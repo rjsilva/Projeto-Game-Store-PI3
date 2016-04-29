@@ -6,7 +6,7 @@
 package br.com.gamestore.modelo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -90,20 +90,6 @@ public class Funcionario implements Serializable{
     }
 
     /**
-     * @return the dt_nascimento
-     */
-    public Date getDt_nascimento() {
-        return dt_nascimento;
-    }
-
-    /**
-     * @param dt_nascimento the dt_nascimento to set
-     */
-    public void setDt_nascimento(Date dt_nascimento) {
-        this.dt_nascimento = dt_nascimento;
-    }
-
-    /**
      * @return the telefone
      */
     public String getTelefone() {
@@ -115,6 +101,20 @@ public class Funcionario implements Serializable{
      */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    /**
+     * @return the dt_nascimento
+     */
+    public Date getDt_nascimento() {
+        return dt_nascimento;
+    }
+
+    /**
+     * @param dt_nascimento the dt_nascimento to set
+     */
+    public void setDt_nascimento(Date dt_nascimento) {
+        this.dt_nascimento = dt_nascimento;
     }
 
 }

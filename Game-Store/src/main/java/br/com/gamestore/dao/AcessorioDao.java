@@ -29,7 +29,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             Connection conexao = Conexao.obterConexao();
             String sql = "INSERT INTO TB_ACESSORIOS(NOME_ACESSORIO,MARCA, PRECO, TIPO, QUANTIDADE, NOTA_FISCAL)"
                     + "values(?,?,?,?,?,?)";
-            PreparedStatement stm = conexao.prepareStatement(sql.toString());
+            PreparedStatement stm = conexao.prepareStatement(sql);
             stm.setString(1, ac.getNome());
             stm.setString(2, ac.getMarca());
             stm.setDouble(3, ac.getPreco());

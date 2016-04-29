@@ -6,11 +6,9 @@
 package br.com.gamestore.Servlet;
 
 import br.com.gamestore.dao.FuncionarioDao;
-import br.com.gamestore.modelo.Endereco;
 import br.com.gamestore.modelo.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -83,15 +81,16 @@ public class FuncionarioServlet extends HttpServlet {
         Funcionario funcionario = new Funcionario();
         FuncionarioDao fdao = new FuncionarioDao();
 
-        if (id.equals("null") || id.isEmpty()) {
+        if (id == null || id.isEmpty()) {
 
             try {
                 String nome = request.getParameter("nomefuncionario");
                 String cpf = request.getParameter("cpf");
                 String telefone = request.getParameter("telefone");
                 String dt_nascimento = request.getParameter("dtnascimento");
-                String formato = "dd/MM/yyyy";
-                Date date = new SimpleDateFormat(formato).parse(dt_nascimento);
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                Date data = formato.parse(dt_nascimento);
+
                 String endereco = request.getParameter("endereco");
                 String bairro = request.getParameter("bairro");
                 String cidade = request.getParameter("cidade");
@@ -101,11 +100,11 @@ public class FuncionarioServlet extends HttpServlet {
                 funcionario.setNome(nome);
                 funcionario.setCpf(cpf);
                 funcionario.setTelefone(telefone);
-                funcionario.setDt_nascimento((java.sql.Date) date);
+                funcionario.setDt_nascimento(data);
                 funcionario.endereco.setRua(endereco);
                 funcionario.endereco.setBairro(bairro);
                 funcionario.endereco.setCep(cep);
-                
+
                 fdao.cadastrar(funcionario);
 
                 request.setAttribute("msg", "cadastrado com sucesso");

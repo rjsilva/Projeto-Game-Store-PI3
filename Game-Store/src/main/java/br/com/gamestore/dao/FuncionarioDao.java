@@ -9,6 +9,7 @@ import br.com.gamestore.modelo.Endereco;
 import br.com.gamestore.modelo.Funcionario;
 import com.mycompany.gamestore.util.Conexao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -27,13 +28,13 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
         try {
             Connection conexao = Conexao.obterConexao();
             String sql = "INSERT INTO TB_FUNCIONARIO(NOME_FUNCIONARIO, CPF, TELEFONE, DT_NASCIMENTO) VALUES(?,?,?,?)"
-                    + "INSER INTO TB_ENDERECO(RUA, BAIRRO, CEP) VALUES(?,?,?)";
+                    + "INSERT INTO TB_ENDERECO(RUA, BAIRRO, CEP) VALUES(?,?,?)";
 
             PreparedStatement stm = conexao.prepareStatement(sql);
             stm.setString(1, funcionario.getNome());
             stm.setString(2, funcionario.getCpf());
             stm.setString(3, funcionario.getTelefone());
-            stm.setDate(4, funcionario.getDt_nascimento());
+            stm.setDate(4,  (java.sql.Date) funcionario.getDt_nascimento());
             stm.setString(5, endereco.getRua());
             stm.setString(6, endereco.getBairro());
             stm.setString(7, endereco.getCep());
