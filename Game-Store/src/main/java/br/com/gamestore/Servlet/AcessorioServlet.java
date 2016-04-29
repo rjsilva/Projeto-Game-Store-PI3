@@ -67,10 +67,10 @@ public class AcessorioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String retorna = null;
         AcessorioDao dao = new AcessorioDao();
         Acessorio ac = new Acessorio();
         String acao = request.getParameter("acao");
+        
         if (acao.equals("excluir")) {
             String id = request.getParameter("id");
             ac.setID_Acessorio(Integer.parseInt(id));

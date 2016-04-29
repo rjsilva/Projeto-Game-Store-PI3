@@ -23,7 +23,9 @@
         <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
         <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
         <div class="conteudo">
-            <form id="frmcadastro" action="AcessorioServlet" method="post" onsubmit="validarCampos(this); return false;" class="formulariocadastro">
+            <form id="frmcadastro" 
+                  
+                  method="post" onsubmit="validarCampos(this); return false;" class="formulariocadastro">
                 <h3>Cadastro</h3>
                 <fieldset class="field_cadastro">
                     <legend>Cadastro Acessório</legend>
