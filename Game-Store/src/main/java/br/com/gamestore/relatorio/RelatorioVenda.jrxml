@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb0add36-3475-46f9-97c6-2a2adee0b1ef">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     TB_VENDA."ID_ACESSORIO" AS Código,
+     TB_VENDA."NOME_ACESSORIO" AS NOME_ACESSORIO,
+     TB_VENDA."DATA_VENDA" AS DATA_VENDA,
+     TB_VENDA."QUANTIDADE_VENDA" AS QUANTIDADE_VENDA,
+     TB_FUNCIONARIO."CARGO" AS CARGO_FUNCIONÁRIO,
+     TB_ACESSORIOS."PRECO" AS PRECO,
+     TB_VENDA."NOME_FILIAL" AS NOME_FILIAL,
+     TB_FUNCIONARIO."NOME_FUNCIONARIO" AS NOME_FUNCIONARIO
+FROM
+     "RJS"."TB_FUNCIONARIO" TB_FUNCIONARIO INNER JOIN "RJS"."TB_VENDA" TB_VENDA ON TB_FUNCIONARIO."ID_FUNCIONARIO" = TB_VENDA."ID_FUNCIONARIO"
+     INNER JOIN "RJS"."TB_ACESSORIOS" TB_ACESSORIOS ON TB_VENDA."ID_ACESSORIO" = TB_ACESSORIOS."ID_ACESSORIO"]]>
+	</queryString>
+	<field name="CÓDIGO" class="java.lang.Long"/>
+	<field name="NOME_ACESSORIO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DATA_VENDA" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="QUANTIDADE_VENDA" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CARGO_FUNCIONÁRIO" class="java.lang.String"/>
+	<field name="PRECO" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOME_FILIAL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOME_FUNCIONARIO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="CÓDIGO">
+		<groupExpression><![CDATA[$F{CÓDIGO}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

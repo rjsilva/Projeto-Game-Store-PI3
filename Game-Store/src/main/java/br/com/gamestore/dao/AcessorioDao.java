@@ -5,6 +5,7 @@
  */
 package br.com.gamestore.dao;
 
+import br.com.gamestore.Servlet.FuncionarioServlet;
 import br.com.gamestore.modelo.Acessorio;
 import com.mycompany.gamestore.util.Conexao;
 import java.sql.Connection;
@@ -14,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
 
 /**
@@ -53,7 +56,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             Connection conexao = Conexao.obterConexao();
 
             PreparedStatement stm = conexao.prepareStatement(sql);
-            stm.setInt(1, ac.getID_Acessorio());
+            stm.setInt(1, ac.getid());
             stm.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,7 +80,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             stm.setString(4, ac.getTipo());
             stm.setInt(5, ac.getQuantidade());
             stm.setInt(6, ac.getNota_fiscal());
-            stm.setInt(7, ac.getID_Acessorio());
+            stm.setInt(7, ac.getid());
 
             stm.execute();
             stm.close();
@@ -109,7 +112,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
                 ac.setTipo(resultados.getString(5));
                 ac.setQuantidade(resultados.getInt(6));
                 ac.setNota_fiscal(resultados.getInt(7));
-                
+
                 lista.add(ac);
             }
 
@@ -117,6 +120,31 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    public List<Acessorio> buscarPorNome() {
+
+        String sql = "SELECT NOME_ACESSORIO FROM TB_ACESSORIOS";
+
+        List<Acessorio> listaAcessorio = new ArrayList<>();
+
+        try {
+
+            Connection conexao = Conexao.obterConexao();
+            PreparedStatement stm = conexao.prepareStatement(sql);
+            ResultSet resultados = stm.executeQuery();
+            while (resultados.next()) {
+                Acessorio ac = new Acessorio();
+                ac.setNome(resultados.getString("NOME_ACESSORIO"));
+                listaAcessorio.add(ac);
+            }
+
+        } catch (Exception ex) {
+
+            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listaAcessorio;
     }
 
     @Override
@@ -128,26 +156,26 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
             Connection conexao = Conexao.obterConexao();
             PreparedStatement stm = conexao.prepareStatement(sql);
+            
             stm.setInt(1, id);
             ResultSet resultados = stm.executeQuery();
-            if (resultados.next()) {
+            while (resultados.next()) {
                 Acessorio ac = new Acessorio();
-                ac.setID_Acessorio(resultados.getInt("ID_ACESSORIO"));
-                ac.setNome(resultados.getString("NOME_ACESSORIO"));
-                ac.setMarca(resultados.getString("MARCA"));
-                ac.setPreco(resultados.getDouble("PRECO"));
-                ac.setTipo(resultados.getString("TIPO"));
-                ac.setQuantidade(resultados.getInt("QUANTIDADE"));
-                ac.setNota_fiscal(resultados.getInt("NOTA_FISCAL"));
-                
+                ac.setID_Acessorio(resultados.getInt(1));
+                ac.setNome(resultados.getString(2));
+                ac.setMarca(resultados.getString(3));
+                ac.setPreco(resultados.getDouble(4));
+                ac.setTipo(resultados.getString(5));
+                ac.setQuantidade(resultados.getInt(6));
+                ac.setNota_fiscal(resultados.getInt(7));
+
                 return ac;
             }
 
-        } catch (Exception e) {
+        } catch (Exception ex) {
 
-            e.printStackTrace();
+            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return null;
     }
 

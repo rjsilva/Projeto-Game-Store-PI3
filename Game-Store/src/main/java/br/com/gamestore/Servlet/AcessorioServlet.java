@@ -6,6 +6,7 @@
 package br.com.gamestore.Servlet;
 
 import br.com.gamestore.dao.AcessorioDao;
+import br.com.gamestore.dao.FuncionarioDao;
 import br.com.gamestore.modelo.Acessorio;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,54 +67,61 @@ public class AcessorioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        AcessorioDao dao = new AcessorioDao();
+
+        AcessorioDao acdao = new AcessorioDao();
         Acessorio ac = new Acessorio();
         String acao = request.getParameter("acao");
-        
-        if (acao.equals("excluir")) {
+
+        if (acao.equals("cadastro")) {
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/acessoriocadastro.jsp");
+            dispatcher.forward(request, response);
+
+        } else if (acao.equals("excluir")) {
             String id = request.getParameter("id");
             ac.setID_Acessorio(Integer.parseInt(id));
             if (id != null) {
-                dao.excluir(ac);
+                acdao.excluir(ac);
 
                 response.sendRedirect("AcessorioServlet?acao=listar");
             }
         } else if (acao.equals("listar")) {
             try {
-                List<Acessorio> lista = dao.listarTodos();
+                List<Acessorio> lista = acdao.listarTodos();
                 request.setAttribute("lista", lista);
 
-                RequestDispatcher dispatcher = request.getRequestDispatcher("estoqueprodutos.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/estoqueprodutos.jsp");
                 dispatcher.forward(request, response);
 
-            } catch (PersistenceException ex) {
-                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+            } catch (PersistenceException | SQLException ex) {
                 Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-         
-        //leva os dados 
+            //leva os dados 
         } else if (acao.equals("atualizar")) {
             String id = request.getParameter("id");
-            ac = dao.buscarPorId(Integer.parseInt(id));
+            request.setAttribute("lista", acdao.buscarPorNome());
+            ac = acdao.buscarPorId(Integer.parseInt(id));
             request.setAttribute("ac", ac);
-            request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/acessoriocadastro.jsp");
+            dispatcher.forward(request, response);
 
-       //seta objeto em branco
+            //seta objeto em branco
         } else if (acao.equals("cadastro")) {
-            
+
             Acessorio ace = new Acessorio();
-            
+
             ace.setNome("");
             ace.setMarca("");
             ace.setPreco(0);
             ace.setTipo("");
             ace.setQuantidade(0);
             ace.setNota_fiscal(0);
-            
-            request.setAttribute("ac", ac);
-            request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
+
+            request.setAttribute("ace", ac);
+            request.setAttribute("lista", acdao.buscarPorNome());
+            // request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/acessoriocadastro.jsp");
+            dispatcher.forward(request, response);
 
         }
     }
@@ -121,7 +129,7 @@ public class AcessorioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-       // String acao = request.getParameter("acao");
+        // String acao = request.getParameter("acao");
         String id = request.getParameter("id");
         Acessorio ace = new Acessorio();
         AcessorioDao aceDao = new AcessorioDao();
@@ -135,7 +143,7 @@ public class AcessorioServlet extends HttpServlet {
                 String tipo = request.getParameter("tipo");
                 String quantidade = request.getParameter("quantidade");
                 String nf_fiscal = request.getParameter("nf");
-                
+
                 ace.setNome(nome);
                 ace.setMarca(marca);
                 ace.setPreco(Double.parseDouble(preco));
@@ -147,12 +155,12 @@ public class AcessorioServlet extends HttpServlet {
                 request.setAttribute("msg", "cadastrado com sucesso");
                 response.sendRedirect("AcessorioServlet?acao=cadastro");
 
-            } catch (Exception e) {
+            } catch (PersistenceException ex) {
 
-                e.printStackTrace();
+                Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        //metodo de atualizar as informações
+            //metodo de atualizar as informações
         } else {
 
             ace.setID_Acessorio(Integer.parseInt(id));
@@ -161,8 +169,8 @@ public class AcessorioServlet extends HttpServlet {
             String preco = request.getParameter("preco");
             String tipo = request.getParameter("tipo");
             String quantidade = request.getParameter("quantidade");
-            String nf_fisCaL =  request.getParameter("nf");
-            
+            String nf_fisCaL = request.getParameter("nf");
+
             ace.setNome(nome);
             ace.setMarca(marca);
             ace.setPreco(Double.parseDouble(preco));
@@ -171,11 +179,10 @@ public class AcessorioServlet extends HttpServlet {
             ace.setNota_fiscal(Integer.parseInt(nf_fisCaL));
             aceDao.atualizar(ace);
 
-            response.sendRedirect("AcessorioServlet?acao=cadastro");
+            response.sendRedirect("AcessorioServlet?acao=listar");
         }
-        
+
         //request.getRequestDispatcher("AcessorioServlet?acao=cadastro").forward(request, response);
-        
     }
 
     @Override

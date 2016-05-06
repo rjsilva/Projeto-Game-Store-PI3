@@ -13,20 +13,18 @@
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Abrir Chamado - Suporte Técnico</title>
     </head>
-    <body onload="desabilitaTelaUsuario()">
-        <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
-        <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
+    <body>
+        <jsp:include page="../template/cabecalho.jsp"/>
+        <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
             <h3>Suporte Técnico</h3>
-            <form action="#" class="formulariocadastro">
+            <form action="ChamadoServlet?acao=cadastrar" method="post" class="formulariocadastro">
                 <fieldset class="field_cadastro">
                     <legend>Abrir Chamado</legend>
                     <table>
                         <tr>
                             <td><label for="nome">Nome:</label></td>
-                            <td><input type="text" id="nomechamado" name="nome" placeholder="digite seu nome"/></td>
-                            <td></td>
-                            <td> <input id="user" type="hidden" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
+                            <td><input type="text" id="nomefuncionario" name="nomefuncionario" placeholder="digite seu nome"/></td>
                         </tr>
                         <tr>
                             <td><label for="email">Email:</label></td>
@@ -49,6 +47,6 @@
                 </fieldset>
             </form>
         </div>
-        <jsp:include page="WEB-INF/template/rodape.jsp"/>
+        <jsp:include page="../template/rodape.jsp"/>
     </body>
 </html>

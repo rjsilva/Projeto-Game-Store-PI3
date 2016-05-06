@@ -15,12 +15,11 @@ public class Endereco implements Serializable{
     
     private Integer Id_endereco;
     
-    private String rua;
+    private String logradouro;
     
     private String bairro;
     
     private String cep;
-    
 
     /**
      * @return the Id_endereco
@@ -40,14 +39,14 @@ public class Endereco implements Serializable{
      * @return the rua
      */
     public String getRua() {
-        return rua;
+        return logradouro;
     }
 
     /**
      * @param rua the rua to set
      */
     public void setRua(String rua) {
-        this.rua = rua;
+        this.logradouro = rua;
     }
 
     /**

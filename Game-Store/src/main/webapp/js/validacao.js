@@ -1,6 +1,6 @@
 function BotaoCancelar() {
 
-    window.location = "AcessorioServlet?acao=cadastro";
+    window.location = "AcessorioServlet?acao=listar";
 }
 
 /*desabilta botões conforme a solicitação*/
@@ -8,7 +8,7 @@ function desabilitaBotao() {
 
     var id = document.getElementById("id").value;
 
-    if (id != "null") {
+    if (id != "" || id == "null") {
 
         document.getElementById("btnsalvar").style.display = 'none';
 
@@ -25,10 +25,12 @@ function desabilitaTelaFuncionario() {
 
     if (user != "ADMIN") {
 
-        document.getElementById("filial").disabled = true;
+        document.getElementById("nomefuncionario").disabled = true;
         document.getElementById("cpf").disabled = true;
         document.getElementById("telefone").disabled = true;
         document.getElementById("dtnascimento").disabled = true;
+        document.getElementById("cargo").disabled = true;
+        document.getElementById("local_trabalho").disabled = true;
         document.getElementById("endereco").disabled = true;
         document.getElementById("bairro").disabled = true;
         document.getElementById("cidade").disabled = true;
@@ -55,13 +57,13 @@ function desabilitaTelaUsuario() {
 function validarCampos(frm) {
 
 
-    if (frm.acessorio.value == "null") {
+    if (frm.acessorio.value == "") {
 
         alert("Informe o nome do produto");
 
         return false;
     }
-    if (frm.marca.value == "null") {
+    if (frm.marca.value == "") {
 
         alert("Informe a marca do produto");
 
@@ -75,7 +77,7 @@ function validarCampos(frm) {
         return false;
 
     }
-    if (frm.tipo.value == "null") {
+    if (frm.tipo.value == "") {
 
         alert("Informe o tipo do produto");
 
@@ -89,14 +91,18 @@ function validarCampos(frm) {
         return false;
 
     }
-    if (frm.nf.value == "null" || frm.acessorio.value == 0) {
+    if (frm.nf.value == "null" || frm.nf.value == 0) {
 
         alert("Informe o número da nota fiscal");
 
         return false;
 
     }
-
+    if (frm.id.value != 0 && frm.id.value != "null") {
+        alert("atualizado com sucesso");
+    } else {
+        alert("cadastrado com sucesso");
+    }
     frm.submit();
 }
 
@@ -178,4 +184,25 @@ function SomenteNumero(e) {
         else
             return false;
     }
+}
+function validarCampoVenda(frm) {
+
+    if (frm.codigo.value == "" || frm.codigo.value == 0) {
+
+        alert("o código não pode ser 0 e nem vazio");
+
+        return false;
+    }
+
+    if (frm.qtdestoque.value != "" && frm.quantidade.value > frm.qtdestoque.value) {
+
+        alert("a quantidade da venda não pode ser maior que a quantidade em estoque");
+
+        return false;
+
+    } else{
+
+        frm.submit();
+    }
+
 }

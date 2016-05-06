@@ -24,6 +24,13 @@ public class Chamado implements Serializable{
     private String comentario;
     
     private String telefone;
+    
+    private String Status;
+    
+    public Chamado(){
+        
+        this.funcionario = new Funcionario();
+    }
 
     /**
      * @return the Id_chamado
@@ -107,6 +114,20 @@ public class Chamado implements Serializable{
      */
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+    }
+
+    /**
+     * @return the Status
+     */
+    public String getStatus() {
+        return Status;
+    }
+
+    /**
+     * @param Status the Status to set
+     */
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
     
 }

@@ -5,9 +5,8 @@
  */
 package br.com.gamestore.Servlet;
 
-import br.com.gamestore.dao.FuncionarioDao;
-import br.com.gamestore.dao.UsuarioDao;
-import br.com.gamestore.modelo.Usuario;
+import br.com.gamestore.dao.AcessorioDao;
+import br.com.gamestore.dao.FilialDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -21,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rjs
  */
-@WebServlet(name = "PerfilServlet", urlPatterns = {"/PerfilServlet"})
-public class PerfilServlet extends HttpServlet {
+@WebServlet(name = "VendaServlet", urlPatterns = {"/VendaServlet"})
+public class VendaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,54 +40,53 @@ public class PerfilServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PerfilServlet</title>");
+            out.println("<title>Servlet VendaServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PerfilServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet VendaServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String acao = request.getParameter("acao");
+        if (acao.equals("venda")) {
 
-        if (acao.equals("mostrartelausuario")) {
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/criarusuario.jsp");
+            AcessorioDao acdao = new AcessorioDao();
+            FilialDao filialDao = new FilialDao();
+            request.setAttribute("listaproduto", acdao.buscarPorNome());
+            request.setAttribute("listafilial", filialDao.buscarPorNome());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/venda.jsp");
             dispatcher.forward(request, response);
+
         }
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String acao = request.getParameter("acao");
-        String id = request.getParameter("id");
-        Usuario user = new Usuario();
-        UsuarioDao userDao = new UsuarioDao();
-
-        if (id.equals("null") || id.isEmpty()) {
-
-            String usuario = request.getParameter("usuario");
-            String senha = request.getParameter("senha");
-            String perfil = request.getParameter("perfil");
-
-            user.setUsuario(usuario);
-            user.setSenha(senha);
-            user.setPerfil(perfil);
-
-            userDao.cadastrar(user);
-            //response.sendRedirect("AcessorioServlet?acao=criarusuario");
-        }
-
-        // request.getRequestDispatcher("criarusuario.jsp").forward(request, response);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/criarusuario.jsp");
-        dispatcher.forward(request, response);
+        
+        
 
     }
 

@@ -5,12 +5,19 @@
  */
 package br.com.gamestore.Servlet;
 
+import br.com.gamestore.dao.EnderecoDao;
 import br.com.gamestore.dao.FuncionarioDao;
+import br.com.gamestore.modelo.Endereco;
 import br.com.gamestore.modelo.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,7 +69,34 @@ public class FuncionarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String acao = request.getParameter("acao");
+
+        FuncionarioDao fdao = new FuncionarioDao();
+
+        if (acao.equals("funcionario")) {
+            try {
+                EnderecoDao edao = new EnderecoDao();
+                request.setAttribute("listauf", edao.listarUfs());
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofuncionario.jsp");
+                dispatcher.forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (acao.equals("listar")) {
+
+            try {
+                List<Funcionario> listafuncionario = fdao.listarTodosFuncionario();
+                request.setAttribute("listafuncionario", listafuncionario);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/tabelafuncionario.jsp");
+                dispatcher.forward(request, response);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     /**
@@ -79,31 +113,37 @@ public class FuncionarioServlet extends HttpServlet {
 
         String id = request.getParameter("user");
         Funcionario funcionario = new Funcionario();
+        Endereco endereco = new Endereco();
         FuncionarioDao fdao = new FuncionarioDao();
 
         if (id == null || id.isEmpty()) {
 
             try {
+
                 String nome = request.getParameter("nomefuncionario");
                 String cpf = request.getParameter("cpf");
                 String telefone = request.getParameter("telefone");
                 String dt_nascimento = request.getParameter("dtnascimento");
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                 Date data = formato.parse(dt_nascimento);
-
-                String endereco = request.getParameter("endereco");
+                String logradouro = request.getParameter("endereco");
                 String bairro = request.getParameter("bairro");
                 String cidade = request.getParameter("cidade");
                 String uf = request.getParameter("uf");
                 String cep = request.getParameter("cep");
+                String cargo = request.getParameter("cargo");
+                String local_trabalho = request.getParameter("local_trabalho");
+
+                funcionario.getEndereco().setRua(logradouro);
+                funcionario.getEndereco().setBairro(bairro);
+                funcionario.getEndereco().setCep(cep);
 
                 funcionario.setNome(nome);
                 funcionario.setCpf(cpf);
                 funcionario.setTelefone(telefone);
                 funcionario.setDt_nascimento(data);
-                funcionario.endereco.setRua(endereco);
-                funcionario.endereco.setBairro(bairro);
-                funcionario.endereco.setCep(cep);
+                funcionario.setCargo(cargo);
+                funcionario.setLocal_trabalho(local_trabalho);
 
                 fdao.cadastrar(funcionario);
 

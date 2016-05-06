@@ -14,11 +14,11 @@
         <title>Criar Usuario</title>
     </head>
     <body onload="desabilitaTelaUsuario()">
-        <jsp:include page="WEB-INF/template/cabecalho.jsp"/>
-        <jsp:include page="WEB-INF/template/menuesquerda.jsp"/>
+        <jsp:include page="../template/cabecalho.jsp"/>
+        <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
             <h3>Criação de Usuário</h3>
-            <form action="PerfilServlet" method="post" class="formulariocadastro">
+            <form action="PerfilServlet?acao=criar" method="post" class="formulariocadastro">
                 <fieldset class="field_cadastro">
                     <legend>Criar Usuário</legend>
                     <table>
@@ -32,19 +32,19 @@
                         </tr>
                         <tr>
                             <td><label for="senha">Senha:</label></td>
-                            <td><input type="text" id="senha" name="senha" placeholder="digite a senha"/></td>
+                            <td><input type="password" id="senha" name="senha" placeholder="digite a senha"/></td>
                             <td></td>
                             <td><input type="hidden" id="user" value="${sessionScope.user.usuario.toUpperCase()}"/></td>
                         </tr>
                         <tr>
                             <td><label for="perfil">Perfil:</label></td>
-                            <td><input type="perfil" id="perfil" name="perfil" placeholder="digite seu perfil"/></td>
+                            <td><input type="text" id="perfil" name="perfil" placeholder="digite seu perfil"/></td>
                         </tr>
                     </table>
                     <input id="btncriar" type="submit" value="Criar"/>
                 </fieldset>
             </form>
         </div>
-        <jsp:include page="WEB-INF/template/rodape.jsp"/>
+        <jsp:include page="../template/rodape.jsp"/>
     </body>
 </html>

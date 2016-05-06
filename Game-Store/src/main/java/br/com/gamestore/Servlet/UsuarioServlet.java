@@ -6,10 +6,15 @@
 package br.com.gamestore.Servlet;
 
 import br.com.gamestore.controler.UsuarioControler;
+import br.com.gamestore.dao.EnderecoDao;
 import br.com.gamestore.dao.UsuarioDao;
 import br.com.gamestore.exception.ControleException;
 import br.com.gamestore.modelo.Usuario;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +37,7 @@ public class UsuarioServlet extends HttpServlet {
         String login = request.getParameter("login");
         user.setUsuario(login);
 
-        if("sair".equals(acao)) {
+        if ("sair".equals(acao)) {
             proxima = "login1.jsp";
         } else if ("login1".equals(acao)) {
             try {
@@ -50,27 +55,28 @@ public class UsuarioServlet extends HttpServlet {
         request.getRequestDispatcher(proxima).forward(request, response);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String acao = request.getParameter("acao");
-        String id = request.getParameter("id");
-        Usuario user = new Usuario();
-        UsuarioDao userDao = new UsuarioDao();
-
-        if (id.equals("null") || id.isEmpty()) {
-
-            String usuario = request.getParameter("usuario");
-            String senha = request.getParameter("senha");
-            String perfil = request.getParameter("perfil");
-
-            user.setUsuario(usuario);
-            user.setSenha(senha);
-            user.setPerfil(perfil);
-
-            userDao.cadastrar(user);
-            response.sendRedirect("AcessorioServlet?acao=cadastro");
-        }
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//
+//        String acao = request.getParameter("acao");
+//        String id = request.getParameter("id");
+//        Usuario user = new Usuario();
+//        UsuarioDao userDao = new UsuarioDao();
+//
+//        if (id.equals("null") || id.isEmpty()) {
+//
+//            String usuario = request.getParameter("usuario");
+//            String senha = request.getParameter("senha");
+//            String perfil = request.getParameter("perfil");
+//
+//            user.setUsuario(usuario);
+//            user.setSenha(senha);
+//            user.setPerfil(perfil);
+//
+//            userDao.cadastrar(user);
+//            response.sendRedirect("AcessorioServlet?acao=cadastro");
+//        }
+//    }
 
 }

@@ -5,9 +5,9 @@
  */
 package br.com.gamestore.Servlet;
 
-import br.com.gamestore.dao.FuncionarioDao;
-import br.com.gamestore.dao.UsuarioDao;
-import br.com.gamestore.modelo.Usuario;
+import br.com.gamestore.dao.ChamadoDao;
+import br.com.gamestore.modelo.Chamado;
+import br.com.gamestore.modelo.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author rjs
  */
-@WebServlet(name = "PerfilServlet", urlPatterns = {"/PerfilServlet"})
-public class PerfilServlet extends HttpServlet {
+@WebServlet(name = "ChamadoServlet", urlPatterns = {"/ChamadoServlet"})
+public class ChamadoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,55 +41,75 @@ public class PerfilServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PerfilServlet</title>");
+            out.println("<title>Servlet ChamadoServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PerfilServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ChamadoServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String acao = request.getParameter("acao");
+        if (acao.equals("tela")) {
 
-        if (acao.equals("mostrartelausuario")) {
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/criarusuario.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/abrirchamado.jsp");
             dispatcher.forward(request, response);
         }
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String acao = request.getParameter("acao");
-        String id = request.getParameter("id");
-        Usuario user = new Usuario();
-        UsuarioDao userDao = new UsuarioDao();
+        Chamado chamado = new Chamado();
+        Funcionario funcionario = new Funcionario();
+        ChamadoDao cdao = new ChamadoDao();
+        
+        if (acao.equals("cadastrar")) {
 
-        if (id.equals("null") || id.isEmpty()) {
+            try {
 
-            String usuario = request.getParameter("usuario");
-            String senha = request.getParameter("senha");
-            String perfil = request.getParameter("perfil");
+                String nomefuncionario = request.getParameter("nomefuncionario");
+                String email = request.getParameter("email");
+                String telefone = request.getParameter("telefone");
+                String assunto = request.getParameter("assunto");
+                String comentario = request.getParameter("comentario");
+                
+                chamado.getFuncionario().setNome(nomefuncionario);
+                chamado.setEmail(email);
+                chamado.setTelefone(telefone);
+                chamado.setAssunto(assunto);
+                chamado.setComentario(comentario);
+                
+                cdao.cadastrar(chamado);
 
-            user.setUsuario(usuario);
-            user.setSenha(senha);
-            user.setPerfil(perfil);
+            } catch (Exception e) {
+                
+            }
 
-            userDao.cadastrar(user);
-            //response.sendRedirect("AcessorioServlet?acao=criarusuario");
         }
-
-        // request.getRequestDispatcher("criarusuario.jsp").forward(request, response);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/criarusuario.jsp");
-        dispatcher.forward(request, response);
-
     }
 
     /**

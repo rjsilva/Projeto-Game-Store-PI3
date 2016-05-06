@@ -12,24 +12,28 @@ import java.util.Date;
  *
  * @author rjs
  */
-public class Funcionario implements Serializable{
-    
+public class Funcionario implements Serializable {
+
     private Integer Id_funcionario;
-    
+
     private String nome;
-    
-    private String email;
-    
+
     private String cpf;
-    
+
     private Date dt_nascimento;
-    
+
     private String telefone;
+
+    private Endereco endereco;
+
+    private String cargo;
     
-    public Endereco endereco;
+    private String local_trabalho;
+    
+    private Chamado chamado;
     
     public Funcionario(){
-        
+     
         this.endereco = new Endereco();
     }
 
@@ -59,20 +63,6 @@ public class Funcionario implements Serializable{
      */
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     /**
@@ -115,6 +105,62 @@ public class Funcionario implements Serializable{
      */
     public void setDt_nascimento(Date dt_nascimento) {
         this.dt_nascimento = dt_nascimento;
+    }
+
+    /**
+     * @return the endereco
+     */
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    /**
+     * @param endereco the endereco to set
+     */
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    /**
+     * @return the cargo
+     */
+    public String getCargo() {
+        return cargo;
+    }
+
+    /**
+     * @param cargo the cargo to set
+     */
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+
+    /**
+     * @return the local_trabalho
+     */
+    public String getLocal_trabalho() {
+        return local_trabalho;
+    }
+
+    /**
+     * @param local_trabalho the local_trabalho to set
+     */
+    public void setLocal_trabalho(String local_trabalho) {
+        this.local_trabalho = local_trabalho;
+    }
+
+    /**
+     * @return the chamado
+     */
+    public Chamado getChamado() {
+        return chamado;
+    }
+
+    /**
+     * @param chamado the chamado to set
+     */
+    public void setChamado(Chamado chamado) {
+        this.chamado = chamado;
     }
 
 }

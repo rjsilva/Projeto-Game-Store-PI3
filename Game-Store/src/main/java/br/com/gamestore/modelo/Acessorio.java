@@ -13,26 +13,37 @@ import java.io.Serializable;
  */
 public class Acessorio implements Serializable{
     
-    private Integer ID_Acessorio;
+    private Integer id;
+    
     private String nome;
+    
     private String marca;
+    
     private double preco;
+    
     private String tipo;
+    
     private int quantidade;
+    
     private int nota_fiscal;
-
+    
+    
+    public Acessorio(){
+        
+       
+    }
     /**
-     * @return the ID_Acessorio
+     * @return the id
      */
-    public Integer getID_Acessorio() {
-        return ID_Acessorio;
+    public Integer getid() {
+        return id;
     }
 
     /**
-     * @param ID_Acessorio the ID_Acessorio to set
+     * @param id the id to set
      */
-    public void setID_Acessorio(Integer ID_Acessorio) {
-        this.ID_Acessorio = ID_Acessorio;
+    public void setID_Acessorio(Integer id) {
+        this.id = id;
     }
 
     /**
