@@ -6,15 +6,9 @@
 package br.com.gamestore.Servlet;
 
 import br.com.gamestore.controler.UsuarioControler;
-import br.com.gamestore.dao.EnderecoDao;
-import br.com.gamestore.dao.UsuarioDao;
 import br.com.gamestore.exception.ControleException;
 import br.com.gamestore.modelo.Usuario;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +35,7 @@ public class UsuarioServlet extends HttpServlet {
             proxima = "login1.jsp";
         } else if ("login1".equals(acao)) {
             try {
-                proxima = "index.jsp";
+                proxima = "/WEB-INF/paginajsp/index.jsp";
                 if (!new UsuarioControler().validarUsuario(request)) {
                     request.setAttribute("msgErro", "***Login/Senha Inválidos");
                     proxima = "login1.jsp";

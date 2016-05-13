@@ -5,7 +5,7 @@
  */
 package br.com.gamestore.dao;
 
-import br.com.gamestore.Servlet.FuncionarioServlet;
+import br.com.gamestore.Servlet.AcessorioServlet;
 import br.com.gamestore.modelo.Acessorio;
 import com.mycompany.gamestore.util.Conexao;
 import java.sql.Connection;
@@ -18,12 +18,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author rjs
  */
 public class AcessorioDao implements GenericDao<Acessorio> {
+    private HttpServletRequest request;
 
     @Override
     public void cadastrar(Acessorio ac) {
@@ -56,7 +58,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             Connection conexao = Conexao.obterConexao();
 
             PreparedStatement stm = conexao.prepareStatement(sql);
-            stm.setInt(1, ac.getid());
+            stm.setLong(1, ac.getId());
             stm.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,7 +82,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             stm.setString(4, ac.getTipo());
             stm.setInt(5, ac.getQuantidade());
             stm.setInt(6, ac.getNota_fiscal());
-            stm.setInt(7, ac.getid());
+            stm.setLong(7, ac.getId());
 
             stm.execute();
             stm.close();
@@ -105,7 +107,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
                 Acessorio ac = new Acessorio();
-                ac.setID_Acessorio(resultados.getInt(1));
+                ac.setId(resultados.getInt(1));
                 ac.setNome(resultados.getString(2));
                 ac.setMarca(resultados.getString(3));
                 ac.setPreco(resultados.getDouble(4));
@@ -124,7 +126,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
     public List<Acessorio> buscarPorNome() {
 
-        String sql = "SELECT NOME_ACESSORIO FROM TB_ACESSORIOS";
+        String sql = "SELECT * FROM TB_ACESSORIOS";
 
         List<Acessorio> listaAcessorio = new ArrayList<>();
 
@@ -135,13 +137,14 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
                 Acessorio ac = new Acessorio();
-                ac.setNome(resultados.getString("NOME_ACESSORIO"));
+                ac.setId(resultados.getInt(1));
+                ac.setNome(resultados.getString(2));
                 listaAcessorio.add(ac);
             }
 
         } catch (Exception ex) {
 
-            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return listaAcessorio;
@@ -156,12 +159,12 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
             Connection conexao = Conexao.obterConexao();
             PreparedStatement stm = conexao.prepareStatement(sql);
-            
+
             stm.setInt(1, id);
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
                 Acessorio ac = new Acessorio();
-                ac.setID_Acessorio(resultados.getInt(1));
+                ac.setId(resultados.getInt(1));
                 ac.setNome(resultados.getString(2));
                 ac.setMarca(resultados.getString(3));
                 ac.setPreco(resultados.getDouble(4));
@@ -174,9 +177,26 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
         } catch (Exception ex) {
 
-            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
+    public void baixarEstoque(Acessorio ac) {
+
+        String sql = "UPDATE TB_ACESSORIOS SET QUANTIDADE = ? WHERE ID_ACESSORIO = ?";
+
+        try {
+
+            Connection conexao = Conexao.obterConexao();
+            PreparedStatement stm = conexao.prepareStatement(sql);
+            stm.setInt(5, ac.getQuantidade());
+
+            stm.execute();
+            stm.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

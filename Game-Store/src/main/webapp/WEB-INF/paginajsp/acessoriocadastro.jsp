@@ -12,6 +12,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Cadastro Acessório</title>
@@ -24,52 +27,57 @@
         <jsp:include page="../template/cabecalho.jsp"/>
         <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
+            <h3>Cadastro de Produto</h3>
             <form id="frmcadastro" method="post" onsubmit="validarCampos(this); return false;" class="formulariocadastro">
-                <h3>Cadastro</h3>
-                <fieldset class="field_cadastro">
-                    <legend>Cadastro Acessório</legend>
-                    <table>
-                        <tr>
-                            <td><label for="acessorio">Nome Produto:</label></td>
-                            <td>
-                                <input type="text" name="acessorio" id="acessorio" value="${ac.nome}" placeholder="digite o nome do produto"/>
-                            </td>
-                            <td><label for="acessorio">Código:</label></td>
-                            <td>
-                                <input type="text" readonly="readonly" id="id" name="id" value="${ac.id}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="marca">Marca:</label></td>
-                            <td><input type="text" id="marca" name="marca" placeholder="digite a marca do produto" value="${ac.marca}"/></td>
-                            <td></td>
-                            <td> <input id="user" type="hidden" value="" onload="pegar()"/></td>
-                        </tr>
-                        <tr>
-                            <td><label for="preco">Preço(R$):</label></td>
-                            <td><input type="text" id="preco" name="preco" placeholder="digite o preço" onkeypress="return formatar_moeda(this, ',', '.', event);" value="${ac.preco}"/></td>
-                        </tr>
-                        <tr>
-                            <td><label for="tipo">Tipo:</label></td>
-                            <td>
-                                <input type="text" id="tipo" name="tipo" placeholder="digite o tipo de jogo" value="${ac.tipo}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="quantidade">Quantidade:</label></td>
-                            <td><input type="text" id="quantidade" name="quantidade" placeholder="digite a quantidade" onkeypress="return SomenteNumero(event)" value="${ac.quantidade}" /></td>
-                        </tr>
-                        <tr>
-                            <td><label for="nf">Nota Fiscal:</label></td>
-                            <td><input type="text" id="nf" name="nf" placeholder="digite o número da Nota Fiscal" onkeypress="return SomenteNumero(event)"  value="${ac.nota_fiscal}" /></td>
-                        </tr>
-                    </table>
-                    <div class="divbotao">
-                        <input type="submit" value="Salvar" id="btnsalvar"/>
-                        <input type="submit" value="Atualizar" id="btnatualizar"/>
-                        <input type="button" value="Cancelar" id="btncancelar" onclick="BotaoCancelar()"/>
-                    </div>
-                </fieldset>
+                <table id="tabelacadastro">
+                    <tr>
+                        <td><label for="acessorio">Nome Produto:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" name="acessorio" id="acessorio" value="${ac.nome}" placeholder="digite o nome do produto"/>
+                        </td>
+                        <td><label for="acessorio">Código:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" readonly="readonly" id="id" name="id" value="${ac.id}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="marca">Marca:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" id="marca" name="marca" placeholder="digite a marca do produto" value="${ac.marca}"/>
+                        </td>
+                        <td></td>
+                        <td> <input id="user" type="hidden" value="" onload="pegar()"/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="preco">Preço(R$):</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" id="preco" name="preco" placeholder="digite o preço" onkeypress="return formatar_moeda(this, ',', '.', event);" value="${ac.preco}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="tipo">Descrição:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" id="tipo" name="tipo" placeholder="digite a descrição produto" value="${ac.tipo}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="quantidade">Quantidade:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" id="quantidade" name="quantidade" placeholder="digite a quantidade" onkeypress="return SomenteNumero(event)" value="${ac.quantidade}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="nf">Nota Fiscal:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" id="nf" name="nf" placeholder="digite a Nota Fiscal" onkeypress="return SomenteNumero(event)"  value="${ac.nota_fiscal}" />
+                        </td>
+                    </tr>
+                </table>
+                <div class="col-sm-5">
+                    <input class="btn btn-primary" id="btncadastrar" type="submit" value="Cadastrar"/>
+                    <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
+                    <input class="btn btn-primary" id="btncancelar" type="button" value="Cancelar" onclick="BotaoCancelar()"/>
+                </div>
             </form>
         </div>
         <jsp:include page="../template/rodape.jsp"/>

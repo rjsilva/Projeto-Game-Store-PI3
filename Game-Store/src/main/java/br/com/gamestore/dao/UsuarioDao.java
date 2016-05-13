@@ -8,10 +8,13 @@ package br.com.gamestore.dao;
 import br.com.gamestore.exception.PersistenciaException;
 import br.com.gamestore.modelo.Usuario;
 import com.mycompany.gamestore.util.Conexao;
+import static com.sun.org.glassfish.external.amx.AMXUtil.prop;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
+import javax.websocket.Session;
 
 /**
  *
@@ -69,5 +72,19 @@ public class UsuarioDao implements GenericDao<Usuario> {
     @Override
     public Usuario buscarPorId(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void enviarEmail(){
+        
+        String email = "";
+        String senha = "";
+        
+        Properties pro = new Properties();
+        pro.put("mail.smtp.auth", "true");
+        pro.put("mail.smtp.starttls.anable", "true");
+        pro.put("mail.smtp.host", "amtp.gmail.com");
+        pro.put("mail.stmp.port", "587");
+        
+       // Session sessao = Session.getInstance(prop new javax.mail.Authenticator);
     }
 }

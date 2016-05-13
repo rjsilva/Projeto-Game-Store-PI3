@@ -11,26 +11,31 @@ import java.io.Serializable;
  *
  * @author rjs
  */
-public class Uf implements  Serializable{
+public class Cidade implements Serializable{
     
     private Integer id;
-    private String sigla;
+    
     private String nome;
-
- 
-
-    /**
-     * @return the sigla
-     */
-    public String getSigla() {
-        return sigla;
+    
+    private Uf uf;
+    
+    public  Cidade(){
+        
+        this.uf = new Uf();
     }
 
     /**
-     * @param sigla the sigla to set
+     * @return the id
      */
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     /**
@@ -48,17 +53,17 @@ public class Uf implements  Serializable{
     }
 
     /**
-     * @return the id
+     * @return the uf
      */
-    public Integer getId() {
-        return id;
+    public Uf getUf() {
+        return uf;
     }
 
     /**
-     * @param id the id to set
+     * @param uf the uf to set
      */
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUf(Uf uf) {
+        this.uf = uf;
     }
     
 }

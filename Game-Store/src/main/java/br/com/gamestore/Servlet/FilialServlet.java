@@ -7,7 +7,9 @@ package br.com.gamestore.Servlet;
 
 import br.com.gamestore.dao.EnderecoDao;
 import br.com.gamestore.dao.FilialDao;
+import br.com.gamestore.dao.FuncionarioDao;
 import br.com.gamestore.modelo.Filial;
+import br.com.gamestore.modelo.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -65,10 +67,33 @@ public class FilialServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String acao = request.getParameter("acao");
-        
-        if (acao.equals("mostrartela")) {
+        String getCidade = request.getParameter("getCidades");
+
+        FuncionarioDao fdao = new FuncionarioDao();
+        Funcionario func = new Funcionario();
+
+        if (acao.equals("filial")) {
+            try {
+                EnderecoDao edao = new EnderecoDao();
+                FilialDao filialDao = new FilialDao();
+                if (getCidade != null && !"".equals(getCidade)) {
+
+                    String idestado = request.getParameter("idEstado");
+                    int id = Integer.parseInt(idestado);
+                    request.setAttribute("listaEstado", edao.listarCidades(id));
+                } else {
+                    request.getSession().setAttribute("listauf", edao.listarUfs());
+                }
+                request.setAttribute("listafilial", filialDao.buscarPorNome());
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofilial.jsp");
+                dispatcher.forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (acao.equals("mostrartela")) {
 
             try {
                 EnderecoDao edao = new EnderecoDao();
@@ -76,7 +101,7 @@ public class FilialServlet extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(FilialServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/filial.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofilial.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -110,7 +135,7 @@ public class FilialServlet extends HttpServlet {
             String cnpj = request.getParameter("cnpj");
             String telefone = request.getParameter("telefone");
 
-            filial.setNome(razaosocial);
+            filial.setRazao_social(razaosocial);
             filial.setCnpj(cnpj);
             filial.setTelefone(telefone);
             filial.getEndereco().setRua(logradouro);

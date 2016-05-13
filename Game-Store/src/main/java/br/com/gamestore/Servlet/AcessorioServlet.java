@@ -79,7 +79,7 @@ public class AcessorioServlet extends HttpServlet {
 
         } else if (acao.equals("excluir")) {
             String id = request.getParameter("id");
-            ac.setID_Acessorio(Integer.parseInt(id));
+            ac.setId(Integer.parseInt(id));
             if (id != null) {
                 acdao.excluir(ac);
 
@@ -119,17 +119,30 @@ public class AcessorioServlet extends HttpServlet {
 
             request.setAttribute("ace", ac);
             request.setAttribute("lista", acdao.buscarPorNome());
-            // request.getRequestDispatcher("acessoriocadastro.jsp").forward(request, response);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/acessoriocadastro.jsp");
             dispatcher.forward(request, response);
 
+        } else if (acao.equals("relatorio")) {
+
+            try {
+                List<Acessorio> lista = acdao.listarTodos();
+                request.setAttribute("lista", lista);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/relatorioestoque.jsp");
+                dispatcher.forward(request, response);
+
+            } catch (PersistenceException | SQLException ex) {
+                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // String acao = request.getParameter("acao");
+        /**
+         * válida a ação e se o id for nulo ou vazio cadastra funcionário
+         */
         String id = request.getParameter("id");
         Acessorio ace = new Acessorio();
         AcessorioDao aceDao = new AcessorioDao();
@@ -160,10 +173,13 @@ public class AcessorioServlet extends HttpServlet {
                 Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            //metodo de atualizar as informações
+            /**
+             * se id da ação acima não for vazio, ele já está cadastrado e agora
+             * ele atualiza a ação
+             */
         } else {
 
-            ace.setID_Acessorio(Integer.parseInt(id));
+            ace.setId(Integer.parseInt(id));
             String nome = request.getParameter("acessorio");
             String marca = request.getParameter("marca");
             String preco = request.getParameter("preco");
@@ -181,8 +197,6 @@ public class AcessorioServlet extends HttpServlet {
 
             response.sendRedirect("AcessorioServlet?acao=listar");
         }
-
-        //request.getRequestDispatcher("AcessorioServlet?acao=cadastro").forward(request, response);
     }
 
     @Override

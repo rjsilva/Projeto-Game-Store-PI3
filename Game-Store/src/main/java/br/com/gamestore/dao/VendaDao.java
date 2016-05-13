@@ -5,14 +5,16 @@
  */
 package br.com.gamestore.dao;
 
+import br.com.gamestore.Servlet.VendaServlet;
+import br.com.gamestore.modelo.Acessorio;
 import br.com.gamestore.modelo.Venda;
 import com.mycompany.gamestore.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.PersistenceException;
 
 /**
  *
@@ -20,30 +22,41 @@ import javax.persistence.PersistenceException;
  */
 public class VendaDao {
 
+    private AcessorioDao acdao = new AcessorioDao();
+
     public void registrarVenda(Venda venda) throws SQLException {
+
+        Connection conexao = Conexao.obterConexao();
 
         try {
 
-            Connection conexao = Conexao.obterConexao();
-
-            String sqlvenda = "INSERT INTO TB_VENDA(ID_ACESSORIO, ID_FUNCIONARIO, NOME_ACESSORIO, NOME_FILIAL, DATA_VENDA, QUANTIDADE_VENDA)"
-                    + " VALUES(?,?,?,?,?,?)";
-
-            int id = 1;
+            String sqlvenda = "INSERT INTO TB_VENDA(ID_FUNCIONARIO, NOME_ACESSORIO, NOME_FILIAL, DATA_VENDA, QUANTIDADE_VENDA)"
+                    + " VALUES(?,?,?,?,?)";
             PreparedStatement stm = conexao.prepareStatement(sqlvenda);
-
-            stm.setInt(1, id);
-            stm.setInt(2, venda.getFuncionario().getId_funcionario());
-            stm.setString(3, venda.getAcessorio().getNome());
-            stm.setString(4, venda.getFilial().getNome());
-            stm.setDate(5, new java.sql.Date(venda.getDtvenda().getTime()));
-            stm.setInt(6, venda.getQuantidade());
+            stm.setInt(1, venda.getFuncionario().getId_funcionario());
+            stm.setString(2, venda.getAcessorio().getNome());
+            stm.setString(3, venda.getFilial().getRazao_social());
+            stm.setDate(4, new java.sql.Date(venda.getDtvenda().getTime()));
+            stm.setInt(5, venda.getQuantidade());
+            stm.execute();
+            Acessorio ac = new Acessorio();
+            int quant = 0, resul = 0;
+            String sqlproduto = "SELECT * FROM TB_ACESSORIOS WHERE ID_ACESSORIO = " + venda.getAcessorio().getNome();
+            stm = conexao.prepareStatement(sqlproduto);
+            ResultSet result = stm.executeQuery();
+            result.next();
+            quant = result.getInt("QUANTIDADE");
+            resul = quant - venda.getQuantidade();
+            String sql2 = "UPDATE TB_ACESSORIOS SET QUANTIDADE=? WHERE ID_ACESSORIO= " + venda.getAcessorio().getNome();
+            stm = conexao.prepareStatement(sql2);
+            stm.setInt(1, resul);
             stm.execute();
             stm.close();
 
         } catch (Exception ex) {
-
-            Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, ex);
+            
+              Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
     }

@@ -35,7 +35,7 @@ public class CadastroDao {
             
             while (resultados.next()) {
                 Uf uf = new Uf();
-                uf.setId_estado(resultados.getInt(1));
+                uf.setId(resultados.getInt(1));
                 uf.setSigla(resultados.getString(2));
                 uf.setNome(resultados.getString(3));
                 lista.add(uf);

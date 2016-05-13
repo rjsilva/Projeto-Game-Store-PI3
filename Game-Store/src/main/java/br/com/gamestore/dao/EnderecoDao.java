@@ -6,6 +6,7 @@
 package br.com.gamestore.dao;
 
 import br.com.gamestore.Servlet.FuncionarioServlet;
+import br.com.gamestore.modelo.Cidade;
 import br.com.gamestore.modelo.Uf;
 import com.mycompany.gamestore.util.Conexao;
 import java.sql.Connection;
@@ -33,7 +34,7 @@ public class EnderecoDao {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Uf uf = new Uf();
-                uf.setId_estado(rs.getInt(1));
+                uf.setId(rs.getInt(1));
                 uf.setNome(rs.getString(3));
 
                 listaUf.add(uf);
@@ -47,4 +48,28 @@ public class EnderecoDao {
 
     }
 
+     public List<Cidade> listarCidades(Integer idEstado) throws SQLException {
+
+        List<Cidade> listaCidades = new ArrayList<>();
+        try {
+            Connection conexao = Conexao.obterConexao();
+            String sql = "SELECT * FROM TB_CIDADE WHERE CODIGO_ESTADO = ?";
+            PreparedStatement stm = conexao.prepareStatement(sql);
+            stm.setInt(1, idEstado);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Cidade cidade = new Cidade();
+                cidade.setId(rs.getInt(1));
+                cidade.setNome(rs.getString(2));
+                cidade.getUf().setId(3);
+                listaCidades.add(cidade);
+            }
+        } catch (Exception ex) {
+
+              Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listaCidades;
+
+    }
 }

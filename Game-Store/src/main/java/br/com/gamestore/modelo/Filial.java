@@ -16,7 +16,7 @@ public class Filial implements Serializable{
     
     private Long id;
     
-    private String nome;
+    private String razao_social;
     
     private String telefone;
     
@@ -28,21 +28,6 @@ public class Filial implements Serializable{
      
         this.endereco = new Endereco();
     }
-
-    /**
-     * @return the nome
-     */
-    public String getNome() {
-        return nome;
-    }
-
-    /**
-     * @param nome the nome to set
-     */
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     /**
      * @return the telefone
      */
@@ -97,6 +82,20 @@ public class Filial implements Serializable{
      */
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    /**
+     * @return the razao_social
+     */
+    public String getRazao_social() {
+        return razao_social;
+    }
+
+    /**
+     * @param razao_social the razao_social to set
+     */
+    public void setRazao_social(String razao_social) {
+        this.razao_social = razao_social;
     }
     
     

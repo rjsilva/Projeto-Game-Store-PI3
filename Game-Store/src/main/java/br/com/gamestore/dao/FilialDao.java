@@ -6,7 +6,6 @@
 package br.com.gamestore.dao;
 
 import br.com.gamestore.Servlet.FuncionarioServlet;
-import br.com.gamestore.modelo.Acessorio;
 import br.com.gamestore.modelo.Filial;
 import com.mycompany.gamestore.util.Conexao;
 import java.sql.Connection;
@@ -52,7 +51,7 @@ public class FilialDao implements GenericDao<Filial> {
                     + "values(?,?,?,?)";
             PreparedStatement stmfilial = conexao.prepareStatement(sqlfilial, Statement.RETURN_GENERATED_KEYS);
             stmfilial.setInt(1, codEndereco);
-            stmfilial.setString(2, filial.getNome());
+            stmfilial.setString(2, filial.getRazao_social());
             stmfilial.setString(3, filial.getCnpj());
             stmfilial.setString(4, filial.getTelefone());
             stmfilial.execute();
@@ -91,7 +90,7 @@ public class FilialDao implements GenericDao<Filial> {
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
                 Filial filial = new Filial();
-                filial.setNome(resultados.getString("RAZAO_SOCIAL"));
+                filial.setRazao_social(resultados.getString("RAZAO_SOCIAL"));
                 listaFilial.add(filial);
             }
 

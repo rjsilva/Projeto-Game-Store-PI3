@@ -10,66 +10,82 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <script type="text/javascript" src="js/validacao.js"></script>  
         <title>Registro de Vendas</title>
+        <script type="text/javascript">
+            function inicial() {
+
+                document.getElementById("nomeproduto").value = ${param.idProduto != null ? param.idProduto : '0'};
+            }
+            function BuscaQuantEstoque(produto) {
+
+                var idProduto = produto.options[produto.selectedIndex].value;
+                location.href = "VendaServlet?acao=venda&getproduto=true&idProduto=" + idProduto;
+            }
+
+        </script>
     </head>
-    <body>
+    <body onload="inicial()">
         <jsp:include page="../template/cabecalho.jsp"/>
         <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
-            <form method="post">
-
-                <h3>Venda</h3>
-                <fieldset class="field_cadastro">
-                    <legend>Registro de Venda</legend>
-                    <table>
-                        <tr>
-                            <td><label for="acessorio">Produto:</label></td>
-                            <td>
-                                <select name="nomeproduto" id="nomeproduto">
-                                    <option value="1">Selecione um Acessório</option>
-                                    <c:forEach items="${listaproduto}" var="ac">
-                                        <option value="${ac.id}">${ac.nome}</option>
-                                    </c:forEach>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="funcionario">Código Funcionário:</label></td>
-                            <td>
-                                <input type="text" id="funcionario" name="funcionario" placeholder="digite o seu nome"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="dtvenda">Data Venda:</label></td>
-                            <td>
-                                <input type="text" id="dtvenda" name="dtvenda" placeholder="data venda"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="acessorio">Filial:</label></td>
-                            <td>
-                                <select name="filial" id="filial">
-                                    <option value="1">Selecione um Acessório</option>
-                                    <c:forEach items="${listafilial}" var="filial">
-                                        <option value="${filial.id}">${filial.nome}</option>
-                                    </c:forEach>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="quantidade">Quantidade:</label></td>
-                            <td><input type="text" id="quantidade" name="quantvenda" placeholder="digite a quantidade" onkeypress="return SomenteNumero(event)"/></td>
-                            <td><label for="qtdestoque">Estoque:</label></td>
-                            <td><input type="text" id="qtdestoque" name="qtdestoque" readonly="readonly" value="${ac.quantidade}"/></td>
-                        </tr>
-                    </table>
-                    <div class="divbotao">
-                        <input type="submit" value="Registrar Venda" id="btnregistravenda"/>
-                        <input type="reset" value="Cancelar" id="btncancelar"/>
-                    </div>
-                </fieldset>
+            <h3>Registrar Venda</h3>
+            <form action="VendaServlet?acao=registrarvenda" method="post" onsubmit="validarTelaVenda(this); return false;">
+                <table>
+                    <tr>
+                        <td><label for="acessorio">Produto:</label></td>
+                        <td class="col-sm-2">
+                            <select class="form-control" name="nomeproduto" id="nomeproduto" onchange="BuscaQuantEstoque(this)">
+                                <option value="0">Selecione um Acessório</option>
+                                <c:forEach items="${listaproduto}" var="acessorio">
+                                    <option value="${acessorio.id}">${acessorio.nome}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="codigofuncionario">Código Funcionário:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" id="codigofuncionario" name="codigofuncionario" placeholder="digite o seu nome"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="dtvenda">Data Venda:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" id="dtvenda" name="dtvenda" placeholder="data venda"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="acessorio">Filial:</label></td>
+                        <td class="col-sm-2">
+                            <select class="form-control" name="filial" id="filial">
+                                <option value="0">Selecione uma filial</option>
+                                <c:forEach items="${listafilial}" var="filial">
+                                    <option value="${filial.razao_social}">${filial.razao_social}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="quantidade">Quantidade:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" id="quantvenda" name="quantvenda" placeholder="digite a quantidade" onkeypress="return SomenteNumero(event)"/>
+                        </td>
+                        <td><label for="qtdestoque">Estoque:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" id="qtdestoque" name="qtdestoque" readonly="readonly" value="${ac.quantidade}"/>
+                        </td>
+                    </tr>
+                </table>
+                <div class="col-sm-5">
+                    <input class="btn btn-primary" id="btncadastrar" type="submit" value="Cadastrar"/>
+                    <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
+                    <input class="btn btn-primary" id="btncancelar" type="button" value="Cancelar" onclick="BotaoCancelar()"/>
+                </div>
             </form>
         </div>
         <jsp:include page="../template/rodape.jsp"/>

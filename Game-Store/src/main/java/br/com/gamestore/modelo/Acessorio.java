@@ -32,20 +32,7 @@ public class Acessorio implements Serializable{
         
        
     }
-    /**
-     * @return the id
-     */
-    public Integer getid() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setID_Acessorio(Integer id) {
-        this.id = id;
-    }
-
+  
     /**
      * @return the nome
      */
@@ -128,7 +115,19 @@ public class Acessorio implements Serializable{
      */
     public void setNota_fiscal(int nota_fiscal) {
         this.nota_fiscal = nota_fiscal;
+    } 
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
     }
 
-    
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

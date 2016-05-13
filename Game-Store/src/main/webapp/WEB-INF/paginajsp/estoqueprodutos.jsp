@@ -13,8 +13,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/estiloformulario.css"/>
-        <title>Tabela de Produtos</title>
+        <title>Produtos Lançadado no Sistema</title>
         <script type="text/javascript">
             function exclusao(id) {
 
@@ -26,13 +29,13 @@
         </script>
     </head>
     <body style="background-color: buttonface">
-        <h3>Estoque de Produtos</h3>
+        <h3>Produtos Lançadado no Sistema</h3>
         <div class="table-responsive">  
             <%
                 List<Acessorio> lista = (List<Acessorio>) request.getAttribute("lista");
 
             %>
-            <table border="1" style="width:100%" id="tabelaproduto">
+            <table border="1" style="width:100%" class="table">
                 <tr>
                     <th>CÓDIGO</th>
                     <th>ACESSÓRIO</th>
@@ -48,21 +51,21 @@
                 for (Acessorio ace : lista) {
                 %>
                 <tr>
-                    <td><%=ace.getid()%></td>
+                    <td><%=ace.getId() %></td>
                     <td><%=ace.getNome()%></td>
                     <td><%=ace.getMarca()%></td>
                     <td><%=ace.getPreco()%></td>
                     <td><%=ace.getTipo()%></td>
                     <td><%=ace.getQuantidade()%></td>
-                    <td><%=ace.getNota_fiscal() %></td>
-                    <td><a href="javascript:exclusao(<%=ace.getid() %>)">Excluir</a></td>
-                    <td><a href="AcessorioServlet?acao=atualizar&id=<%=ace.getid() %>">Atualizar</a></td>
+                    <td><%=ace.getNota_fiscal()%></td>
+                    <td><a href="javascript:exclusao(<%=ace.getId() %>)" class="btn btn-primary">Excluir</a></td>
+                    <td><a href="AcessorioServlet?acao=atualizar&id=<%=ace.getId() %>" class="btn btn-primary">Atualizar</a></td>
                 </tr>
                 <%
                     }
                 %>
             </table>
-            <a id="linkvoltar" href="index.jsp">Voltar</a>
+            <a id="linkvoltar" href="AcessorioServlet?acao=cadastro">Voltar</a>
         </div>
     </body>
 </html>

@@ -1,11 +1,10 @@
 <%-- 
-    Document   : cadastrofuncionario
-    Created on : 19/04/2016, 20:10:18
+    Document   : filial
+    Created on : 05/05/2016, 16:21:46
     Author     : rjs
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,80 +15,59 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <script type="text/javascript" src="js/validacao.js"></script>
-        <title>Cadastro Funcionário</title>
+        <title>Cadastro Filial</title>
         <script type="text/javascript">
 
             function inicial() {
 
                 document.getElementById("uf").value = ${param.idEstado != null ? param.idEstado : '0'};
-                
             }
             function SelecionaComboEstado(combo) {
 
                 var idEstado = combo.options[combo.selectedIndex].value;
-                location.href = "FuncionarioServlet?acao=funcionario&getCidades=true&idEstado=" + idEstado;
+                location.href = "FilialServlet?acao=filial&getCidades=true&idEstado=" + idEstado;
             }
         </script>
     </head>
-    <body onload="desabilitaTelaFuncionario();
-            inicial()">
+    <body onload="inicial()">
         <jsp:include page="../template/cabecalho.jsp"/>
         <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
-            <form action="FuncionarioServlet?acao=cadastrofuncionario" method="post" name="form">
-                <h3>Cadastro Funcionário</h3>
+            <form action="FilialServlet?acao=cadastrofilial" method="post" name="form" onsubmit="validarCamposFilial(this); return false;">
+                <h3>Cadastro Filial</h3>
                 <table>
                     <tr>
-                        <td><label for="funcionario">Funcionário:</label></td>
+                        <td><label for="razaosocila">Razão Social:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="nomefuncionario" name="nomefuncionario" placeholder="digite seu nome" value="${func.nome}"/>
+                            <input class="form-control" type="text" id="razaosocial" name="razaosocial" placeholder="digite a razão social"/>
                         </td>
-                        <td></td>
+                        <td><label for="acessorio">Código:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" id="user" type="hidden" value="${sessionScope.user.usuario.toUpperCase()}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="cpf">CPF:</label></td>
-                        <td class="col-sm-2">
-                            <input class="form-control" type="text" id="cpf" name="cpf" placeholder="digite o cpf" value${func.cpf} onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);"  maxlength="14"/>
+                            <input class="form-control" type="text" readonly="readonly" id="id" name="id" value="${ac.id}"/>
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="telefone">Telefone:</label></td>
+                        <td><label for="cnpj">CNPJ:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="tel" name="telefone" id="telefone" maxlength="15" placeholder="digite o telefone" value="${func.telefone}" onkeypress="mascara(this)"/>
+                            <input class="form-control" type="text" placeholder="digite o cnpj" id="cnpj" name="cpfcnpj" onkeypress='mascaraMutuario(this, cpfCnpj)' onblur='clearTimeout()' maxlength="18"/>
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="dtnascimento">Data Nascimento:</label></td>
+                        <td><label for="fone">Telefone:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="date" name="data" OnKeyUp="mascaraData(this);" maxlength="10" placeholder="digite data dascimento" value="${func.dt_nascimento}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="cargo">Cargo:</label></td>
-                        <td class="col-sm-2">
-                            <input class="form-control" type="text" id="cargo" name="cargo" placeholder="digite data dascimento" value="${func.cargo}"/>
-                        </td>
-                        <td><label for="acessorio">Filial:</label></td>
-                        <td class="col-sm-2">
-                            <select class="form-control" name="filial" id="filial">
-                                <option value="0">Selecione filial</option>
-                                <c:forEach items="${listafilial}" var="filial">
-                                    <option value="${filial.id}">${filial.razao_social}</option>
-                                </c:forEach>
-                            </select>
+                            <input class="form-control" type="tel" name="telefone" id="telefone" maxlength="15" placeholder="digite o telefone" onkeypress="mascara(this)"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="endereco">Logradouro:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="endereco" name="endereco" placeholder="digite a rua" value="${func.endereco.logradouro}"/>
+                            <input class="form-control" type="text" id="endereco" name="endereco" placeholder="digite a rua" onmouseover="fone()"/>
                         </td>
+                    </tr>
+                    <tr>
                         <td><label for="cep">Cep:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="cep" name="cep" placeholder="digite a cep" maxlength="9" value="${func.endereco.cep}"/>
+                            <input class="form-control" type="text" id="cep" name="cep" OnKeyUp="mascaraCEP(this);"  maxlength="9" placeholder="digite o cep"/>
                         </td>
                     </tr>
                     <tr>
@@ -115,7 +93,7 @@
                     <tr>
                         <td><label for="bairro">Bairro:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="bairro" name="bairro" placeholder="digite o bairro" value="${func.endereco.bairro}"/>
+                            <input class="form-control" type="text" id="bairro" name="bairro" placeholder="digite o bairro"/>
                         </td>
                     </tr>
                 </table>

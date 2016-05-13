@@ -32,9 +32,13 @@ public class Funcionario implements Serializable {
     
     private Chamado chamado;
     
+    private Filial filial;
+    
     public Funcionario(){
      
         this.endereco = new Endereco();
+        this.filial = new Filial();
+        
     }
 
     /**
@@ -161,6 +165,20 @@ public class Funcionario implements Serializable {
      */
     public void setChamado(Chamado chamado) {
         this.chamado = chamado;
+    }
+
+    /**
+     * @return the filial
+     */
+    public Filial getFilial() {
+        return filial;
+    }
+
+    /**
+     * @param filial the filial to set
+     */
+    public void setFilial(Filial filial) {
+        this.filial = filial;
     }
 
 }
