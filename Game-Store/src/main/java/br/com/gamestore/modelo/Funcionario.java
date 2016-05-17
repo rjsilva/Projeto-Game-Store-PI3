@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Funcionario implements Serializable {
 
-    private Integer Id_funcionario;
+    private Integer id;
 
     private String nome;
 
@@ -39,20 +39,6 @@ public class Funcionario implements Serializable {
         this.endereco = new Endereco();
         this.filial = new Filial();
         
-    }
-
-    /**
-     * @return the Id_funcionario
-     */
-    public Integer getId_funcionario() {
-        return Id_funcionario;
-    }
-
-    /**
-     * @param Id_funcionario the Id_funcionario to set
-     */
-    public void setId_funcionario(Integer Id_funcionario) {
-        this.Id_funcionario = Id_funcionario;
     }
 
     /**
@@ -179,6 +165,20 @@ public class Funcionario implements Serializable {
      */
     public void setFilial(Filial filial) {
         this.filial = filial;
+    }
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 }

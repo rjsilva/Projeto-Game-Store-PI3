@@ -29,39 +29,40 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
     public void cadastrar(Funcionario funcionario) {
 
         try {
-
             Connection conexao = Conexao.obterConexao();
 
-            Integer codEndereco = null;
+            Integer codeEndereco = null;
 
-            String sqlendereco = "INSERT INTO TB_ENDERECO(RUA, BAIRRO, CEP)"
-                    + " VALUES(?,?,?)";
-            PreparedStatement stm = conexao.prepareStatement(sqlendereco, Statement.RETURN_GENERATED_KEYS);
+            String sqlendereco = "INSERT INTO TB_ENDERECO(RUA, BAIRRO, CEP, ESTADO, CIDADE)"
+                    + " VALUES(?,?,?,?,?)";
+            PreparedStatement stmendereco = conexao.prepareStatement(sqlendereco, Statement.RETURN_GENERATED_KEYS);
 
-            stm.setString(1, funcionario.getEndereco().getLogradouro());
-            stm.setString(2, funcionario.getEndereco().getBairro());
-            stm.setString(3, funcionario.getEndereco().getCep());
+            stmendereco.setString(1, funcionario.getEndereco().getLogradouro());
+            stmendereco.setString(2, funcionario.getEndereco().getBairro());
+            stmendereco.setString(3, funcionario.getEndereco().getCep());
+            stmendereco.setString(4, funcionario.getEndereco().getEstado());
+            stmendereco.setString(5, funcionario.getEndereco().getCidade());
 
-            stm.executeUpdate();
+            stmendereco.executeUpdate();
 
-            ResultSet rs = stm.getGeneratedKeys();
+            ResultSet rs = stmendereco.getGeneratedKeys();
             if (rs.next()) {
 
-                codEndereco = rs.getInt(1);
+                codeEndereco = rs.getInt(1);
             }
 
-            String sql1 = "INSERT INTO TB_FUNCIONARIO(ID_ENDERECO,NOME_FUNCIONARIO, CPF, TELEFONE, DT_NASCIMENTO, CARGO,LOCAL_TRABALHO) VALUES(?,?,?,?,?,?,?)";
-            PreparedStatement stm1 = conexao.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
+            String sqlfuncionario = "INSERT INTO TB_FUNCIONARIO(ID_ENDERECO,NOME_FUNCIONARIO, CPF, TELEFONE, DT_NASCIMENTO, CARGO,LOCAL_TRABALHO) VALUES(?,?,?,?,?,?,?)";
+            PreparedStatement stmfuncionario = conexao.prepareStatement(sqlfuncionario, Statement.RETURN_GENERATED_KEYS);
 
-            stm1.setInt(1, codEndereco);
-            stm1.setString(2, funcionario.getNome());
-            stm1.setString(3, funcionario.getCpf());
-            stm1.setString(4, funcionario.getTelefone());
-            stm1.setDate(5, new java.sql.Date(funcionario.getDt_nascimento().getTime()));
-            stm1.setString(6, funcionario.getCargo());
-            stm1.setString(7, funcionario.getLocal_trabalho());
+            stmfuncionario.setInt(1, codeEndereco);
+            stmfuncionario.setString(2, funcionario.getNome());
+            stmfuncionario.setString(3, funcionario.getCpf());
+            stmfuncionario.setString(4, funcionario.getTelefone());
+            stmfuncionario.setDate(5, new java.sql.Date(funcionario.getDt_nascimento().getTime()));
+            stmfuncionario.setString(6, funcionario.getCargo());
+            stmfuncionario.setString(7, funcionario.getLocal_trabalho());
 
-            stm1.executeUpdate();
+            stmfuncionario.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,7 +79,7 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
             Connection conexao = Conexao.obterConexao();
 
             PreparedStatement stm = conexao.prepareStatement(sql);
-            stm.setInt(1, func.getId_funcionario());
+            stm.setInt(1, func.getId());
             stm.execute();
         } catch (SQLException ex) {
 
@@ -88,16 +89,48 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
     }
 
     @Override
-    public void atualizar(Funcionario obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void atualizar(Funcionario funcionario) {
+
+        PreparedStatement stm = null;
+
+        String sql = "UPDATE TB_FUNCIONARIO SET NOME_FUNCIONARIO=? , CPF=? ,TELEFONE=?, DT_NASCIMENTO=?, CARGO=?,LOCAL_TRABALHO=?"
+                + " WHERE ID_FILIAL=?";
+        try {
+
+            Connection conexao = Conexao.obterConexao();
+            stm = conexao.prepareStatement(sql);
+            stm.setString(1, funcionario.getNome());
+            stm.setString(2, funcionario.getCpf());
+            stm.setString(3, funcionario.getTelefone());
+            stm.setDate(4, new java.sql.Date(funcionario.getDt_nascimento().getTime()));
+            stm.setString(5, funcionario.getCargo());
+            stm.setString(6, funcionario.getLocal_trabalho());
+
+            stm.execute();
+
+            String sqlendereco = "UPDATE TB_ENDERECO SET RUA=? , BAIRRO=? ,CEP=?,ESTADO=?,CIDADE=?";
+            stm = conexao.prepareStatement(sqlendereco);
+            stm.setString(1, funcionario.getEndereco().getLogradouro());
+            stm.setString(2, funcionario.getEndereco().getBairro());
+            stm.setString(3, funcionario.getEndereco().getCep());
+            stm.setString(4, funcionario.getEndereco().getEstado());
+            stm.setString(5, funcionario.getEndereco().getCidade());
+            stm.execute();
+
+            stm.close();
+        } catch (SQLException ex) {
+
+            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
     }
 
     @Override
     public Funcionario buscarPorId(Integer id) {
 
-        String sql = "SELECT RUA, BAIRRO, CEP,NOME_FUNCIONARIO,CPF,TELEFONE,DT_NASCIMENTO,CARGO,LOCAL_TRABALHO  FROM TB_ENDERECO\n"
-                + "INNER JOIN TB_FUNCIONARIO\n"
-                + "ON TB_ENDERECO.ID_ENDERECO = TB_FUNCIONARIO.ID_ENDERECO WHERE TB_FUNCIONARIO.ID_FUNCIONARIO = ?";
+        String sql = "SELECT RUA, BAIRRO, CEP,ESTADO,CIDADE,ID_FUNCIONARIO,NOME_FUNCIONARIO,CPF,TELEFONE,DT_NASCIMENTO,CARGO,LOCAL_TRABALHO  FROM TB_FUNCIONARIO\n"
+                + "INNER JOIN TB_ENDERECO\n"
+                + "ON TB_FUNCIONARIO.ID_ENDERECO = TB_ENDERECO.ID_ENDERECO WHERE ID_FUNCIONARIO = ?";
 
         try {
 
@@ -107,20 +140,22 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
             stm.setInt(1, id);
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
-                Funcionario func = new Funcionario();
+                Funcionario funcionario = new Funcionario();
 
-                func.setId_funcionario(resultados.getInt(1));
-                func.getEndereco().setLogradouro(resultados.getString(2));
-                func.getEndereco().setBairro(resultados.getString(3));
-                func.getEndereco().setCep(resultados.getString(4));
-                func.setNome(resultados.getString(5));
-                func.setCpf(resultados.getString(6));
-                func.setTelefone(resultados.getString(7));
-                func.setDt_nascimento(resultados.getDate("DT_NASCIMENTO"));
-                func.setCargo(resultados.getString(9));
-                func.setLocal_trabalho(resultados.getString(10));
+                funcionario.getEndereco().setLogradouro(resultados.getString("RUA"));
+                funcionario.getEndereco().setBairro(resultados.getString("BAIRRO"));
+                funcionario.getEndereco().setCep(resultados.getString("CEP"));
+                funcionario.getEndereco().setEstado(resultados.getString("ESTADO"));
+                funcionario.getEndereco().setCidade(resultados.getString("CIDADE"));
+                funcionario.setId(resultados.getInt("ID_FUNCIONARIO"));
+                funcionario.setNome(resultados.getString("NOME_FUNCIONARIO"));
+                funcionario.setCpf(resultados.getString("CPF"));
+                funcionario.setTelefone(resultados.getString("TELEFONE"));
+                funcionario.setDt_nascimento(resultados.getDate("DT_NASCIMENTO"));
+                funcionario.setCargo(resultados.getString("CARGO"));
+                funcionario.setLocal_trabalho(resultados.getString("LOCAL_TRABALHO"));
 
-                return func;
+                return funcionario;
             }
 
         } catch (Exception ex) {
@@ -143,7 +178,7 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
                 Funcionario funcionario = new Funcionario();
-                funcionario.setId_funcionario(resultados.getInt(1));
+                funcionario.setId(resultados.getInt(1));
                 funcionario.setNome(resultados.getString(2));
                 funcionario.setCargo(resultados.getString(3));
                 funcionario.setLocal_trabalho(resultados.getString(4));

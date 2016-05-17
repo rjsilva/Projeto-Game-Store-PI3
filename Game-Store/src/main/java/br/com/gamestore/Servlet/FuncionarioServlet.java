@@ -7,6 +7,7 @@ package br.com.gamestore.Servlet;
 
 import br.com.gamestore.dao.FilialDao;
 import br.com.gamestore.dao.FuncionarioDao;
+import br.com.gamestore.modelo.Filial;
 import br.com.gamestore.modelo.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.PersistenceException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -74,16 +76,24 @@ public class FuncionarioServlet extends HttpServlet {
 
         FuncionarioDao fdao = new FuncionarioDao();
         Funcionario func = new Funcionario();
+        FilialDao filialDao = new FilialDao();
 
         if (acao.equals("funcionario")) {
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofuncionario.jsp");
-            dispatcher.forward(request, response);
+            try {
+                List<Filial> listaFilial = filialDao.listarTodos();
+                request.getSession().setAttribute("listafilial", listaFilial);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofuncionario.jsp");
+                dispatcher.forward(request, response);
+
+            } catch (PersistenceException | SQLException ex) {
+                Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else if (acao.equals("excluir")) {
 
             String id = request.getParameter("id");
-            func.setId_funcionario(Integer.parseInt(id));
+            func.setId(Integer.parseInt(id));
             if (id != null) {
                 fdao.excluir(func);
 
@@ -157,23 +167,20 @@ public class FuncionarioServlet extends HttpServlet {
 
             try {
 
-                String nome = request.getParameter("nomefuncionario");
-                String cpf = request.getParameter("cpf");
-                String telefone = request.getParameter("telefone");
-                String dt_nascimento = request.getParameter("dtnascimento");
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                Date data = formato.parse(dt_nascimento);
-                String logradouro = request.getParameter("endereco");
+                String logradouro = request.getParameter("rua");
                 String bairro = request.getParameter("bairro");
                 String cidade = request.getParameter("cidade");
                 String uf = request.getParameter("uf");
                 String cep = request.getParameter("cep");
+
+                String nome = request.getParameter("nomefuncionario");
+                String cpf = request.getParameter("cpf");
+                String telefone = request.getParameter("telefone");
+                String dt_nascimento = request.getParameter("data");
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                Date data = formato.parse(dt_nascimento);
                 String cargo = request.getParameter("cargo");
                 String local_trabalho = request.getParameter("filial");
-
-                funcionario.getEndereco().setLogradouro(logradouro);
-                funcionario.getEndereco().setBairro(bairro);
-                funcionario.getEndereco().setCep(cep);
 
                 funcionario.setNome(nome);
                 funcionario.setCpf(cpf);
@@ -182,10 +189,15 @@ public class FuncionarioServlet extends HttpServlet {
                 funcionario.setCargo(cargo);
                 funcionario.setLocal_trabalho(local_trabalho);
 
+                funcionario.getEndereco().setLogradouro(logradouro);
+                funcionario.getEndereco().setBairro(bairro);
+                funcionario.getEndereco().setCep(cep);
+                funcionario.getEndereco().setEstado(uf);
+                funcionario.getEndereco().setCidade(cidade);
+
                 fdao.cadastrar(funcionario);
 
-                request.setAttribute("msg", "cadastrado com sucesso");
-                response.sendRedirect("FuncionarioServlet?acao=funcionario");
+                response.sendRedirect("FuncionarioServlet?acao=listar");
 
             } catch (ParseException | IOException ex) {
 
@@ -198,9 +210,7 @@ public class FuncionarioServlet extends HttpServlet {
             String nome = request.getParameter("nomefuncionario");
             String cpf = request.getParameter("cpf");
             String telefone = request.getParameter("telefone");
-            String dt_nascimento = request.getParameter("dtnascimento");
-
-            String dtnascimento = request.getParameter("dtnascimento");
+            String dtnascimento = request.getParameter("data");
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             Date data = null;
             try {
@@ -208,18 +218,20 @@ public class FuncionarioServlet extends HttpServlet {
             } catch (ParseException ex) {
                 Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            String logradouro = request.getParameter("endereco");
-            String bairro = request.getParameter("bairro");
-            String cidade = request.getParameter("cidade");
-            String uf = request.getParameter("uf");
-            String cep = request.getParameter("cep");
             String cargo = request.getParameter("cargo");
             String local_trabalho = request.getParameter("filial");
 
+            String cep = request.getParameter("cep");
+            String logradouro = request.getParameter("rua");
+            String bairro = request.getParameter("bairro");
+            String uf = request.getParameter("uf");
+            String cidade = request.getParameter("cidade");
+
+            funcionario.getEndereco().setCep(cep);
             funcionario.getEndereco().setLogradouro(logradouro);
             funcionario.getEndereco().setBairro(bairro);
-            funcionario.getEndereco().setCep(cep);
+            funcionario.getEndereco().setEstado(uf);
+            funcionario.getEndereco().setCidade(cidade);
 
             funcionario.setNome(nome);
             funcionario.setCpf(cpf);

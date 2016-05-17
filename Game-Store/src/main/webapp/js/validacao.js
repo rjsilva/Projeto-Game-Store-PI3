@@ -1,17 +1,3 @@
-function botaoVoltar() {
-
-    href.window.location = "AcessorioServlet?acao=cadastro";
-}
-//=====BOTÃO CANCELAR DA PARTE DE CADASTRO DE PRODUTO========//
-function BotaoCancelarProduto() {
-
-    window.location = "AcessorioServlet?acao=listar";
-}
-//=====BOTÃO CANCELAR DA PARTE DE CADASTRO DE FILIAL========//
-function BotaoCancelarFilial() {
-
-    window.location = "FilialServlet?acao=listar";
-}
 
 //======DESABILITA OS BOTÕES SE O ID ESTIVER VÁZIO========//
 function desabilitaBotao() {
@@ -24,26 +10,6 @@ function desabilitaBotao() {
 
         document.getElementById("btncancelar").style.display = 'none';
         document.getElementById("btnatualizar").style.display = 'none';
-    }
-}
-//======DESABILITA A TELA DE CADASTRO FUNCIONÁRIO CASO O USUÁRIO NÃO TENHA PERMISSÃO ========///
-function desabilitaTelaFuncionario() {
-
-    var user = document.getElementById("user").value;
-    if (user != "ADMIN") {
-
-        document.getElementById("nomefuncionario").disabled = true;
-        document.getElementById("cpf").disabled = true;
-        document.getElementById("telefone").disabled = true;
-        document.getElementById("dtnascimento").disabled = true;
-        document.getElementById("cargo").disabled = true;
-        document.getElementById("local_trabalho").disabled = true;
-        document.getElementById("endereco").disabled = true;
-        document.getElementById("bairro").disabled = true;
-        document.getElementById("cidade").disabled = true;
-        document.getElementById("uf").disabled = true;
-        document.getElementById("cep").disabled = true;
-        document.getElementById("btncadastrar").style.display = 'none';
     }
 }
 //DESABILTA A TELA CRIAR USUÁRIO CASO O USUÁRIO NÃO TEM PERMISSÃO DE CRIAR USUÁRIOS PARA O SISTEMA//
@@ -151,7 +117,66 @@ function validarCamposFilial(frm) {
     frm.submit();
 }
 
-/*formata o valor moeda no campo preço*/
+//====VÁLIDA OS CAMPOS EM BRANCO DA TELA CADASTRO DE FUNCIONÁRIO, FORÇANDO OS USUÁRIOS A PREENCHEREM TODOS OS DADOS=======//
+function validarCamposFuncionario(frm) {
+
+    if (frm.nomefuncionario.value == "") {
+
+        alert("Informe o nome funcionário");
+        return false;
+    }
+    if (frm.cpf.value == "") {
+
+        alert("Informe o cpf");
+        return false;
+    }
+    if (frm.telefone.value == "" || frm.telefone.value == 0) {
+
+        alert("Informe o telefone");
+        return false;
+    }
+    if (frm.data.value == "") {
+
+        alert("Informe a data nascimento");
+        return false;
+    }
+    if (frm.cargo.value == "") {
+
+        alert("Informe um cargo");
+        return false;
+    }
+    if (frm.cep.value == "") {
+
+        alert("Informe um cep");
+        return false;
+    }
+    if (frm.rua.value == "") {
+
+        alert("Informe uma rua");
+        return false;
+    }
+    if (frm.bairro.value == "") {
+
+        alert("Informe uma bairro");
+        return false;
+    }
+    if (frm.uf.value == "") {
+        alert("Informa o estado");
+    }
+    if (frm.cidade.value == "") {
+
+        alert("informe a cidade");
+    }
+    if (frm.id.value != 0 && frm.id.value != "null") {
+        alert("atualizado com sucesso");
+    } else {
+        alert("cadastrado com sucesso");
+    }
+    frm.submit();
+}
+
+
+//====FORMATA O VALOR NO CAMPO INPUT========//
 function formatar_moeda(campo, separador_milhar, separador_decimal, tecla) {
 
     var sep = 0;
@@ -205,7 +230,7 @@ function formatar_moeda(campo, separador_milhar, separador_decimal, tecla) {
     return false;
 }
 
-/*função para campo do tipo números*/
+//=======FUNÇÃO PARA  RECEBER SÓ NÚMEROS================//
 function SomenteNumero(e) {
     var tecla = (window.event) ? event.keyCode : e.which;
     if ((tecla > 47 && tecla < 58))
@@ -385,10 +410,8 @@ function remove(str, sub) {
     return r;
 }
 
-/**
- * MASCARA ( mascara(o,f) e execmascara() )
- * elcio.com.br
- */
+//=======MASCARA CPF( mascara(o,f) e execmascara() =========
+
 function mascara(o, f) {
     v_obj = o
     v_fun = f
@@ -408,19 +431,7 @@ function cpf_mask(v) {
 }
 //================VALIDA CNPJ, DATA, TELEFONE=====================
 
-//valida data
-function ValidaData(data) {
-    exp = /\d{2}\/\d{2}\/\d{4}/
-    if (!exp.test(data.value)) {
-        alert('Data Invalida!');
-        document.getElementById('data').value = "";
-    } else {
-
-        return  true;
-    }
-}
-
-//valida o CNPJ digitado
+//===========VALIDA O CNPJ DIGITE NO FORMATO DO GERADOR CNPJ===================
 function ValidarCNPJ(ObjCnpj) {
     var cnpj = ObjCnpj.value;
     var valida = new Array(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2);
@@ -448,7 +459,7 @@ function ValidarCNPJ(ObjCnpj) {
 
 }
 
-//mascara campo telefone
+//========MASCARA TELEFONE============================
 function mascara(o, f) {
     v_obj = o
     v_fun = f
@@ -483,5 +494,54 @@ function FormataCnpj(campo, teclapres)
             campo.value = vr.substr(0, 2) + '.' + vr.substr(2, 3) + '.' + vr.substr(6, 3) + '/';
         if (tam == 15)
             campo.value = vr.substr(0, 2) + '.' + vr.substr(2, 3) + '.' + vr.substr(6, 3) + '/' + vr.substr(9, 4) + '-' + vr.substr(13, 2);
+    }
+}
+//======VALIDA DATA=======
+function mascara_data(data) {
+    var mydata = '';
+    mydata = mydata + data;
+    if (mydata.length == 2) {
+        mydata = mydata + '/';
+        document.forms[0].data.value = mydata;
+    }
+    if (mydata.length == 5) {
+        mydata = mydata + '/';
+        document.forms[0].data.value = mydata;
+    }
+    if (mydata.length == 10) {
+        verifica_data();
+    }
+}
+
+function verifica_data() {
+
+    dia = (document.forms[0].data.value.substring(0, 2));
+    mes = (document.forms[0].data.value.substring(3, 5));
+    ano = (document.forms[0].data.value.substring(6, 10));
+
+    situacao = "";
+    // verifica o dia valido para cada mes 
+    if ((dia < 01) || (dia < 01 || dia > 30) && (mes == 04 || mes == 06 || mes == 09 || mes == 11) || dia > 31) {
+        situacao = "falsa";
+    }
+
+    // verifica se o mes e valido 
+    if (mes < 01 || mes > 12) {
+        situacao = "falsa";
+    }
+
+    // verifica se e ano bissexto 
+    if (mes == 2 && (dia < 01 || dia > 29 || (dia > 28 && (parseInt(ano / 4) != ano / 4)))) {
+        situacao = "falsa";
+    }
+
+    if (document.forms[0].data.value == "") {
+        situacao = "falsa";
+    }
+
+    if (situacao == "falsa") {
+        alert("Data inválida!");
+        document.getElementById("data").value = "";
+        document.forms[0].data.focus();
     }
 }

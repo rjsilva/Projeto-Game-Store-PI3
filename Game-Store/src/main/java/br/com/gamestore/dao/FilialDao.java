@@ -31,7 +31,7 @@ public class FilialDao implements GenericDao<Filial> {
         try {
             Connection conexao = Conexao.obterConexao();
 
-            Integer codEndereco = null;
+            Integer codeEndereco = null;
 
             String sqlendereco = "INSERT INTO TB_ENDERECO(RUA, BAIRRO, CEP, ESTADO, CIDADE)"
                     + " VALUES(?,?,?,?,?)";
@@ -48,13 +48,14 @@ public class FilialDao implements GenericDao<Filial> {
             ResultSet rs = stmendereco.getGeneratedKeys();
             if (rs.next()) {
 
-                codEndereco = rs.getInt(1);
+                codeEndereco = rs.getInt(1);
             }
 
             String sqlfilial = "INSERT INTO TB_FILIAL(ID_ENDERECO, RAZAO_SOCIAL,CNPJ, TELEFONE)"
                     + "values(?,?,?,?)";
             PreparedStatement stmfilial = conexao.prepareStatement(sqlfilial, Statement.RETURN_GENERATED_KEYS);
-            stmfilial.setInt(1, codEndereco);
+
+            stmfilial.setInt(1, codeEndereco);
             stmfilial.setString(2, filial.getRazao_social());
             stmfilial.setString(3, filial.getCnpj());
             stmfilial.setString(4, filial.getTelefone());
@@ -127,7 +128,7 @@ public class FilialDao implements GenericDao<Filial> {
     public Filial buscarPorId(Integer id) {
 
         String sql = "SELECT RUA, BAIRRO,CEP,ESTADO,CIDADE,ID_FILIAL, RAZAO_SOCIAL,CNPJ,TELEFONE FROM TB_FILIAL\n"
-                + "INNER JOIN TB_ENDERECO ON TB_FILIAL.ID_ENDERECO = TB_ENDERECO.ID_ENDERECO WHERE ID_FILIAL=?";
+                + "INNER JOIN TB_ENDERECO ON TB_FILIAL.ID_ENDERECO = TB_ENDERECO.ID_ENDERECO WHERE ID_FILIAL = ?";
 
         try {
 

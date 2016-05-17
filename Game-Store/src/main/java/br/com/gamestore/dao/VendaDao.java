@@ -33,7 +33,7 @@ public class VendaDao {
             String sqlvenda = "INSERT INTO TB_VENDA(ID_FUNCIONARIO, NOME_ACESSORIO, NOME_FILIAL, DATA_VENDA, QUANTIDADE_VENDA)"
                     + " VALUES(?,?,?,?,?)";
             PreparedStatement stm = conexao.prepareStatement(sqlvenda);
-            stm.setInt(1, venda.getFuncionario().getId_funcionario());
+            stm.setInt(1, venda.getFuncionario().getId());
             stm.setString(2, venda.getAcessorio().getNome());
             stm.setString(3, venda.getFilial().getRazao_social());
             stm.setDate(4, new java.sql.Date(venda.getDtvenda().getTime()));

@@ -4,7 +4,7 @@
     Author     : rjs
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,26 +17,12 @@
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Cadastro Funcionário</title>
-        <script type="text/javascript">
-
-            function inicial() {
-
-                document.getElementById("uf").value = ${param.idEstado != null ? param.idEstado : '0'};
-
-            }
-            function SelecionaComboEstado(combo) {
-
-                var idEstado = combo.options[combo.selectedIndex].value;
-                location.href = "FuncionarioServlet?acao=funcionario&getCidades=true&idEstado=" + idEstado;
-            }
-        </script>
     </head>
-    <body onload="desabilitaTelaFuncionario();
-            inicial()">
+    <body onload="desabilitaBotao()">
         <jsp:include page="../template/cabecalho.jsp"/>
         <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
-            <form action="FuncionarioServlet?acao=cadastrofuncionario" method="post" name="form">
+            <form action="FuncionarioServlet?acao=cadastrofuncionario" method="post" name="form" onsubmit="validarCamposFuncionario(this); return false;">
                 <h3>Cadastro Funcionário</h3>
                 <table>
                     <tr>
@@ -46,58 +32,67 @@
                         </td>
                         <td></td>
                         <td class="col-sm-2">
-                            <input class="form-control" id="user" type="hidden" value="${sessionScope.user.usuario.toUpperCase()}"/>
+                            <input class="form-control" id="id" name="id" type="text" value="${func.id}" readonly="readonly"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="cpf">CPF:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" name="cpf" id="cpf" onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);"  maxlength="14" placeholder="digite o cpf" />
+                            <input class="form-control" type="text" name="cpf" id="cpf" onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);"  maxlength="14" placeholder="digite o cpf" value="${func.cpf}"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="telefone">Telefone:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="tel" name="telefone" id="telefone" maxlength="15" placeholder="digite o telefone" value="${func.telefone}" onkeypress="mascara(this)"/>
+                            <input class="form-control" type="text" name="telefone" id="telefone" maxlength="15" placeholder="digite o telefone" onkeyup="mascara(this, mtel);" value="${func.telefone}">
                         </td>
                     </tr>
                     <tr>
                         <td><label for="dtnascimento">Data Nascimento:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="date" name="data" OnKeyUp="mascaraData(this);" maxlength="10" placeholder="digite data dascimento" value="${func.dt_nascimento}"/>
+                            <input class="form-control" type="text" name="data" id="data" onkeypress="return SomenteNumero(event)" onblur="mascara(this, mdata);" OnKeyUp="mascara_data(this.value)"  maxlength="10" placeholder="digite a data nascimento" value="${func.dt_nascimento}"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="cargo">Cargo:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="cargo" name="cargo" placeholder="digite o cargo do funcionário"/>
+                            <input class="form-control" type="text" id="cargo" name="cargo" placeholder="digite o cargo" value="${func.cargo}"/>
                         </td>
-
+                        <td><label for="filial">Filial:</label></td>
+                        <td class="col-sm-2">
+                            <select class="form-control" name="filial" id="filial" onmouseover="validarCamposFuncionario(this)">
+                                <option value="0">Selecione Filial</option>
+                                <c:forEach items="${listafilial}" var="filial">
+                                    <option value="${filial.id}">${filial.razao_social}</option>
+                                    <option value="${func.local_trabalho}"></option>
+                                </c:forEach>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="cep">Cep:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="cep" name="cep" maxlength="9" placeholder="digite o cep"  onblur="pesquisacep(this.value);" />
+                            <input class="form-control" type="text" id="cep" name="cep" maxlength="9" placeholder="digite o cep"  onblur="pesquisacep(this.value);" value="${func.endereco.cep}"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="endereco">Logradouro:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="rua" name="rua" readonly="readonly"/>
+                            <input class="form-control" type="text" id="rua" name="rua" readonly="readonly" value="${func.endereco.logradouro}"/>
                         </td>
                         <td><label for="bairro">Bairro:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="bairro" name="bairro" readonly="readonly"/>
+                            <input class="form-control" type="text" id="bairro" name="bairro" readonly="readonly" value="${func.endereco.bairro}"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="uf">Uf:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" name="uf" type="text" id="uf" maxlength="2" readonly="readonly"/>
+                            <input class="form-control" name="uf" type="text" id="uf" maxlength="2" readonly="readonly" value="${func.endereco.estado}"/>
                         </td>
                         <td><label for="cidade">Cidade:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" name="cidade" type="text" id="cidade" maxlength="2" readonly="readonly" />
+                            <input class="form-control" name="cidade" type="text" id="cidade" maxlength="2" readonly="readonly" value="${func.endereco.cidade}"/>
                         </td>
                     </tr>
                 </table>

@@ -29,43 +29,45 @@
         </script>
     </head>
     <body style="background-color: buttonface">
-        <h3>Produtos Lançadado no Sistema</h3>
-        <div class="table-responsive">  
-            <%
-                List<Acessorio> lista = (List<Acessorio>) request.getAttribute("lista");
-
-            %>
-            <table border="1" style="width:100%" class="table">
-                <tr>
-                    <th>CÓDIGO</th>
-                    <th>ACESSÓRIO</th>
-                    <th>MARCA</th>
-                    <th>PREÇO</th>
-                    <th>TIPO</th>
-                    <th>QUANTIDADE</th>
-                    <th>NOTA FISCAL</th>
-                    <th>Excluir</th>
-                    <th>Atualizar</th>
-                </tr>
-                <%                    
-                for (Acessorio ace : lista) {
-                %>
-                <tr>
-                    <td><%=ace.getId() %></td>
-                    <td><%=ace.getNome()%></td>
-                    <td><%=ace.getMarca()%></td>
-                    <td><%=ace.getPreco()%></td>
-                    <td><%=ace.getTipo()%></td>
-                    <td><%=ace.getQuantidade()%></td>
-                    <td><%=ace.getNota_fiscal()%></td>
-                    <td><a href="javascript:exclusao(<%=ace.getId() %>)" class="btn btn-primary">Excluir</a></td>
-                    <td><a href="AcessorioServlet?acao=atualizar&id=<%=ace.getId() %>" class="btn btn-primary">Atualizar</a></td>
-                </tr>
+        <jsp:include page="../template/cabecalho.jsp"/>
+        <jsp:include page="../template/menuesquerda.jsp"/>
+        <div class="conteudo">
+            <h3>Produtos Lançadado no Sistema</h3>
+            <div class="table-responsive">  
                 <%
-                    }
+                    List<Acessorio> lista = (List<Acessorio>) request.getAttribute("lista");
+
                 %>
-            </table>
-            <a id="linkvoltar" href="AcessorioServlet?acao=cadastro">Voltar</a>
+                <table border="1" style="width:100%" class="table">
+                    <tr>
+                        <th>CÓDIGO</th>
+                        <th>ACESSÓRIO</th>
+                        <th>MARCA</th>
+                        <th>PREÇO</th>
+                        <th>TIPO</th>
+                        <th>QUANTIDADE</th>
+                        <th>NOTA FISCAL</th>
+                        <th>Excluir</th>
+                        <th>Atualizar</th>
+                    </tr>
+                    <%                    for (Acessorio ace : lista) {
+                    %>
+                    <tr>
+                        <td><%=ace.getId()%></td>
+                        <td><%=ace.getNome()%></td>
+                        <td><%=ace.getMarca()%></td>
+                        <td><%=ace.getPreco()%></td>
+                        <td><%=ace.getTipo()%></td>
+                        <td><%=ace.getQuantidade()%></td>
+                        <td><%=ace.getNota_fiscal()%></td>
+                        <td><a href="javascript:exclusao(<%=ace.getId()%>)" class="btn btn-primary">Excluir</a></td>
+                        <td><a href="AcessorioServlet?acao=atualizar&id=<%=ace.getId()%>" class="btn btn-primary">Atualizar</a></td>
+                    </tr>
+                    <%
+                        }
+                    %>
+                </table>
+            </div>
         </div>
     </body>
 </html>

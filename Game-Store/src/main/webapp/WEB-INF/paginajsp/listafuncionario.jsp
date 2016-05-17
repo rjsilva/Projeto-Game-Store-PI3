@@ -28,30 +28,33 @@
         </script>
     </head>
     <body style="background-color: buttonface">
-        <h3>Lista de Funcionários</h3>
-        <table border="1" style="width:100%" class="table">
-            <tr>
-                <th>Código Funcionário</th>
-                <th>Nome Funcionário</th>
-                <th>Cargo</th>
-                <th>Local de Trabalho</th>
-                <th>Excluir</th>
-                <th>Atualizar</th>
-            </tr>
-            <%
-                Funcionario func = new Funcionario();
-            %>
-            <c:forEach items="${listafuncionario}" var="fun">
+        <jsp:include page="../template/cabecalho.jsp"/>
+        <jsp:include page="../template/menuesquerda.jsp"/>
+        <div class="conteudo">
+            <h3>Lista de Funcionários</h3>
+            <table border="1" style="width:100%" class="table">
                 <tr>
-                    <td>${fun.id_funcionario}</td>
-                    <td>${fun.nome}</td>
-                    <td>${fun.cargo}</td>
-                    <td>${fun.local_trabalho}</td>
-                    <td><a href="javascript:exclusao(${fun.id_funcionario})" class="btn btn-primary">Excluir</a></td>
-                    <td><a href="FuncionarioServlet?acao=atualizar&id=${fun.id_funcionario}" class="btn btn-primary">Atualizar</a></td>
+                    <th>Código Funcionário</th>
+                    <th>Nome Funcionário</th>
+                    <th>Cargo</th>
+                    <th>Local de Trabalho</th>
+                    <th>Excluir</th>
+                    <th>Atualizar</th>
                 </tr>
-            </c:forEach>
-        </table>
-        <a id="linkvoltar" href="index.jsp">Voltar</a>
+                <%
+                    Funcionario func = new Funcionario();
+                %>
+                <c:forEach items="${listafuncionario}" var="fun">
+                    <tr>
+                        <td>${fun.id}</td>
+                        <td>${fun.nome}</td>
+                        <td>${fun.cargo}</td>
+                        <td>${fun.local_trabalho}</td>
+                        <td><a href="javascript:exclusao(${fun.id})" class="btn btn-primary">Excluir</a></td>
+                        <td><a href="FuncionarioServlet?acao=atualizar&id=${fun.id}" class="btn btn-primary">Atualizar</a></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
     </body>
 </html>

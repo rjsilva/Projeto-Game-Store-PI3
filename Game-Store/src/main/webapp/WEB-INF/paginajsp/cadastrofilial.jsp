@@ -21,8 +21,7 @@
         <jsp:include page="../template/cabecalho.jsp"/>
         <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
-            <form action="FilialServlet?acao=cadastrofilial" method="post" name="form" onsubmit="validarCamposFilial(this);
-                    return false;">
+            <form action="FilialServlet?acao=cadastrofilial" method="post" name="form" onsubmit="validarCamposFilial(this); return false;">
                 <h3>Cadastro Filial</h3>
                 <table>
                     <tr>
@@ -77,7 +76,7 @@
                 <div class="col-sm-5">
                     <input class="btn btn-primary" id="btncadastrar" type="submit" value="Cadastrar"/>
                     <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
-                    <input class="btn btn-primary" id="btncancelar" type="button" value="Cancelar" onclick="BotaoCancelarFilial()"/>
+                    <a class="btn btn-primary" href="FilialServlet?acao=listar" id="btncancelar">Voltar</a>
                 </div>
             </form>
         </div>

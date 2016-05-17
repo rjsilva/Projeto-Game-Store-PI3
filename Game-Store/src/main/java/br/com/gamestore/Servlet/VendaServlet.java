@@ -89,9 +89,7 @@ public class VendaServlet extends HttpServlet {
 
                 try {
                     request.getSession().setAttribute("listaproduto", acdao.listarTodos());
-                } catch (PersistenceException ex) {
-                    Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
+                } catch (PersistenceException | SQLException ex) {
                     Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -134,7 +132,7 @@ public class VendaServlet extends HttpServlet {
             String qtvenda = request.getParameter("quantvenda");
 
             venda.getAcessorio().setNome(nomeproduto);
-            venda.getFuncionario().setId_funcionario(Integer.parseInt(codigofuncionario));
+            venda.getFuncionario().setId(Integer.parseInt(codigofuncionario));
             venda.setDtvenda(data);
             venda.getFilial().setRazao_social(filial);
             venda.setQuantidade(Integer.parseInt(qtvenda));
