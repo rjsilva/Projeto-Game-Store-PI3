@@ -1,4 +1,4 @@
-------tabela de endereço----------
+------tabela de endereï¿½o----------
 CREATE TABLE TB_ENDERECO
 (
  ID_ENDERECO BIGINT  NOT NULL GENERATED ALWAYS AS IDENTITY
@@ -6,11 +6,13 @@ CREATE TABLE TB_ENDERECO
  RUA VARCHAR(100) NOT NULL,
  BAIRRO VARCHAR(50) NOT NULL,
  CEP VARCHAR(50) NOT NULL,
+ ESTADO VARCHAR(100) NOT NULL,
+ CIDADE VARCHAR(100) NOT NULL,
  
  CONSTRAINT PK_ENDERECO PRIMARY KEY (ID_ENDERECO)
 )
 
----------fim tabela de endereço-----------------
+---------fim tabela de endereï¿½o-----------------
 
 -----tabela de funcionario---------
 
@@ -29,10 +31,10 @@ CREATE TABLE TB_FUNCIONARIO
  
  CONSTRAINT PK_FUNCIONARIO PRIMARY KEY (ID_FUNCIONARIO),
  CONSTRAINT FK_ENDERECO FOREIGN KEY(ID_ENDERECO)
-                           REFERENCES TB_ENDERECO(ID_ENDERECO),
-CONSTRAINT FK_CHAMADO FOREIGN KEY(ID_CHAMADO)
-                           REFERENCES TB_CHAMADO(ID_CHAMADO)
-)
+                           REFERENCES TB_ENDERECO(ID_ENDERECO) ON DELETE CASCADE,
+ CONSTRAINT FK_CHAMADO FOREIGN KEY(ID_CHAMADO)
+                           REFERENCES TB_CHAMADO(ID_CHAMADO) ON DELETE CASCADE
+);
 
 -------fim da tabela funcionario---------
 
@@ -62,7 +64,7 @@ CREATE TABLE TB_ESTOQUE (
 );
 ...............FIM DA TABELA ESTOQUE-----------------
 
-----TABELA DE ACESSÓRIO------
+----TABELA DE ACESSï¿½RIO------
 
 CREATE TABLE TB_ACESSORIOS (
   ID_ACESSORIO BIGINT  NOT NULL GENERATED ALWAYS AS IDENTITY
@@ -79,76 +81,6 @@ INSERT INTO TB_ACESSORIOS(NOME_ACESSORIO, MARCA, PRECO, TIPO, QUANTIDADE, NOTA_F
 VALUES('JOGO','SONY',20.0,'AVENTURA',1,33123);
 
 --------------------FIM TB ACESSORIO-------------------------
-
-----TABELA DE ESTADO--------
-create table TB_ESTADO (
-    CODIGO_ESTADO bigint primary key,
-    SIGLA char(2),
-    NOME char(50)
-);
-/* Insert de estados */
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (1, 'Acre', 'AC');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (2, 'Alagoas', 'AL');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (3, 'Amapá', 'AP');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (4, 'Amazonas', 'AM');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (5, 'Bahia', 'BA');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (6, 'Ceará', 'CE');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (7, 'Distrito Federal', 'DF');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (8, 'Espírito Santo', 'ES');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (9, 'Goiás', 'GO');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (10, 'Maranhão', 'MA');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (11, 'Mato Grosso', 'MT');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (12, 'Mato Grosso do Sul',  v 'MS');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (13, 'Minas Gerais', 'MG');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (14, 'Pará', 'PA');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (15, 'Paraíba', 'PB');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (16, 'Paraná', 'PR');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (17, 'Pernambuco', 'PE');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (18, 'Piauí', 'PI');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (19, 'Rio de Janeiro', 'RJ');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (20, 'Rio Grande do Norte', 'RN');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (21, 'Rio Grande do Sul', 'RS');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (22, 'Rondônia', 'RO');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (23, 'Roraima', 'RR');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (24, 'Santa Catarina', 'SC');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (25, 'São Paulo', 'SP');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (26, 'Sergipe', 'SE');
-insert into ESTADO (CODIGO_ESTADO, NOME, SIGLA) values (27, 'Tocantins', 'TO');
------TBELA DE CIDADE---------
-create table TB_CIDADE (
-    CODIGO_CIDADE bigint primary key,
-    NOME char(100),
-    CODIGO_ESTADO bigint not null,
-    foreign key (CODIGO_ESTADO) references TB_ESTADO(CODIGO_ESTADO)
-);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (1, 'Rio Branco', 1);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (2, 'Maceió', 2);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (3, 'Macapá', 3);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (4, 'Manaus', 4);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (5, 'Salvador', 5);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (6, 'Fortaleza', 6);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (7, 'Brasíia', 7);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (8, 'Vitória', 8);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (9, 'Goiânia', 9);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (10, 'São Luís', 10);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (11, 'Cuiabá', 11);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (12, 'Campo Grande', 12);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (13, 'Belo Horizonte', 13);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (14, 'Belém', 14);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (15, 'João Pessoa', 15);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (16, 'Curitiba', 16);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (17, 'Recife', 17);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (18, 'Teresina', 18);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (19, 'Rio de Janeiro', 19);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (20, 'Natal', 20);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (21, 'Porto Alegre', 21);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (22, 'Porto Velho', 22);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (23, 'Boa Vista', 23);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (24, 'Florianópolis', 24);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (25, 'São Paulo', 25);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (26, 'Aracaju', 26);
-insert into TB_CIDADE(CODIGO_CIDADE, NOME, CODIGO_ESTADO) values (27, 'Palmas', 27);
-
 ---TABELA DE CHAMADO----
 
 CREATE TABLE TB_CHAMADO (
@@ -191,6 +123,6 @@ CREATE TABLE TB_FILIAL
 
  
 CONSTRAINT PK_FILIAL PRIMARY KEY (ID_FILIAL),
-FOREIGN KEY(ID_ENDERECO) REFERENCES TB_ENDERECO(ID_ENDERECO)
-)
+FOREIGN KEY(ID_ENDERECO) REFERENCES TB_ENDERECO(ID_ENDERECO) ON DELETE CASCADE
+);
 -------------FIM TABELA FILIAL------------------------------

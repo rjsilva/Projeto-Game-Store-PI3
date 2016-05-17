@@ -5,11 +5,8 @@
  */
 package br.com.gamestore.Servlet;
 
-import br.com.gamestore.dao.EnderecoDao;
 import br.com.gamestore.dao.FilialDao;
-import br.com.gamestore.dao.FuncionarioDao;
 import br.com.gamestore.modelo.Filial;
-import br.com.gamestore.modelo.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -75,32 +72,8 @@ public class FilialServlet extends HttpServlet {
 
         FilialDao filialDao = new FilialDao();
         Filial filial = new Filial();
-        EnderecoDao edao = new EnderecoDao();
 
-        if (acao.equals("filial")) {
-            try {
-                if (getCidade != null && !"".equals(getCidade)) {
-
-                    String idestado = request.getParameter("idEstado");
-                    int id = Integer.parseInt(idestado);
-                    request.setAttribute("listaEstado", edao.listarCidades(id));
-                } else {
-                    request.getSession().setAttribute("listauf", edao.listarUfs());
-                }
-                //request.setAttribute("listafilial", filialDao.buscarPorNome());
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofilial.jsp");
-                dispatcher.forward(request, response);
-            } catch (SQLException ex) {
-                Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } else if (acao.equals("mostrartela")) {
-
-            try {
-                request.setAttribute("listauf", edao.listarUfs());
-            } catch (SQLException ex) {
-                Logger.getLogger(FilialServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (acao.equals("mostrartela")) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofilial.jsp");
             dispatcher.forward(request, response);
         } else if (acao.equals("excluir")) {
@@ -161,22 +134,24 @@ public class FilialServlet extends HttpServlet {
 
         if (id.equals("null") || id.isEmpty()) {
 
-            String logradouro = request.getParameter("endereco");
+            String logradouro = request.getParameter("rua");
             String bairro = request.getParameter("bairro");
             String cidade = request.getParameter("cidade");
-            String uf = request.getParameter("uf");
+            String estado = request.getParameter("uf");
             String cep = request.getParameter("cep");
 
             String razaosocial = request.getParameter("razaosocial");
-            String cnpj = request.getParameter("cpfcnpj");
+            String cnpj = request.getParameter("cnpj");
             String telefone = request.getParameter("telefone");
 
             filial.setRazao_social(razaosocial);
             filial.setCnpj(cnpj);
             filial.setTelefone(telefone);
-            filial.getEndereco().setRua(logradouro);
+            filial.getEndereco().setLogradouro(logradouro);
             filial.getEndereco().setBairro(bairro);
             filial.getEndereco().setCep(cep);
+            filial.getEndereco().setEstado(estado);
+            filial.getEndereco().setCidade(cidade);
 
             filialDao.cadastrar(filial);
             response.sendRedirect("FilialServlet?acao=mostrartela");
@@ -187,22 +162,24 @@ public class FilialServlet extends HttpServlet {
         } else {
 
             filial.setId(Integer.parseInt(id));
-            String logradouro = request.getParameter("endereco");
+            String logradouro = request.getParameter("rua");
             String bairro = request.getParameter("bairro");
             String cidade = request.getParameter("cidade");
             String uf = request.getParameter("uf");
             String cep = request.getParameter("cep");
 
             String razaosocial = request.getParameter("razaosocial");
-            String cnpj = request.getParameter("cpfcnpj");
+            String cnpj = request.getParameter("cnpj");
             String telefone = request.getParameter("telefone");
 
             filial.setRazao_social(razaosocial);
             filial.setCnpj(cnpj);
             filial.setTelefone(telefone);
-            filial.getEndereco().setRua(logradouro);
+            filial.getEndereco().setLogradouro(logradouro);
             filial.getEndereco().setBairro(bairro);
             filial.getEndereco().setCep(cep);
+            filial.getEndereco().setEstado(uf);
+            filial.getEndereco().setCidade(cidade);
 
             filialDao.atualizar(filial);
             response.sendRedirect("FilialServlet?acao=listar");

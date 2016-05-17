@@ -38,7 +38,7 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
                     + " VALUES(?,?,?)";
             PreparedStatement stm = conexao.prepareStatement(sqlendereco, Statement.RETURN_GENERATED_KEYS);
 
-            stm.setString(1, funcionario.getEndereco().getRua());
+            stm.setString(1, funcionario.getEndereco().getLogradouro());
             stm.setString(2, funcionario.getEndereco().getBairro());
             stm.setString(3, funcionario.getEndereco().getCep());
 
@@ -110,7 +110,7 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
                 Funcionario func = new Funcionario();
 
                 func.setId_funcionario(resultados.getInt(1));
-                func.getEndereco().setRua(resultados.getString(2));
+                func.getEndereco().setLogradouro(resultados.getString(2));
                 func.getEndereco().setBairro(resultados.getString(3));
                 func.getEndereco().setCep(resultados.getString(4));
                 func.setNome(resultados.getString(5));

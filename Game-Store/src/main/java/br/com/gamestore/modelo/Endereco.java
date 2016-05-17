@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class Endereco implements Serializable{
     
-    private Integer Id_endereco;
+    private Integer id;
     
     private String logradouro;
     
@@ -24,34 +24,6 @@ public class Endereco implements Serializable{
     private String cidade;
     
     private String estado;
-
-    /**
-     * @return the Id_endereco
-     */
-    public Integer getId_endereco() {
-        return Id_endereco;
-    }
-
-    /**
-     * @param Id_endereco the Id_endereco to set
-     */
-    public void setId_endereco(Integer Id_endereco) {
-        this.Id_endereco = Id_endereco;
-    }
-
-    /**
-     * @return the rua
-     */
-    public String getRua() {
-        return logradouro;
-    }
-
-    /**
-     * @param rua the rua to set
-     */
-    public void setRua(String rua) {
-        this.logradouro = rua;
-    }
 
     /**
      * @return the bairro
@@ -108,6 +80,34 @@ public class Endereco implements Serializable{
      */
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the logradouro
+     */
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    /**
+     * @param logradouro the logradouro to set
+     */
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
 }

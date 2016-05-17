@@ -17,8 +17,7 @@
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Cadastro Filial</title>
     </head>
-    <body onload="inicial();
-            desabilitaBotao()">
+    <body onload="desabilitaBotao()">
         <jsp:include page="../template/cabecalho.jsp"/>
         <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
@@ -39,39 +38,39 @@
                     <tr>
                         <td><label for="cnpj">CNPJ:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" placeholder="digite o cnpj" id="cnpj" name="cnpj" onblur="javascript: validarCNPJ(this.value);" maxlength="18" value="${filial.cnpj}"/>
+                            <input class="form-control" type="text" name="cnpj" id="cnpj" maxlength="18" onkeyup="FormataCnpj(this,event)" onBlur="ValidarCNPJ(form.cnpj);" placeholder="digite o cnpj" value="${filial.cnpj}">
                         </td>
                     </tr>
                     <tr>
                         <td><label for="fone">Telefone:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="tel" name="telefone" id="telefone" maxlength="15" placeholder="digite o telefone" onkeypress="mascara(this)" value="${filial.telefone}"/>
+                            <input class="form-control" type="text" name="telefone" id="telefone" maxlength="14" placeholder="digite o telefone" onkeyup="mascara( this, mtel );" value="${filial.telefone}">
                         </td>
                     </tr>
                     <tr>
                         <td><label for="cep">Cep:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="cep" name="cep" maxlength="9" placeholder="digite o cep"  onblur="pesquisacep(this.value);"/>
+                            <input class="form-control" type="text" id="cep" name="cep" maxlength="9" placeholder="digite o cep"  onblur="pesquisacep(this.value);" value="${filial.endereco.cep}"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="endereco">Logradouro:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="rua" name="rua" readonly="readonly"/>
+                            <input class="form-control" type="text" id="rua" name="rua" readonly="readonly" value="${filial.endereco.logradouro}"/>
                         </td>
                         <td><label for="bairro">Bairro:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="bairro" name="bairro" readonly="readonly"/>
+                            <input class="form-control" type="text" id="bairro" name="bairro" readonly="readonly" value="${filial.endereco.bairro}"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="uf">Uf:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" name="uf" type="text" id="uf" maxlength="2" readonly="readonly"/>
+                            <input class="form-control" name="uf" type="text" id="uf" maxlength="2" readonly="readonly" value="${filial.endereco.estado}"/>
                         </td>
                         <td><label for="cidade">Cidade:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" name="cidade" type="text" id="cidade" maxlength="2" readonly="readonly"/>
+                            <input class="form-control" name="cidade" type="text" id="cidade" maxlength="2" readonly="readonly" value="${filial.endereco.cidade}"/>
                         </td>
                     </tr>
                 </table>

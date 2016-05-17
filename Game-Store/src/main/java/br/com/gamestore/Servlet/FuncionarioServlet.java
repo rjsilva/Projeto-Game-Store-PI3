@@ -5,7 +5,6 @@
  */
 package br.com.gamestore.Servlet;
 
-import br.com.gamestore.dao.EnderecoDao;
 import br.com.gamestore.dao.FilialDao;
 import br.com.gamestore.dao.FuncionarioDao;
 import br.com.gamestore.modelo.Funcionario;
@@ -77,23 +76,9 @@ public class FuncionarioServlet extends HttpServlet {
         Funcionario func = new Funcionario();
 
         if (acao.equals("funcionario")) {
-            try {
-                EnderecoDao edao = new EnderecoDao();
-                FilialDao filialDao = new FilialDao();
-                if (getCidade != null && !"".equals(getCidade)) {
-                    
-                    String idestado = request.getParameter("idEstado");
-                    int id = Integer.parseInt(idestado);
-                    request.setAttribute("listaEstado", edao.listarCidades(id));
-                } else {
-                    request.getSession().setAttribute("listauf", edao.listarUfs());
-                }
-                //request.setAttribute("listafilial", filialDao.buscarPorNome());
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofuncionario.jsp");
-                dispatcher.forward(request, response);
-            } catch (SQLException ex) {
-                Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofuncionario.jsp");
+            dispatcher.forward(request, response);
 
         } else if (acao.equals("excluir")) {
 
@@ -134,7 +119,7 @@ public class FuncionarioServlet extends HttpServlet {
             func.setDt_nascimento(null);
             func.setCargo("");
             func.setLocal_trabalho("");
-            func.getEndereco().setRua("");
+            func.getEndereco().setLogradouro("");
             func.getEndereco().setCep(null);
             func.getEndereco().setBairro("");
             func.getEndereco().setCidade("");
@@ -186,7 +171,7 @@ public class FuncionarioServlet extends HttpServlet {
                 String cargo = request.getParameter("cargo");
                 String local_trabalho = request.getParameter("filial");
 
-                funcionario.getEndereco().setRua(logradouro);
+                funcionario.getEndereco().setLogradouro(logradouro);
                 funcionario.getEndereco().setBairro(bairro);
                 funcionario.getEndereco().setCep(cep);
 
@@ -232,7 +217,7 @@ public class FuncionarioServlet extends HttpServlet {
             String cargo = request.getParameter("cargo");
             String local_trabalho = request.getParameter("filial");
 
-            funcionario.getEndereco().setRua(logradouro);
+            funcionario.getEndereco().setLogradouro(logradouro);
             funcionario.getEndereco().setBairro(bairro);
             funcionario.getEndereco().setCep(cep);
 
