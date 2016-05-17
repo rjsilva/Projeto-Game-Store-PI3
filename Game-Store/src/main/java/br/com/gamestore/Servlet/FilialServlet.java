@@ -13,8 +13,10 @@ import br.com.gamestore.modelo.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.PersistenceException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -71,13 +73,12 @@ public class FilialServlet extends HttpServlet {
         String acao = request.getParameter("acao");
         String getCidade = request.getParameter("getCidades");
 
-        FuncionarioDao fdao = new FuncionarioDao();
-        Funcionario func = new Funcionario();
+        FilialDao filialDao = new FilialDao();
+        Filial filial = new Filial();
+        EnderecoDao edao = new EnderecoDao();
 
         if (acao.equals("filial")) {
             try {
-                EnderecoDao edao = new EnderecoDao();
-                FilialDao filialDao = new FilialDao();
                 if (getCidade != null && !"".equals(getCidade)) {
 
                     String idestado = request.getParameter("idEstado");
@@ -86,7 +87,7 @@ public class FilialServlet extends HttpServlet {
                 } else {
                     request.getSession().setAttribute("listauf", edao.listarUfs());
                 }
-                request.setAttribute("listafilial", filialDao.buscarPorNome());
+                //request.setAttribute("listafilial", filialDao.buscarPorNome());
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofilial.jsp");
                 dispatcher.forward(request, response);
             } catch (SQLException ex) {
@@ -96,14 +97,50 @@ public class FilialServlet extends HttpServlet {
         } else if (acao.equals("mostrartela")) {
 
             try {
-                EnderecoDao edao = new EnderecoDao();
                 request.setAttribute("listauf", edao.listarUfs());
             } catch (SQLException ex) {
                 Logger.getLogger(FilialServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofilial.jsp");
             dispatcher.forward(request, response);
+        } else if (acao.equals("excluir")) {
+            String id = request.getParameter("id");
+            filial.setId(Integer.parseInt(id));
+            if (id != null) {
+                filialDao.excluir(filial);
+                response.sendRedirect("FilialServlet?acao=listar");
+            }
+        } else if (acao.equals("listar")) {
+            try {
+                List<Filial> listafilial = filialDao.listarTodos();
+                request.setAttribute("listafilial", listafilial);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/listafilial.jsp");
+                dispatcher.forward(request, response);
+
+            } catch (PersistenceException | SQLException ex) {
+                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //leva os dados a tela de cadastro filial
+        } else if (acao.equals("atualizar")) {
+            String id = request.getParameter("id");
+            filial = filialDao.buscarPorId(Integer.parseInt(id));
+            request.setAttribute("filial", filial);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofilial.jsp");
+            dispatcher.forward(request, response);
+
+            //seta objeto em branco na tela de cadastro filial
+        } else if (acao.equals("cadastro")) {
+
+            filial.setRazao_social("");
+            filial.setCnpj("");
+            filial.setTelefone("");
+            request.setAttribute("filial", filial);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofilial.jsp");
+            dispatcher.forward(request, response);
+
         }
+
     }
 
     /**
@@ -118,12 +155,11 @@ public class FilialServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String acao = request.getParameter("acao");
+        String id = request.getParameter("id");
         Filial filial = new Filial();
         FilialDao filialDao = new FilialDao();
-        // Endereco endereco = new Endereco();
 
-        if (acao.equals("cadastrofilial")) {
+        if (id.equals("null") || id.isEmpty()) {
 
             String logradouro = request.getParameter("endereco");
             String bairro = request.getParameter("bairro");
@@ -132,7 +168,7 @@ public class FilialServlet extends HttpServlet {
             String cep = request.getParameter("cep");
 
             String razaosocial = request.getParameter("razaosocial");
-            String cnpj = request.getParameter("cnpj");
+            String cnpj = request.getParameter("cpfcnpj");
             String telefone = request.getParameter("telefone");
 
             filial.setRazao_social(razaosocial);
@@ -144,6 +180,32 @@ public class FilialServlet extends HttpServlet {
 
             filialDao.cadastrar(filial);
             response.sendRedirect("FilialServlet?acao=mostrartela");
+
+            /**
+             * ATUALIZAR FILIAL
+             */
+        } else {
+
+            filial.setId(Integer.parseInt(id));
+            String logradouro = request.getParameter("endereco");
+            String bairro = request.getParameter("bairro");
+            String cidade = request.getParameter("cidade");
+            String uf = request.getParameter("uf");
+            String cep = request.getParameter("cep");
+
+            String razaosocial = request.getParameter("razaosocial");
+            String cnpj = request.getParameter("cpfcnpj");
+            String telefone = request.getParameter("telefone");
+
+            filial.setRazao_social(razaosocial);
+            filial.setCnpj(cnpj);
+            filial.setTelefone(telefone);
+            filial.getEndereco().setRua(logradouro);
+            filial.getEndereco().setBairro(bairro);
+            filial.getEndereco().setCep(cep);
+
+            filialDao.atualizar(filial);
+            response.sendRedirect("FilialServlet?acao=listar");
         }
     }
 

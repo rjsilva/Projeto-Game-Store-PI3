@@ -88,7 +88,7 @@ public class FuncionarioServlet extends HttpServlet {
                 } else {
                     request.getSession().setAttribute("listauf", edao.listarUfs());
                 }
-                request.setAttribute("listafilial", filialDao.buscarPorNome());
+                //request.setAttribute("listafilial", filialDao.buscarPorNome());
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofuncionario.jsp");
                 dispatcher.forward(request, response);
             } catch (SQLException ex) {

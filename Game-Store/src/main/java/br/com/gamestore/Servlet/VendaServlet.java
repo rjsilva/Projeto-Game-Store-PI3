@@ -95,7 +95,7 @@ public class VendaServlet extends HttpServlet {
                     Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            request.setAttribute("listafilial", filialDao.buscarPorNome());
+            //request.setAttribute("listafilial", filialDao.buscarPorNome());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/venda.jsp");
             dispatcher.forward(request, response);
         }

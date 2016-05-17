@@ -3,9 +3,14 @@ function botaoVoltar() {
     href.window.location = "AcessorioServlet?acao=cadastro";
 }
 //=====BOTÃO CANCELAR DA PARTE DE CADASTRO DE PRODUTO========//
-function BotaoCancelar() {
+function BotaoCancelarProduto() {
 
     window.location = "AcessorioServlet?acao=listar";
+}
+//=====BOTÃO CANCELAR DA PARTE DE CADASTRO DE FILIAL========//
+function BotaoCancelarFilial() {
+
+    window.location = "FilialServlet?acao=listar";
 }
 
 //======DESABILITA OS BOTÕES SE O ID ESTIVER VÁZIO========//
@@ -258,158 +263,6 @@ function validarTelaVenda(frm) {
     frm.submit();
 }
 
-
-
-function VerificaCPF() {
-    if (vercpf(document.frmcpf.cpf.value))
-    {
-        document.frmcpf.submit();
-    } else
-    {
-        errors = "1";
-        if (errors)
-            alert('CPF NÃO VÁLIDO');
-        document.retorno = (errors == '');
-    }
-}
-
-//...................VALIDA CAMPO CPF..........................//
-function validarCPF(cpf) {
-    var filtro = /^\d{3}.\d{3}.\d{3}-\d{2}$/i;
-    if (!filtro.test(cpf))
-    {
-        window.alert("CPF inválido. Tente novamente.");
-        return false;
-    }
-
-    cpf = remove(cpf, ".");
-    cpf = remove(cpf, "-");
-    if (cpf.length != 11 || cpf == "00000000000" || cpf == "11111111111" ||
-            cpf == "22222222222" || cpf == "33333333333" || cpf == "44444444444" ||
-            cpf == "55555555555" || cpf == "66666666666" || cpf == "77777777777" ||
-            cpf == "88888888888" || cpf == "99999999999")
-    {
-        window.alert("CPF inválido. Tente novamente.");
-        return false;
-    }
-
-    soma = 0;
-    for (i = 0; i < 9; i++)
-    {
-        soma += parseInt(cpf.charAt(i)) * (10 - i);
-    }
-
-    resto = 11 - (soma % 11);
-    if (resto == 10 || resto == 11)
-    {
-        resto = 0;
-    }
-    if (resto != parseInt(cpf.charAt(9))) {
-        window.alert("CPF inválido. Tente novamente.");
-        return false;
-    }
-
-    soma = 0;
-    for (i = 0; i < 10; i++)
-    {
-        soma += parseInt(cpf.charAt(i)) * (11 - i);
-    }
-    resto = 11 - (soma % 11);
-    if (resto == 10 || resto == 11)
-    {
-        resto = 0;
-    }
-
-    if (resto != parseInt(cpf.charAt(10))) {
-        window.alert("CPF inválido. Tente novamente.");
-        return false;
-    }
-
-    return true;
-}
-
-function remove(str, sub) {
-    i = str.indexOf(sub);
-    r = "";
-    if (i == -1)
-        return str;
-    {
-        r += str.substring(0, i) + remove(str.substring(i + sub.length), sub);
-    }
-
-    return r;
-}
-
-/**
- * MASCARA ( mascara(o,f) e execmascara() ) 
- */
-function mascara(o, f) {
-    v_obj = o
-    v_fun = f
-    setTimeout("execmascara()", 1)
-}
-
-function execmascara() {
-    v_obj.value = v_fun(v_obj.value)
-}
-
-function cpf_mask(v) {
-    v = v.replace(/\D/g, "")                 //Remove tudo o que não é dígito
-    v = v.replace(/(\d{3})(\d)/, "$1.$2")    //Coloca ponto entre o terceiro e o quarto dígitos
-    v = v.replace(/(\d{3})(\d)/, "$1.$2")    //Coloca ponto entre o setimo e o oitava dígitos
-    v = v.replace(/(\d{3})(\d)/, "$1-$2")   //Coloca ponto entre o decimoprimeiro e o decimosegundo dígitos
-    return v
-}
-
-//MASCARA CPF E CNPJ//
-
-function mascaraMutuario(o, f) {
-    v_obj = o
-    v_fun = f
-    setTimeout('execmascara()', 1)
-}
-
-function execmascara() {
-    v_obj.value = v_fun(v_obj.value)
-}
-
-function cpfCnpj(v) {
-
-//Remove tudo o que não é dígito
-    v = v.replace(/\D/g, "")
-
-    if (v.length <= 14) { //CPF
-
-//Coloca um ponto entre o terceiro e o quarto dígitos
-        v = v.replace(/(\d{3})(\d)/, "$1.$2")
-
-        //Coloca um ponto entre o terceiro e o quarto dígitos
-        //de novo (para o segundo bloco de números)
-        v = v.replace(/(\d{3})(\d)/, "$1.$2")
-
-        //Coloca um hífen entre o terceiro e o quarto dígitos
-        v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
-
-    } else { //CNPJ
-
-//Coloca ponto entre o segundo e o terceiro dígitos
-        v = v.replace(/^(\d{2})(\d)/, "$1.$2")
-
-        //Coloca ponto entre o quinto e o sexto dígitos
-        v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
-
-        //Coloca uma barra entre o oitavo e o nono dígitos
-        v = v.replace(/\.(\d{3})(\d)/, ".$1/$2")
-
-        //Coloca um hífen depois do bloco de quatro dígitos
-        v = v.replace(/(\d{4})(\d)/, "$1-$2")
-
-    }
-
-    return v
-
-}
-
 //=======FORMATA CAMPO TELEFONE===========///
 function mascara(telefone) {
     if (telefone.value.length == 0)
@@ -442,21 +295,6 @@ function mascaraData(campoData)
     }
 
 }
-//=======FORMATA CAMPO CEP========///
-function mascaraCEP(campocep)
-{
-
-    var cep = campocep.value;
-    if (cep.length == 5)
-    {
-
-        cep = cep + '- ';
-        document.form.cep.value = cep;
-        return true;
-    }
-
-}
-//============================//
 //========FORMATA CAMPO DATA NO FORMATO DD/MM/YYY===========//
 function mascaraData(campoData)
 {
@@ -476,5 +314,223 @@ function mascaraData(campoData)
         document.form.data.value = data;
         return true;
     }
+
+}
+
+//=======PESQUISA CEP===========
+
+function limpa_formulário_cep() {
+    //Limpa valores do formulário de cep.
+    document.getElementById('rua').value = ("");
+    document.getElementById('bairro').value = ("");
+    document.getElementById('cidade').value = ("");
+    document.getElementById('uf').value = ("");
+}
+
+function meu_callback(conteudo) {
+    if (!("erro" in conteudo)) {
+        //Atualiza os campos com os valores.
+        document.getElementById('rua').value = (conteudo.logradouro);
+        document.getElementById('bairro').value = (conteudo.bairro);
+        document.getElementById('cidade').value = (conteudo.localidade);
+        document.getElementById('uf').value = (conteudo.uf);
+    } //end if.
+    else {
+        //CEP não Encontrado.
+        limpa_formulário_cep();
+        alert("CEP não encontrado.");
+    }
+}
+
+function pesquisacep(valor) {
+
+    //Nova variável "cep" somente com dígitos.
+    var cep = valor.replace(/\D/g, '');
+
+    //Verifica se campo cep possui valor informado.
+    if (cep != "") {
+
+        //Expressão regular para validar o CEP.
+        var validacep = /^[0-9]{8}$/;
+
+        //Valida o formato do CEP.
+        if (validacep.test(cep)) {
+
+            //Preenche os campos com "..." enquanto consulta webservice.
+            document.getElementById('rua').value = "...";
+            document.getElementById('bairro').value = "...";
+            document.getElementById('cidade').value = "...";
+            document.getElementById('uf').value = "...";
+
+            //Cria um elemento javascript.
+            var script = document.createElement('script');
+
+            //Sincroniza com o callback.
+            script.src = '//viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+            //Insere script no documento e carrega o conteúdo.
+            document.body.appendChild(script);
+
+        } //end if.
+        else {
+            //cep é inválido.
+            limpa_formulário_cep();
+            alert("Formato de CEP inválido.");
+        }
+    } //end if.
+    else {
+        //cep sem valor, limpa formulário.
+        limpa_formulário_cep();
+    }
+}
+
+//=====VALIDA CPF======
+function validarCPF(cpf) {
+    var filtro = /^\d{3}.\d{3}.\d{3}-\d{2}$/i;
+
+    if (!filtro.test(cpf))
+    {
+        window.alert("CPF inválido. Tente novamente.");
+        document.getElementById('cpf').value = "";
+        return false;
+    }
+
+    cpf = remove(cpf, ".");
+    cpf = remove(cpf, "-");
+
+    if (cpf.length != 11 || cpf == "00000000000" || cpf == "11111111111" ||
+            cpf == "22222222222" || cpf == "33333333333" || cpf == "44444444444" ||
+            cpf == "55555555555" || cpf == "66666666666" || cpf == "77777777777" ||
+            cpf == "88888888888" || cpf == "99999999999")
+    {
+        window.alert("CPF inválido. Tente novamente.");
+        document.getElementById('cpf').value = "";
+        return false;
+    }
+
+    soma = 0;
+    for (i = 0; i < 9; i++)
+    {
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
+    }
+
+    resto = 11 - (soma % 11);
+    if (resto == 10 || resto == 11)
+    {
+        resto = 0;
+    }
+    if (resto != parseInt(cpf.charAt(9))) {
+        window.alert("CPF inválido. Tente novamente.");
+        document.getElementById('cpf').value = "";
+        return false;
+    }
+
+    soma = 0;
+    for (i = 0; i < 10; i++)
+    {
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
+    }
+    resto = 11 - (soma % 11);
+    if (resto == 10 || resto == 11)
+    {
+        resto = 0;
+    }
+
+    if (resto != parseInt(cpf.charAt(10))) {
+        window.alert("CPF inválido. Tente novamente.");
+        document.getElementById('cpf').value = "";
+        return false;
+    }
+
+    return true;
+}
+
+function remove(str, sub) {
+    i = str.indexOf(sub);
+    r = "";
+    if (i == -1)
+        return str;
+    {
+        r += str.substring(0, i) + remove(str.substring(i + sub.length), sub);
+    }
+
+    return r;
+}
+
+/**
+ * MASCARA ( mascara(o,f) e execmascara() ) CRIADAS POR ELCIO LUIZ
+ * elcio.com.br
+ */
+function mascara(o, f) {
+    v_obj = o
+    v_fun = f
+    setTimeout("execmascara()", 1)
+}
+
+function execmascara() {
+    v_obj.value = v_fun(v_obj.value)
+}
+
+function cpf_mask(v) {
+    v = v.replace(/\D/g, "")                 //Remove tudo o que não é dígito
+    v = v.replace(/(\d{3})(\d)/, "$1.$2")    //Coloca ponto entre o terceiro e o quarto dígitos
+    v = v.replace(/(\d{3})(\d)/, "$1.$2")    //Coloca ponto entre o setimo e o oitava dígitos
+    v = v.replace(/(\d{3})(\d)/, "$1-$2")   //Coloca ponto entre o decimoprimeiro e o decimosegundo dígitos
+    return v
+}
+
+//========VALIDA CNPJ======
+function validarCNPJ(cnpj) {
+
+    cnpj = cnpj.replace(/[^\d]+/g, '');
+
+    if (cnpj == '')
+        return false;
+
+    if (cnpj.length != 14)
+        return false;
+
+    // Elimina CNPJs invalidos conhecidos
+    if (cnpj == "00000000000000" ||
+            cnpj == "11111111111111" ||
+            cnpj == "22222222222222" ||
+            cnpj == "33333333333333" ||
+            cnpj == "44444444444444" ||
+            cnpj == "55555555555555" ||
+            cnpj == "66666666666666" ||
+            cnpj == "77777777777777" ||
+            cnpj == "88888888888888" ||
+            cnpj == "99999999999999")
+        return false;
+
+    // Valida DVs
+    tamanho = cnpj.length - 2
+    numeros = cnpj.substring(0, tamanho);
+    digitos = cnpj.substring(tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(0))
+        return false;
+
+    tamanho = tamanho + 1;
+    numeros = cnpj.substring(0, tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(1))
+        return false;
+
+    return true;
 
 }

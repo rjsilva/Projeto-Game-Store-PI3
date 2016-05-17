@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Filial implements Serializable{
     
     
-    private Long id;
+    private Integer id;
     
     private String razao_social;
     
@@ -55,21 +55,6 @@ public class Filial implements Serializable{
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     /**
      * @return the cnpj
      */
@@ -97,6 +82,19 @@ public class Filial implements Serializable{
     public void setRazao_social(String razao_social) {
         this.razao_social = razao_social;
     }
-    
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
     
 }

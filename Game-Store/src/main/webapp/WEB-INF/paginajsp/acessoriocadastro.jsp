@@ -76,7 +76,7 @@
                 <div class="col-sm-5">
                     <input class="btn btn-primary" id="btncadastrar" type="submit" value="Cadastrar"/>
                     <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
-                    <input class="btn btn-primary" id="btncancelar" type="button" value="Cancelar" onclick="BotaoCancelar()"/>
+                    <input class="btn btn-primary" id="btncancelar" type="button" value="Cancelar" onclick="BotaoCancelarProduto()"/>
                 </div>
             </form>
         </div>

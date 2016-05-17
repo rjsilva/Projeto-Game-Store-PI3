@@ -22,7 +22,7 @@
             function inicial() {
 
                 document.getElementById("uf").value = ${param.idEstado != null ? param.idEstado : '0'};
-                
+
             }
             function SelecionaComboEstado(combo) {
 
@@ -52,7 +52,7 @@
                     <tr>
                         <td><label for="cpf">CPF:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="cpf" name="cpf" placeholder="digite o cpf" value${func.cpf} onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);"  maxlength="14"/>
+                            <input class="form-control" type="text" name="cpf" id="cpf" onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);"  maxlength="14" placeholder="digite o cpf" />
                         </td>
                     </tr>
                     <tr>
@@ -70,52 +70,34 @@
                     <tr>
                         <td><label for="cargo">Cargo:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="cargo" name="cargo" placeholder="digite data dascimento" value="${func.cargo}"/>
+                            <input class="form-control" type="text" id="cargo" name="cargo" placeholder="digite o cargo do funcionário"/>
                         </td>
-                        <td><label for="acessorio">Filial:</label></td>
+
+                    </tr>
+                    <tr>
+                        <td><label for="cep">Cep:</label></td>
                         <td class="col-sm-2">
-                            <select class="form-control" name="filial" id="filial">
-                                <option value="0">Selecione filial</option>
-                                <c:forEach items="${listafilial}" var="filial">
-                                    <option value="${filial.id}">${filial.razao_social}</option>
-                                </c:forEach>
-                            </select>
+                            <input class="form-control" type="text" id="cep" name="cep" maxlength="9" placeholder="digite o cep"  onblur="pesquisacep(this.value);" />
                         </td>
                     </tr>
                     <tr>
                         <td><label for="endereco">Logradouro:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="endereco" name="endereco" placeholder="digite a rua" value="${func.endereco.logradouro}"/>
+                            <input class="form-control" type="text" id="rua" name="rua" readonly="readonly"/>
                         </td>
-                        <td><label for="cep">Cep:</label></td>
+                        <td><label for="bairro">Bairro:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="cep" name="cep" placeholder="digite a cep" maxlength="9" value="${func.endereco.cep}"/>
+                            <input class="form-control" type="text" id="bairro" name="bairro" readonly="readonly"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="uf">Uf:</label></td>
                         <td class="col-sm-2">
-                            <select class="form-control" name="uf" id="uf" onchange="SelecionaComboEstado(this)">
-                                <option value="0">Selecione um Estado</option>
-                                <c:forEach items="${listauf}" var="uf">
-                                    <option value="${uf.id}">${uf.nome}</option>
-                                </c:forEach>
-                            </select>
+                            <input class="form-control" name="uf" type="text" id="uf" maxlength="2" readonly="readonly"/>
                         </td>
                         <td><label for="cidade">Cidade:</label></td>
                         <td class="col-sm-2">
-                            <select class="form-control" name="cidade" id="cidade">
-                                <option value="0">Selecione uma cidade</option>
-                                <c:forEach items="${listaEstado}" var="cidade">
-                                    <option value="${cidade.id}">${cidade.nome}</option>
-                                </c:forEach>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="bairro">Bairro:</label></td>
-                        <td class="col-sm-2">
-                            <input class="form-control" type="text" id="bairro" name="bairro" placeholder="digite o bairro" value="${func.endereco.bairro}"/>
+                            <input class="form-control" name="cidade" type="text" id="cidade" maxlength="2" readonly="readonly" />
                         </td>
                     </tr>
                 </table>

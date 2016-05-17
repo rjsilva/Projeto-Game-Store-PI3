@@ -8,13 +8,11 @@ package br.com.gamestore.dao;
 import br.com.gamestore.exception.PersistenciaException;
 import br.com.gamestore.modelo.Usuario;
 import com.mycompany.gamestore.util.Conexao;
-import static com.sun.org.glassfish.external.amx.AMXUtil.prop;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import javax.websocket.Session;
 
 /**
  *

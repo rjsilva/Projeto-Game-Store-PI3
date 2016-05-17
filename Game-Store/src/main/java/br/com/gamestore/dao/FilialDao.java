@@ -5,6 +5,7 @@
  */
 package br.com.gamestore.dao;
 
+import br.com.gamestore.Servlet.FilialServlet;
 import br.com.gamestore.Servlet.FuncionarioServlet;
 import br.com.gamestore.modelo.Filial;
 import com.mycompany.gamestore.util.Conexao;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.PersistenceException;
 
 /**
  *
@@ -56,42 +58,105 @@ public class FilialDao implements GenericDao<Filial> {
             stmfilial.setString(4, filial.getTelefone());
             stmfilial.execute();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+
+            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 
     @Override
-    public void excluir(Filial Obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void excluir(Filial filial) {
+
+        String sql = "DELETE FROM TB_FILIAL WHERE ID_FILIAL=?";
+
+        try {
+
+            Connection conexao = Conexao.obterConexao();
+
+            PreparedStatement stm = conexao.prepareStatement(sql);
+            stm.setLong(1, filial.getId());
+            stm.execute();
+        } catch (SQLException ex) {
+
+            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
     }
 
     @Override
-    public void atualizar(Filial obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void atualizar(Filial filial) {
+
+        String sql = "UPDATE TB_FILIAL SET RAZAO_SOCIAL=? , CNPJ=? ,TELEFONE=?"
+                + " WHERE ID_FILIAL=?";
+        try {
+
+            Connection conexao = Conexao.obterConexao();
+            PreparedStatement stm = conexao.prepareStatement(sql);
+            stm.setString(1, filial.getRazao_social());
+            stm.setString(2, filial.getCnpj());
+            stm.setString(3, filial.getTelefone());
+            stm.setInt(4, filial.getId());
+
+            stm.execute();
+            stm.close();
+        } catch (SQLException ex) {
+
+            Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
     }
 
     @Override
     public Filial buscarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    public List<Filial> buscarPorNome() {
 
-        String sql = "SELECT RAZAO_SOCIAL FROM TB_FILIAL";
-
-        List<Filial> listaFilial = new ArrayList<>();
+        String sql = "SELECT * FROM TB_FILIAL WHERE ID_FILIAL=?";
 
         try {
 
             Connection conexao = Conexao.obterConexao();
             PreparedStatement stm = conexao.prepareStatement(sql);
+
+            stm.setInt(1, id);
+            ResultSet resultados = stm.executeQuery();
+            while (resultados.next()) {
+                Filial filial = new Filial();
+                filial.setId(resultados.getInt("ID_FILIAL"));
+                filial.setRazao_social(resultados.getString("RAZAO_SOCIAL"));
+                filial.setCnpj(resultados.getString("CNPJ"));
+                filial.setTelefone(resultados.getString("TELEFONE"));
+
+                return filial;
+            }
+
+        } catch (Exception ex) {
+
+            Logger.getLogger(FilialServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Filial buscarPorNome(String nome) {
+
+        String sql = "SELECT * FROM TB_FILIAL WHERE RAZAO_SOCIAL = ?";
+
+        try {
+
+            Connection conexao = Conexao.obterConexao();
+            PreparedStatement stm = conexao.prepareStatement(sql);
+
+            stm.setString(1, nome);
+
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
                 Filial filial = new Filial();
                 filial.setRazao_social(resultados.getString("RAZAO_SOCIAL"));
-                listaFilial.add(filial);
+                filial.setCnpj(resultados.getString("CNPJ"));
+                filial.setTelefone(resultados.getString("TELEFONE"));
+
+                return filial;
             }
 
         } catch (Exception ex) {
@@ -99,7 +164,35 @@ public class FilialDao implements GenericDao<Filial> {
             Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return listaFilial;
+        return null;
+    }
+
+    public List<Filial> listarTodos() throws PersistenceException, SQLException {
+
+        Statement stmt = null;
+        Connection conn = null;
+
+        String sql = "SELECT * FROM TB_FILIAL";
+        List<Filial> listafilial = new ArrayList<>();
+
+        try {
+            Connection conexao = Conexao.obterConexao();
+            PreparedStatement stm = conexao.prepareStatement(sql);
+            ResultSet resultados = stm.executeQuery();
+            while (resultados.next()) {
+                Filial filial = new Filial();
+                filial.setId(resultados.getInt("ID_FILIAL"));
+                filial.setRazao_social(resultados.getString("RAZAO_SOCIAL"));
+                filial.setCnpj(resultados.getString("CNPJ"));
+                filial.setTelefone(resultados.getString("TELEFONE"));
+
+                listafilial.add(filial);
+            }
+
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        return listafilial;
     }
 
 }
