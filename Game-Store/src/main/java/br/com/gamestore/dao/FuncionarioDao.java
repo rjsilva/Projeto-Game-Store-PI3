@@ -50,17 +50,25 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
 
                 codeEndereco = rs.getInt(1);
             }
+            String razaosocial = null;
+            String sqlproduto = "SELECT * FROM TB_FILIAL WHERE ID_FILIAL = " + funcionario.getLocal_trabalho();
+            PreparedStatement stm = conexao.prepareStatement(sqlproduto);
+            ResultSet result = stm.executeQuery();
+            result.next();
+            razaosocial = result.getString("RAZAO_SOCIAL");
 
-            String sqlfuncionario = "INSERT INTO TB_FUNCIONARIO(ID_ENDERECO,NOME_FUNCIONARIO, CPF, TELEFONE, DT_NASCIMENTO, CARGO,LOCAL_TRABALHO) VALUES(?,?,?,?,?,?,?)";
+            String sqlfuncionario = "INSERT INTO TB_FUNCIONARIO(ID_ENDERECO,ID_FILIAL,NOME_FUNCIONARIO, CPF, TELEFONE, DT_NASCIMENTO, CARGO,LOCAL_TRABALHO)"
+                    + " VALUES(?,?,?,?,?,?,?,?)";
             PreparedStatement stmfuncionario = conexao.prepareStatement(sqlfuncionario, Statement.RETURN_GENERATED_KEYS);
 
             stmfuncionario.setInt(1, codeEndereco);
-            stmfuncionario.setString(2, funcionario.getNome());
-            stmfuncionario.setString(3, funcionario.getCpf());
-            stmfuncionario.setString(4, funcionario.getTelefone());
-            stmfuncionario.setDate(5, new java.sql.Date(funcionario.getDt_nascimento().getTime()));
-            stmfuncionario.setString(6, funcionario.getCargo());
-            stmfuncionario.setString(7, funcionario.getLocal_trabalho());
+            stmfuncionario.setString(2, funcionario.getLocal_trabalho());
+            stmfuncionario.setString(3, funcionario.getNome());
+            stmfuncionario.setString(4, funcionario.getCpf());
+            stmfuncionario.setString(5, funcionario.getTelefone());
+            stmfuncionario.setDate(6, new java.sql.Date(funcionario.getDt_nascimento().getTime()));
+            stmfuncionario.setString(7, funcionario.getCargo());
+            stmfuncionario.setString(8, razaosocial);
 
             stmfuncionario.executeUpdate();
 

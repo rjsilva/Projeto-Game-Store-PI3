@@ -30,14 +30,46 @@ public class VendaDao {
 
         try {
 
-            String sqlvenda = "INSERT INTO TB_VENDA(ID_FUNCIONARIO, NOME_ACESSORIO, NOME_FILIAL, DATA_VENDA, QUANTIDADE_VENDA)"
-                    + " VALUES(?,?,?,?,?)";
+            /**
+             * PEGA O NOME DO FUNCIONARIO NA SESSÃO E BUSCA A FILIAL NO QUAL O MESMO TRABALHA
+             */
+            String nomeFuncionario = null;
+            String nomeFilial = null;
+            Double preco = null;
+            String sqlfuncionariofilial = "SELECT NOME_FUNCIONARIO, RAZAO_SOCIAL FROM TB_FUNCIONARIO\n"
+                    + "INNER JOIN TB_FILIAL ON TB_FUNCIONARIO.ID_FILIAL = TB_FUNCIONARIO.ID_FILIAL\n"
+                    + "WHERE NOME_FUNCIONARIO = " + venda.getFuncionario().getNome();
+
+            PreparedStatement stmfuncionariofilial = conexao.prepareStatement(sqlfuncionariofilial);
+            ResultSet resultfuncionariofilial = stmfuncionariofilial.executeQuery();
+            resultfuncionariofilial.next();
+            nomeFuncionario = resultfuncionariofilial.getString("NOME_FUNCIONARIO");
+            nomeFilial = resultfuncionariofilial.getString("RAZAO_SOCIAL");
+
+            /**
+             * PEGA O PREÇO DO PRODUTO NA TABELA DE PRODUTOS
+             */
+            String sqlprecoproduto = "SELECT PRECO FROM TB_ACESSORIOS\n"
+                    + "WHERE ID_ACESSORIO = " + venda.getAcessorio().getNome();
+            PreparedStatement stmprecoproduto = conexao.prepareStatement(sqlprecoproduto);
+            ResultSet resultprecoproduto = stmprecoproduto.executeQuery();
+            resultprecoproduto.next();
+            preco = resultprecoproduto.getDouble("PRECO");
+            
+            /**
+             * FAZ O INSERT NA TABELA DE VENDA DE PRODUTO
+             */
+
+            String sqlvenda = "INSERT INTO TB_VENDA(NOME_PRODUTO,NOME_FUNCIONARIO, NOME_FILIAL,DATA_VENDA, QUANTIDADE_VENDA, PRECO)"
+                    + " VALUES(?,?,?,?,?,?)";
             PreparedStatement stm = conexao.prepareStatement(sqlvenda);
-            stm.setInt(1, venda.getFuncionario().getId());
-            stm.setString(2, venda.getAcessorio().getNome());
-            stm.setString(3, venda.getFilial().getRazao_social());
-            stm.setDate(4, new java.sql.Date(venda.getDtvenda().getTime()));
+            stm.setString(1, venda.getAcessorio().getNome());
+            stm.setString(2, nomeFuncionario);
+            stm.setString(3, nomeFilial);
+            stm.setDate(4, new java.sql.Date(System.currentTimeMillis()));
             stm.setInt(5, venda.getQuantidade());
+            stm.setDouble(6, preco);
+
             stm.execute();
             Acessorio ac = new Acessorio();
             int quant = 0, resul = 0;
@@ -54,9 +86,9 @@ public class VendaDao {
             stm.close();
 
         } catch (Exception ex) {
-            
-              Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
-            
+
+            Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
+
         }
 
     }

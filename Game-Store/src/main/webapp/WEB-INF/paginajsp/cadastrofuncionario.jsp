@@ -18,11 +18,12 @@
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Cadastro Funcionário</title>
     </head>
-    <body onload="desabilitaBotao()">
+    <body onload="desabilitaTelaUsuario()">
         <jsp:include page="../template/cabecalho.jsp"/>
         <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
-            <form action="FuncionarioServlet?acao=cadastrofuncionario" method="post" name="form" onsubmit="validarCamposFuncionario(this); return false;">
+            <form action="FuncionarioServlet?acao=cadastrofuncionario" method="post" name="form" onsubmit="validarCamposFuncionario(this);
+                    return false;">
                 <h3>Cadastro Funcionário</h3>
                 <table>
                     <tr>
@@ -30,7 +31,7 @@
                         <td class="col-sm-2">
                             <input class="form-control" type="text" id="nomefuncionario" name="nomefuncionario" placeholder="digite seu nome" value="${func.nome}"/>
                         </td>
-                        <td></td>
+                        <td><label for="codigo">Código:</label></td>
                         <td class="col-sm-2">
                             <input class="form-control" id="id" name="id" type="text" value="${func.id}" readonly="readonly"/>
                         </td>
@@ -39,6 +40,10 @@
                         <td><label for="cpf">CPF:</label></td>
                         <td class="col-sm-2">
                             <input class="form-control" type="text" name="cpf" id="cpf" onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);"  maxlength="14" placeholder="digite o cpf" value="${func.cpf}"/>
+                        </td>
+                        <td><label for="perfil">Perfil:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" id="perfil" name="perfil" type="text" readonly="readonly" value=" ${sessionScope.user.perfil.toUpperCase()}" onmouseover="desabilitaTelaUsuario()"/>
                         </td>
                     </tr>
                     <tr>
@@ -64,7 +69,6 @@
                                 <option value="0">Selecione Filial</option>
                                 <c:forEach items="${listafilial}" var="filial">
                                     <option value="${filial.id}">${filial.razao_social}</option>
-                                    <option value="${func.local_trabalho}"></option>
                                 </c:forEach>
                             </select>
                         </td>

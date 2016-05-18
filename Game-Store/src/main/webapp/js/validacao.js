@@ -15,13 +15,9 @@ function desabilitaBotao() {
 //DESABILTA A TELA CRIAR USUÁRIO CASO O USUÁRIO NÃO TEM PERMISSÃO DE CRIAR USUÁRIOS PARA O SISTEMA//
 function desabilitaTelaUsuario() {
 
-    var user = document.getElementById("user").value;
-    if (user != "ADMIN") {
+    if (document.getElementById('perfil').value === 'GERENTE') {
 
-        document.getElementById("usuario").disabled = true;
-        document.getElementById("senha").disabled = true;
-        document.getElementById("perfil").disabled = true;
-        document.getElementById("btncriarusuario").style.display = 'none';
+        document.getElementById("linkcadastrofuncionario").style.display = 'none';
     }
 }
 

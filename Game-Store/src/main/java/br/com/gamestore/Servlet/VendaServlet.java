@@ -117,25 +117,12 @@ public class VendaServlet extends HttpServlet {
 
         if (acao.equals("registrarvenda")) {
             String nomeproduto = request.getParameter("nomeproduto");
-            String codigofuncionario = request.getParameter("codigofuncionario");
-            String datavenda = request.getParameter("dtvenda");
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            Date data = null;
-            try {
-                data = formato.parse(datavenda);
-
-            } catch (ParseException ex) {
-                Logger.getLogger(VendaServlet.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
-            String filial = request.getParameter("filial");
             String qtvenda = request.getParameter("quantvenda");
+            String nomefuncionario = request.getParameter("funcionario");
 
             venda.getAcessorio().setNome(nomeproduto);
-            venda.getFuncionario().setId(Integer.parseInt(codigofuncionario));
-            venda.setDtvenda(data);
-            venda.getFilial().setRazao_social(filial);
             venda.setQuantidade(Integer.parseInt(qtvenda));
+            venda.getFuncionario().setNome(nomefuncionario);
 
             try {
                 vdao.registrarVenda(venda);

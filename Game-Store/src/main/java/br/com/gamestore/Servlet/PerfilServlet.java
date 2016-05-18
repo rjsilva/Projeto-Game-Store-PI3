@@ -5,10 +5,16 @@
  */
 package br.com.gamestore.Servlet;
 
+import br.com.gamestore.dao.FuncionarioDao;
 import br.com.gamestore.dao.UsuarioDao;
+import br.com.gamestore.modelo.Funcionario;
 import br.com.gamestore.modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,9 +60,16 @@ public class PerfilServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String acao = request.getParameter("acao");
+        FuncionarioDao funcDao = new FuncionarioDao();
 
         if (acao.equals("mostrartelausuario")) {
 
+            try {
+                List<Funcionario> listafuncionario = funcDao.listarTodosFuncionario();
+                request.getSession().setAttribute("listafuncionario", listafuncionario);
+            } catch (SQLException ex) {
+                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/criarusuario.jsp");
             dispatcher.forward(request, response);
         }
@@ -66,20 +79,21 @@ public class PerfilServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-      
         String id = request.getParameter("id");
         Usuario user = new Usuario();
         UsuarioDao userDao = new UsuarioDao();
 
         if (id.equals("null") || id.isEmpty()) {
 
-            String usuario = request.getParameter("usuario");
+            String nome = request.getParameter("funcionario");
+            String usuario = request.getParameter("login");
             String senha = request.getParameter("senha");
             String perfil = request.getParameter("perfil");
 
-            user.setUsuario(usuario);
+            user.setLogin(usuario);
             user.setSenha(senha);
             user.setPerfil(perfil);
+            user.setNome(nome);
 
             userDao.cadastrar(user);
             //response.sendRedirect("AcessorioServlet?acao=criarusuario");

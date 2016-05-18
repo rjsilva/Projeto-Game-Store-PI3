@@ -3,7 +3,7 @@
     Created on : 25/04/2016, 14:03:31
     Author     : rjs
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -26,13 +26,24 @@
                     <tr>
                         <td></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="hidden" id="user" value="${sessionScope.user.usuario.toUpperCase()}"/>
+                            <input class="form-control" type="hidden" id="user" value="${sessionScope.user.login.toUpperCase()}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="acessorio">Funcionário:</label></td>
+                        <td class="col-sm-2">
+                            <select class="form-control" name="funcionario" id="funcionario">
+                                <option value="0">Selecione um Acessório</option>
+                                <c:forEach items="${listafuncionario}" var="funcionario">
+                                    <option value="${funcionario.nome}">${funcionario.nome}</option>
+                                </c:forEach>
+                            </select>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="login">Login:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="usuario" name="usuario" placeholder="digite o login"/>
+                            <input class="form-control" type="text" id="login" name="login" placeholder="digite o login"/>
                         </td>
                         <td><label for="acessorio">Código:</label></td>
                         <td class="col-sm-2">

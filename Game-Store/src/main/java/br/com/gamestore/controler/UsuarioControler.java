@@ -10,7 +10,6 @@ import br.com.gamestore.exception.ControleException;
 import br.com.gamestore.exception.PersistenciaException;
 import br.com.gamestore.modelo.Usuario;
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +27,7 @@ public class UsuarioControler {
             String senha = request.getParameter("senha");
 
             Usuario user = new Usuario();
-            user.setUsuario(usuario);
+            user.setLogin(usuario);
             user.setSenha(senha);
 
             UsuarioDao userDao = new UsuarioDao();

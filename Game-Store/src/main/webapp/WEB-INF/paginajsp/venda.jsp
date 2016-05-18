@@ -48,26 +48,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="codigofuncionario">Código Funcionário:</label></td>
+                        <td><label for="funcionario">Funcionário:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="codigofuncionario" name="codigofuncionario" placeholder="digite o seu nome"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="dtvenda">Data Venda:</label></td>
-                        <td class="col-sm-2">
-                            <input class="form-control" type="text" id="dtvenda" name="dtvenda" placeholder="data venda"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="acessorio">Filial:</label></td>
-                        <td class="col-sm-2">
-                            <select class="form-control" name="filial" id="filial">
-                                <option value="0">Selecione uma filial</option>
-                                <c:forEach items="${listafilial}" var="filial">
-                                    <option value="${filial.razao_social}">${filial.razao_social}</option>
-                                </c:forEach>
-                            </select>
+                            <input class="form-control" type="text" id="funcionario" name="funcionario" placeholder="digite o seu nome" value="${sessionScope.user.nome.toUpperCase()}"/>
                         </td>
                     </tr>
                     <tr>

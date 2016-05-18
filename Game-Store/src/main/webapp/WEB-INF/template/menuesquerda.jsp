@@ -4,7 +4,7 @@
         <li><a href="AcessorioServlet?acao=cadastro">Cadastro Produto</a></li>
         <li><a href="FilialServlet?acao=mostrartela">Cadastro Filial</a></li>
         <li><a href="#">Cadastro Fornecedor</a></li>
-        <li><a href="FuncionarioServlet?acao=funcionario">Cadastro Funcionário</a></li>
+        <li><a href="FuncionarioServlet?acao=funcionario" id="linkcadastrofuncionario">Cadastro Funcionário</a></li>
         <li><a href="AcessorioServlet?acao=listar">Estoque de Produtos</a></li>
         <li><a href="FuncionarioServlet?acao=listar">Lista de Funcionário</a></li>
         <li><a href="FilialServlet?acao=listar">Lista de Filial</a></li>

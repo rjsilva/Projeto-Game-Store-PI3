@@ -6,6 +6,7 @@
 package br.com.gamestore.Servlet;
 
 import br.com.gamestore.controler.UsuarioControler;
+import br.com.gamestore.dao.UsuarioDao;
 import br.com.gamestore.exception.ControleException;
 import br.com.gamestore.modelo.Usuario;
 import java.io.IOException;
@@ -27,9 +28,10 @@ public class UsuarioServlet extends HttpServlet {
         String acao = request.getParameter("acao");
         String proxima = null;
         Usuario user = new Usuario();
+        UsuarioDao usedao = new UsuarioDao();
 
         String login = request.getParameter("login");
-        user.setUsuario(login);
+        user.setLogin(login);
 
         if ("sair".equals(acao)) {
             proxima = "login1.jsp";
@@ -45,10 +47,10 @@ public class UsuarioServlet extends HttpServlet {
                 proxima = "login1.jsp";
             }
         }
+        user = usedao.buscarUsuarioPorNome(login);
         request.getSession().setAttribute("user", user);
         request.getRequestDispatcher(proxima).forward(request, response);
     }
-
 
 //    @Override
 //    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,5 +74,4 @@ public class UsuarioServlet extends HttpServlet {
 //            response.sendRedirect("AcessorioServlet?acao=cadastro");
 //        }
 //    }
-
 }

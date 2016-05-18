@@ -13,26 +13,16 @@ import java.io.Serializable;
  */
 public class Usuario implements Serializable{
     
-    private Integer ID;
-    private String usuario;
+    private Integer id;
+    
+    private String login;
+    
     private String senha;
+    
     private String perfil;
+    
+    private String nome;
 
- 
-
-    /**
-     * @return the usuario
-     */
-    public String getUsuario() {
-        return usuario;
-    }
-
-    /**
-     * @param usuario the usuario to set
-     */
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
 
     /**
      * @return the senha
@@ -49,20 +39,6 @@ public class Usuario implements Serializable{
     }
 
     /**
-     * @return the ID
-     */
-    public Integer getID() {
-        return ID;
-    }
-
-    /**
-     * @param ID the ID to set
-     */
-    public void setID(Integer ID) {
-        this.ID = ID;
-    }
-
-    /**
      * @return the perfil
      */
     public String getPerfil() {
@@ -74,6 +50,48 @@ public class Usuario implements Serializable{
      */
     public void setPerfil(String perfil) {
         this.perfil = perfil;
+    }
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the login
+     */
+    public String getLogin() {
+        return login;
+    }
+
+    /**
+     * @param login the login to set
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    /**
+     * @return the nome
+     */
+    public String getNome() {
+        return nome;
+    }
+
+    /**
+     * @param nome the nome to set
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
 }
