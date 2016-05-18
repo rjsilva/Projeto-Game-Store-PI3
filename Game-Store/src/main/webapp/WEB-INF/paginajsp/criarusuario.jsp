@@ -39,21 +39,26 @@
                                 </c:forEach>
                             </select>
                         </td>
+                        <td><label for="acessorio">Código:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" readonly="readonly" id="id" name="id" value="${ac.id}"/>
+                        </td>
+                    <tr>
+                        <td><label for="acessorio">Filial:</label></td>
+                        <td class="col-sm-2">
+                            <select class="form-control" name="filial" id="filial">
+                                <option value="0">Selecione Filial</option>
+                                <c:forEach items="${listafilial}" var="filial">
+                                    <option value="${filial.razao_social}">${filial.razao_social}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
                     </tr>
                     <tr>
                         <td><label for="login">Login:</label></td>
                         <td class="col-sm-2">
                             <input class="form-control" type="text" id="login" name="login" placeholder="digite o login"/>
-                        </td>
-                        <td><label for="acessorio">Código:</label></td>
-                        <td class="col-sm-2">
-                            <input class="form-control" type="text" readonly="readonly" id="id" name="id" value="${ac.id}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="senha">Senha:</label></td>
-                        <td class="col-sm-2">
-                            <input class="form-control" type="password" id="senha" name="senha" placeholder="digite a senha"/>
                         </td>
                     </tr>
                     <tr>

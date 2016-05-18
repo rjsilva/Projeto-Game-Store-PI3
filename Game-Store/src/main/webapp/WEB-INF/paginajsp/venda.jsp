@@ -50,7 +50,7 @@
                     <tr>
                         <td><label for="funcionario">Funcionário:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="funcionario" name="funcionario" placeholder="digite o seu nome" value="${sessionScope.user.nome.toUpperCase()}"/>
+                            <input class="form-control" type="text" id="funcionario" name="funcionario" placeholder="digite o seu nome" value="${sessionScope.user.id}"/>
                         </td>
                     </tr>
                     <tr>

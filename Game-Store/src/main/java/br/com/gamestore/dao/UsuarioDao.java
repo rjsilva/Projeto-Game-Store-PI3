@@ -46,6 +46,7 @@ public class UsuarioDao implements GenericDao<Usuario> {
     @Override
     public void cadastrar(Usuario user) {
         try {
+
             Connection conexao = Conexao.obterConexao();
             String sql = "INSERT INTO TB_USUARIO(LOGIN, SENHA, PERFIL, NOME_USUARIO)"
                     + "values(?,?,?,?)";
@@ -54,6 +55,7 @@ public class UsuarioDao implements GenericDao<Usuario> {
             stm.setString(2, user.getSenha());
             stm.setString(3, user.getPerfil());
             stm.setString(4, user.getNome());
+
             stm.execute();
             stm.close();
         } catch (SQLException e) {

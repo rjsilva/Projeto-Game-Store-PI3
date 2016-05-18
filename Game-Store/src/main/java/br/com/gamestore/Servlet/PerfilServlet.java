@@ -5,14 +5,17 @@
  */
 package br.com.gamestore.Servlet;
 
+import br.com.gamestore.dao.FilialDao;
 import br.com.gamestore.dao.FuncionarioDao;
 import br.com.gamestore.dao.UsuarioDao;
+import br.com.gamestore.modelo.Filial;
 import br.com.gamestore.modelo.Funcionario;
 import br.com.gamestore.modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -21,6 +24,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 
 /**
  *
@@ -61,12 +66,15 @@ public class PerfilServlet extends HttpServlet {
 
         String acao = request.getParameter("acao");
         FuncionarioDao funcDao = new FuncionarioDao();
+        FilialDao filialDao = new FilialDao();
 
         if (acao.equals("mostrartelausuario")) {
 
             try {
                 List<Funcionario> listafuncionario = funcDao.listarTodosFuncionario();
+                List<Filial> listafilial = filialDao.listarTodos();
                 request.getSession().setAttribute("listafuncionario", listafuncionario);
+                request.getSession().setAttribute("listafilial", listafilial);
             } catch (SQLException ex) {
                 Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -87,13 +95,34 @@ public class PerfilServlet extends HttpServlet {
 
             String nome = request.getParameter("funcionario");
             String usuario = request.getParameter("login");
-            String senha = request.getParameter("senha");
+            UUID uuid = UUID.randomUUID();
+            String senha = uuid.toString();
             String perfil = request.getParameter("perfil");
 
             user.setLogin(usuario);
-            user.setSenha(senha);
+            user.setSenha(senha.replaceAll("-", "").substring(0, 8));
             user.setPerfil(perfil);
             user.setNome(nome);
+            
+            SimpleEmail email = new SimpleEmail();
+            email.setHostName("localhost:1527"); // o servidor SMTP para envio do e-mail
+            try {
+                email.addTo("silvarjronaldo@gmail.com", "ronaldo"); //destinatário
+                email.setFrom("me@apache.org", "Me"); //remetente
+            } catch (EmailException ex) {
+                Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            email.setSubject("Mensagem de Teste"); // assunto do e-mail
+            try {
+                email.setMsg(senha); //conteudo do e-mail
+            } catch (EmailException ex) {
+                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                email.send(); //envia o e-mail
+            } catch (EmailException ex) {
+                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             userDao.cadastrar(user);
             //response.sendRedirect("AcessorioServlet?acao=criarusuario");
