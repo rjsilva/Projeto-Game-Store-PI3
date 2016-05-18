@@ -249,7 +249,7 @@ function validarTelaVenda(frm) {
     if (frm.quantvenda.value == 0) {
 
         alert("Informe a quantidade do produto");
-        
+
         return false;
     }
     if (frm.quantvenda.value > frm.qtdestoque.value) {
@@ -258,7 +258,7 @@ function validarTelaVenda(frm) {
 
         return false;
     } else {
-        
+
         frm.submit();
     }
 }
@@ -528,5 +528,27 @@ function verifica_data() {
         alert("Data inválida!");
         document.getElementById("data").value = "";
         document.forms[0].data.focus();
+    }
+}
+//========VÁLIDA EMAIL DIGITADO NO CAMPO INPUT DA CRIAÇÃO DE USUÁRIO
+
+function validarEmail(field) {
+    usuario = field.value.substring(0, field.value.indexOf("@"));
+    dominio = field.value.substring(field.value.indexOf("@") + 1, field.value.length);
+
+    if ((usuario.length >= 1) &&
+            (dominio.length >= 3) &&
+            (usuario.search("@") == -1) &&
+            (dominio.search("@") == -1) &&
+            (usuario.search(" ") == -1) &&
+            (dominio.search(" ") == -1) &&
+            (dominio.search(".") != -1) &&
+            (dominio.indexOf(".") >= 1) &&
+            (dominio.lastIndexOf(".") < dominio.length - 1)) {
+        alert("E-mail valido");
+    }
+    else {
+        alert("E-mail invalido");
+        document.getElementById('email').value = "";
     }
 }

@@ -17,7 +17,7 @@
         <title>Criar Usuario</title>
         <style type="text/css">
             #btncriarusuario{
-                
+
                 margin: 20px 120px;
             }
         </style>
@@ -27,7 +27,7 @@
         <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
             <h3>Criar Usuário</h3>
-            <form action="PerfilServlet?acao=criar" method="post" >
+            <form name="form" action="PerfilServlet?acao=criar" method="post" >
                 <table>
                     <tr>
                         <td></td>
@@ -71,6 +71,12 @@
                         <td><label for="perfil">Perfil:</label></td>
                         <td class="col-sm-2">
                             <input class="form-control" type="text" id="perfil" name="perfil" placeholder="digite seu perfil"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="perfil">Email:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" name="email" id="email" onblur="validarEmail(form.email)"  maxlength="60" size='65' placeholder="digite o email">
                         </td>
                     </tr>
                 </table>

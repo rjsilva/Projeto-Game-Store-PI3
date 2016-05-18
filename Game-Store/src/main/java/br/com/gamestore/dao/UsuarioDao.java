@@ -51,7 +51,7 @@ public class UsuarioDao implements GenericDao<Usuario> {
             Connection conexao = Conexao.obterConexao();
             String sql = "INSERT INTO TB_USUARIO(ID_FILIAL, LOGIN, SENHA, PERFIL, NOME_USUARIO)"
                     + "values(?,?,?,?,?)";
-            PreparedStatement stm = conexao.prepareStatement(sql.toString());
+            PreparedStatement stm = conexao.prepareStatement(sql);
             stm.setInt(1, user.getFilial().getId());
             stm.setString(2, user.getLogin());
             stm.setString(3, user.getSenha());
@@ -112,15 +112,6 @@ public class UsuarioDao implements GenericDao<Usuario> {
 
     public void enviarEmail() {
 
-        String email = "";
-        String senha = "";
-
-        Properties pro = new Properties();
-        pro.put("mail.smtp.auth", "true");
-        pro.put("mail.smtp.starttls.anable", "true");
-        pro.put("mail.smtp.host", "amtp.gmail.com");
-        pro.put("mail.stmp.port", "587");
-
-        // Session sessao = Session.getInstance(prop new javax.mail.Authenticator);
+     
     }
 }

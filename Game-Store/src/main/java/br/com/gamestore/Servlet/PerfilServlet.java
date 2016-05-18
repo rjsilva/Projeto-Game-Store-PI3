@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
+import static sun.security.jgss.GSSUtil.login;
 
 /**
  *
@@ -93,47 +94,45 @@ public class PerfilServlet extends HttpServlet {
 
         if (id.equals("null") || id.isEmpty()) {
 
-            String nome = request.getParameter("funcionario");
-            String filial = request.getParameter("filial");
-            String usuario = request.getParameter("login");
-            UUID uuid = UUID.randomUUID();
-            String senha = uuid.toString();
-            String perfil = request.getParameter("perfil");
+            try {
 
-            user.setNome(nome);
-            user.getFilial().setId(Integer.parseInt(filial));
-            user.setLogin(usuario);
-            user.setSenha(senha.replaceAll("-", "").substring(0, 8));
-            user.setPerfil(perfil);
+                String nome = request.getParameter("funcionario");
+                String filial = request.getParameter("filial");
+                String usuario = request.getParameter("login");
+                UUID uuid = UUID.randomUUID();
+                String senha = uuid.toString();
+                String perfil = request.getParameter("perfil");
 
-//            SimpleEmail email = new SimpleEmail();
-//            email.setHostName("localhost:1527"); // o servidor SMTP para envio do e-mail
-//            try {
-//                email.addTo("silvarjronaldo@gmail.com", "ronaldo"); //destinatário
-//                email.setFrom("me@apache.org", "Me"); //remetente
-//            } catch (EmailException ex) {
-//                Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            email.setSubject("Mensagem de Teste"); // assunto do e-mail
-//            try {
-//                email.setMsg(senha); //conteudo do e-mail
-//            } catch (EmailException ex) {
-//                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            try {
-//                email.send(); //envia o e-mail
-//            } catch (EmailException ex) {
-//                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+                user.setNome(nome);
+                user.getFilial().setId(Integer.parseInt(filial));
+                user.setLogin(usuario);
+                user.setSenha(senha.replaceAll("-", "").substring(0, 5));
+                user.setPerfil(perfil);
+                userDao.cadastrar(user);
 
-            userDao.cadastrar(user);
-            //response.sendRedirect("AcessorioServlet?acao=criarusuario");
+                String emailusuario = request.getParameter("email");
+                SimpleEmail email = new SimpleEmail();
+                email.setHostName("smtp.gmail.com");
+                email.setSmtpPort(465);
+                email.setAuthentication("rkfsystem@gmail.com", "rkfsystemgamestore");
+                email.setSSLOnConnect(true);
+                email.setFrom("rkfsystem@gmail.com");
+                email.setSubject("usuario e senha de acesso ao sistema");
+                email.setMsg("Usuario" + usuario + "\n" + "Senha" + senha.replaceAll("-","").substring(0,5));
+                email.addTo(emailusuario);
+                email.send();
+
+                response.sendRedirect("AcessorioServlet?acao=criarusuario");
+
+            } catch (Exception ex) {
+
+                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         // request.getRequestDispatcher("criarusuario.jsp").forward(request, response);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/criarusuario.jsp");
-        dispatcher.forward(request, response);
-
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/criarusuario.jsp");
+//        dispatcher.forward(request, response);
     }
 
     /**
