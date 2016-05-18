@@ -13,9 +13,7 @@ import br.com.gamestore.modelo.Venda;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
@@ -73,6 +71,7 @@ public class VendaServlet extends HttpServlet {
             throws ServletException, IOException {
         String acao = request.getParameter("acao");
         String getProduto = request.getParameter("getproduto");
+        VendaDao vdao = new VendaDao();
 
         if (acao.equals("venda")) {
 
@@ -96,6 +95,19 @@ public class VendaServlet extends HttpServlet {
             //request.setAttribute("listafilial", filialDao.buscarPorNome());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/venda.jsp");
             dispatcher.forward(request, response);
+        } else if (acao.equals("relatoriovenda")) {
+
+            try {
+                List<Venda> listavenda = vdao.listarTodos();
+                request.setAttribute("listavenda", listavenda);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/relatoriovenda.jsp");
+                dispatcher.forward(request, response);
+
+            } catch (PersistenceException ex) {
+                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -118,11 +130,11 @@ public class VendaServlet extends HttpServlet {
         if (acao.equals("registrarvenda")) {
             String nomeproduto = request.getParameter("nomeproduto");
             String qtvenda = request.getParameter("quantvenda");
-            String nomefuncionario = request.getParameter("funcionario");
+            String idfuncionario = request.getParameter("funcionario");
 
             venda.getAcessorio().setNome(nomeproduto);
             venda.setQuantidade(Integer.parseInt(qtvenda));
-            venda.getFuncionario().setNome(nomefuncionario);
+            venda.getUsuario().setId(Integer.parseInt(idfuncionario));
 
             try {
                 vdao.registrarVenda(venda);

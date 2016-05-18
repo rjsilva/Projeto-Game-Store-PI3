@@ -26,11 +26,14 @@ public class Venda implements Serializable{
     
     private Acessorio acessorio;
     
+    private Usuario usuario;
+    
     public Venda(){
         
         this.acessorio = new Acessorio();
         this.funcionario = new Funcionario();
         this.filial = new Filial();
+        this.usuario = new Usuario();
     }
 
     /**
@@ -115,6 +118,20 @@ public class Venda implements Serializable{
      */
     public void setAcessorio(Acessorio acessorio) {
         this.acessorio = acessorio;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     

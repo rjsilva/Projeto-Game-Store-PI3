@@ -241,37 +241,26 @@ function SomenteNumero(e) {
 function validarTelaVenda(frm) {
 
 
-    if (frm.nomeproduto.value == "") {
+    if (frm.nomeproduto.value == 0) {
 
         alert("Escolha o nome do produto");
-        return false;
-    }
-    if (frm.codigofuncionario.value == "") {
-
-        alert("Digite o código do funcionário");
-        return false;
-    }
-    if (frm.dtvenda.value == 0) {
-
-        alert("Informe a data da venda");
-        return false;
-    }
-    if (frm.filial.value == "") {
-
-        alert("Escolha a filial");
         return false;
     }
     if (frm.quantvenda.value == 0) {
 
         alert("Informe a quantidade do produto");
+        
         return false;
     }
     if (frm.quantvenda.value > frm.qtdestoque.value) {
 
         alert("quantidade de venda não pode ser maior do que a do estoque");
+
         return false;
+    } else {
+        
+        frm.submit();
     }
-    frm.submit();
 }
 
 //=======PESQUISA CEP===========

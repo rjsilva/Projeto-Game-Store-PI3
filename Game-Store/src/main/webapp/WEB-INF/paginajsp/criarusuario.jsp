@@ -15,6 +15,12 @@
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Criar Usuario</title>
+        <style type="text/css">
+            #btncriarusuario{
+                
+                margin: 20px 120px;
+            }
+        </style>
     </head>
     <body onload="desabilitaTelaUsuario()">
         <jsp:include page="../template/cabecalho.jsp"/>
@@ -49,7 +55,7 @@
                             <select class="form-control" name="filial" id="filial">
                                 <option value="0">Selecione Filial</option>
                                 <c:forEach items="${listafilial}" var="filial">
-                                    <option value="${filial.razao_social}">${filial.razao_social}</option>
+                                    <option value="${filial.id}">${filial.razao_social}</option>
                                 </c:forEach>
                             </select>
                         </td>

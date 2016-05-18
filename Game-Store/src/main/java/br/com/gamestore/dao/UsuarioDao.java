@@ -47,14 +47,16 @@ public class UsuarioDao implements GenericDao<Usuario> {
     public void cadastrar(Usuario user) {
         try {
 
+           
             Connection conexao = Conexao.obterConexao();
-            String sql = "INSERT INTO TB_USUARIO(LOGIN, SENHA, PERFIL, NOME_USUARIO)"
-                    + "values(?,?,?,?)";
+            String sql = "INSERT INTO TB_USUARIO(ID_FILIAL, LOGIN, SENHA, PERFIL, NOME_USUARIO)"
+                    + "values(?,?,?,?,?)";
             PreparedStatement stm = conexao.prepareStatement(sql.toString());
-            stm.setString(1, user.getLogin());
-            stm.setString(2, user.getSenha());
-            stm.setString(3, user.getPerfil());
-            stm.setString(4, user.getNome());
+            stm.setInt(1, user.getFilial().getId());
+            stm.setString(2, user.getLogin());
+            stm.setString(3, user.getSenha());
+            stm.setString(4, user.getPerfil());
+            stm.setString(5, user.getNome());
 
             stm.execute();
             stm.close();

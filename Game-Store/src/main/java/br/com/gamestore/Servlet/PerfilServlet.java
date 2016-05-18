@@ -94,35 +94,37 @@ public class PerfilServlet extends HttpServlet {
         if (id.equals("null") || id.isEmpty()) {
 
             String nome = request.getParameter("funcionario");
+            String filial = request.getParameter("filial");
             String usuario = request.getParameter("login");
             UUID uuid = UUID.randomUUID();
             String senha = uuid.toString();
             String perfil = request.getParameter("perfil");
 
+            user.setNome(nome);
+            user.getFilial().setId(Integer.parseInt(filial));
             user.setLogin(usuario);
             user.setSenha(senha.replaceAll("-", "").substring(0, 8));
             user.setPerfil(perfil);
-            user.setNome(nome);
-            
-            SimpleEmail email = new SimpleEmail();
-            email.setHostName("localhost:1527"); // o servidor SMTP para envio do e-mail
-            try {
-                email.addTo("silvarjronaldo@gmail.com", "ronaldo"); //destinatário
-                email.setFrom("me@apache.org", "Me"); //remetente
-            } catch (EmailException ex) {
-                Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            email.setSubject("Mensagem de Teste"); // assunto do e-mail
-            try {
-                email.setMsg(senha); //conteudo do e-mail
-            } catch (EmailException ex) {
-                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                email.send(); //envia o e-mail
-            } catch (EmailException ex) {
-                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+//            SimpleEmail email = new SimpleEmail();
+//            email.setHostName("localhost:1527"); // o servidor SMTP para envio do e-mail
+//            try {
+//                email.addTo("silvarjronaldo@gmail.com", "ronaldo"); //destinatário
+//                email.setFrom("me@apache.org", "Me"); //remetente
+//            } catch (EmailException ex) {
+//                Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            email.setSubject("Mensagem de Teste"); // assunto do e-mail
+//            try {
+//                email.setMsg(senha); //conteudo do e-mail
+//            } catch (EmailException ex) {
+//                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            try {
+//                email.send(); //envia o e-mail
+//            } catch (EmailException ex) {
+//                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            }
 
             userDao.cadastrar(user);
             //response.sendRedirect("AcessorioServlet?acao=criarusuario");

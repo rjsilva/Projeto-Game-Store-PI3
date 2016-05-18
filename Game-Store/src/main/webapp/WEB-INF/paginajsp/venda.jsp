@@ -16,6 +16,12 @@
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <script type="text/javascript" src="js/validacao.js"></script>  
         <title>Registro de Vendas</title>
+        <style type="text/css">
+            #btnregistravenda{
+                
+                margin: 30px 90px;
+            }
+        </style>
         <script type="text/javascript">
             function inicial() {
 
@@ -34,7 +40,8 @@
         <jsp:include page="../template/menuesquerda.jsp"/>
         <div class="conteudo">
             <h3>Registrar Venda</h3>
-            <form action="VendaServlet?acao=registrarvenda" method="post" onsubmit="validarTelaVenda(this); return false;">
+            <form action="VendaServlet?acao=registrarvenda" method="post" onsubmit="validarTelaVenda(this);
+                    return false;">
                 <table>
                     <tr>
                         <td><label for="acessorio">Produto:</label></td>
@@ -48,26 +55,24 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="funcionario">Funcionário:</label></td>
+                        <td></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="funcionario" name="funcionario" placeholder="digite o seu nome" value="${sessionScope.user.id}"/>
+                            <input class="form-control" type="hidden" id="funcionario" name="funcionario" placeholder="digite o seu nome" value="${sessionScope.user.id}"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="quantidade">Quantidade:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="quantvenda" name="quantvenda" placeholder="digite a quantidade" onkeypress="return SomenteNumero(event)"/>
+                            <input class="form-control" type="text" id="quantvenda" name="quantvenda" placeholder="digite a quantidade" onkeypress="return SomenteNumero(event)" onmouseover="validarTelaVenda()"/>
                         </td>
                         <td><label for="qtdestoque">Estoque:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="qtdestoque" name="qtdestoque" readonly="readonly" value="${ac.quantidade}"/>
+                            <input class="form-control" type="text" id="qtdestoque" name="qtdestoque" readonly="readonly" value="${ac.quantidade}" onmouseover="validarTelaVenda()"/>
                         </td>
                     </tr>
                 </table>
                 <div class="col-sm-5">
-                    <input class="btn btn-primary" id="btncadastrar" type="submit" value="Cadastrar"/>
-                    <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
-                    <input class="btn btn-primary" id="btncancelar" type="button" value="Cancelar" onclick="BotaoCancelar()"/>
+                    <input class="btn btn-primary" id="btnregistravenda" type="submit" value="Registrar Venda"/>
                 </div>
             </form>
         </div>

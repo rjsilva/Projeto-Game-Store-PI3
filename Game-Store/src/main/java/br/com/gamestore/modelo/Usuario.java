@@ -23,6 +23,12 @@ public class Usuario implements Serializable{
     
     private String nome;
 
+    private Filial filial;
+    
+    public Usuario(){
+        
+        this.filial = new Filial();
+    }
 
     /**
      * @return the senha
@@ -92,6 +98,20 @@ public class Usuario implements Serializable{
      */
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    /**
+     * @return the filial
+     */
+    public Filial getFilial() {
+        return filial;
+    }
+
+    /**
+     * @param filial the filial to set
+     */
+    public void setFilial(Filial filial) {
+        this.filial = filial;
     }
     
 }
