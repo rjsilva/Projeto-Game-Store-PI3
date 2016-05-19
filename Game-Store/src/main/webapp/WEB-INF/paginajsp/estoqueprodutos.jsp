@@ -29,8 +29,7 @@
         </script>
     </head>
     <body style="background-color: buttonface">
-        <jsp:include page="../template/cabecalho.jsp"/>
-        <jsp:include page="../template/menuesquerda.jsp"/>
+        <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <h3>Produtos Lançadado no Sistema</h3>
             <div class="table-responsive">  

@@ -6,6 +6,7 @@ function desabilitaBotao() {
     if (id != "" || id == "null") {
 
         document.getElementById("btncadastrar").style.display = 'none';
+        
     } else {
 
         document.getElementById("btncancelar").style.display = 'none';

@@ -18,10 +18,10 @@
         <title>Cadastro Filial</title>
     </head>
     <body onload="desabilitaBotao()">
-        <jsp:include page="../template/cabecalho.jsp"/>
-        <jsp:include page="../template/menuesquerda.jsp"/>
+        <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
-            <form action="FilialServlet?acao=cadastrofilial" method="post" name="form" onsubmit="validarCamposFilial(this); return false;">
+            <form action="FilialServlet?acao=cadastrofilial" method="post" name="form" onsubmit="validarCamposFilial(this);
+                    return false;">
                 <h3>Cadastro Filial</h3>
                 <table>
                     <tr>
@@ -37,13 +37,13 @@
                     <tr>
                         <td><label for="cnpj">CNPJ:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" name="cnpj" id="cnpj" maxlength="18" onkeyup="FormataCnpj(this,event)" onBlur="ValidarCNPJ(form.cnpj);" placeholder="digite o cnpj" value="${filial.cnpj}">
+                            <input class="form-control" type="text" name="cnpj" id="cnpj" maxlength="18" onkeyup="FormataCnpj(this, event)" onBlur="ValidarCNPJ(form.cnpj);" placeholder="digite o cnpj" value="${filial.cnpj}">
                         </td>
                     </tr>
                     <tr>
                         <td><label for="fone">Telefone:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" name="telefone" id="telefone" maxlength="14" placeholder="digite o telefone" onkeyup="mascara( this, mtel );" value="${filial.telefone}">
+                            <input class="form-control" type="text" name="telefone" id="telefone" maxlength="14" placeholder="digite o telefone" onkeyup="mascara(this, mtel);" value="${filial.telefone}">
                         </td>
                     </tr>
                     <tr>
@@ -80,6 +80,5 @@
                 </div>
             </form>
         </div>
-        <jsp:include page="../template/rodape.jsp"/>
     </body>
 </html>

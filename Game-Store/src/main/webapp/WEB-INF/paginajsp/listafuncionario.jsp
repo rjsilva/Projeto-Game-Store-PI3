@@ -28,8 +28,7 @@
         </script>
     </head>
     <body style="background-color: buttonface">
-        <jsp:include page="../template/cabecalho.jsp"/>
-        <jsp:include page="../template/menuesquerda.jsp"/>
+        <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <h3>Lista de Funcionários</h3>
             <table border="1" style="width:100%" class="table">

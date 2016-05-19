@@ -4,6 +4,8 @@
     Author     : rjs
 --%>
 
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,10 +19,22 @@
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Cadastro Funcionário</title>
+        <style type="text/css">
+            #btncadastrar{
+
+                margin: 20px 100px;
+            }
+            #btnatualizar{
+
+                margin: 20px 40px;
+            }
+        </style>
+        <%
+            SimpleDateFormat formato = new SimpleDateFormat("dd/mm/YYYY");
+        %>
     </head>
-    <body onload="desabilitaTelaUsuario()">
-        <jsp:include page="../template/cabecalho.jsp"/>
-        <jsp:include page="../template/menuesquerda.jsp"/>
+    <body onload="desabilitaBotao()">
+        <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <form action="FuncionarioServlet?acao=cadastrofuncionario" method="post" name="form" onsubmit="validarCamposFuncionario(this);
                     return false;">
@@ -55,7 +69,8 @@
                     <tr>
                         <td><label for="dtnascimento">Data Nascimento:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" name="data" id="data" onkeypress="return SomenteNumero(event)" onblur="mascara(this, mdata);" OnKeyUp="mascara_data(this.value)"  maxlength="10" placeholder="digite a data nascimento" value="${func.dt_nascimento}"/>
+                            <input class="form-control" type="text" name="data" id="data" onkeypress="return SomenteNumero(event)" onblur="mascara(this, mdata);" OnKeyUp="mascara_data(this.value)"  maxlength="10" placeholder="digite a data nascimento" 
+                                   value="${formato.Parse(func.dt_nascimento)}"/>
                         </td>
                     </tr>
                     <tr>
@@ -107,6 +122,5 @@
                 </div>
             </form>
         </div>
-        <jsp:include page="../template/rodape.jsp"/>
     </body>
 </html>

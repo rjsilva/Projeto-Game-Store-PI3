@@ -18,7 +18,7 @@
         <title>Registro de Vendas</title>
         <style type="text/css">
             #btnregistravenda{
-                
+
                 margin: 30px 90px;
             }
         </style>
@@ -36,8 +36,7 @@
         </script>
     </head>
     <body onload="inicial()">
-        <jsp:include page="../template/cabecalho.jsp"/>
-        <jsp:include page="../template/menuesquerda.jsp"/>
+        <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <h3>Registrar Venda</h3>
             <form action="VendaServlet?acao=registrarvenda" method="post" onsubmit="validarTelaVenda(this);
@@ -76,6 +75,5 @@
                 </div>
             </form>
         </div>
-        <jsp:include page="../template/rodape.jsp"/>
     </body>
 </html>

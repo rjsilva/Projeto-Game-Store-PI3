@@ -23,8 +23,7 @@
         </style>
     </head>
     <body onload="desabilitaTelaUsuario()">
-        <jsp:include page="../template/cabecalho.jsp"/>
-        <jsp:include page="../template/menuesquerda.jsp"/>
+        <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <h3>Criar Usuário</h3>
             <form name="form" action="PerfilServlet?acao=criar" method="post" >
@@ -85,6 +84,5 @@
                 </div>
             </form>
         </div>
-        <jsp:include page="../template/rodape.jsp"/>
     </body>
 </html>

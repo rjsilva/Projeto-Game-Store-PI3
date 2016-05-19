@@ -17,8 +17,7 @@
         <title>Abrir Chamado - Suporte Técnico</title>
     </head>
     <body>
-        <jsp:include page="../template/cabecalho.jsp"/>
-        <jsp:include page="../template/menuesquerda.jsp"/>
+        <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <h3>Abrir Chamado</h3>
             <form action="ChamadoServlet?acao=cadastrar" method="post" class="formulariocadastro">
@@ -63,6 +62,5 @@
                 </div>
             </form>
         </div>
-        <jsp:include page="../template/rodape.jsp"/>
     </body>
 </html>

@@ -16,11 +16,9 @@
         <link rel="stylesheet" href="css/estiloformulario.css"/>
     </head>
     <body>
-        <jsp:include page="../template/cabecalho.jsp"/>
-        <jsp:include page="../template/menuesquerda.jsp"/>
+        <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
-         
+
         </div>
-        <jsp:include page="../template/rodape.jsp"/>
     </body>
 </html>
