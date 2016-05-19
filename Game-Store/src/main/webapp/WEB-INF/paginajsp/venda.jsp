@@ -71,7 +71,7 @@
                     </tr>
                 </table>
                 <div class="col-sm-5">
-                    <input class="btn btn-primary" id="btnregistravenda" type="submit" value="Registrar Venda"/>
+                    <input class="btn btn-primary" id="btnregistravenda" type="submit" value="Enviar"/>
                 </div>
             </form>
         </div>

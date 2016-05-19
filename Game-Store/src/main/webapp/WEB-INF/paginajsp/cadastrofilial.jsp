@@ -16,6 +16,12 @@
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Cadastro Filial</title>
+        <style type="text/css">
+            #btncadastrar{
+                
+                margin: 20px 130px;
+            }
+        </style>
     </head>
     <body onload="desabilitaBotao()">
         <jsp:include page="../template/layout.jsp"/>

@@ -212,7 +212,7 @@ public class FuncionarioServlet extends HttpServlet {
                 String cpf = request.getParameter("cpf");
                 String telefone = request.getParameter("telefone");
                 String dt_nascimento = request.getParameter("data");
-                SimpleDateFormat formato = new SimpleDateFormat("yyyy/mm/dd");
+                SimpleDateFormat formato = new SimpleDateFormat("dd/mm/YYYY");
                 data = formato.parse(dt_nascimento);
                 String cargo = request.getParameter("cargo");
                 String local_trabalho = request.getParameter("filial");

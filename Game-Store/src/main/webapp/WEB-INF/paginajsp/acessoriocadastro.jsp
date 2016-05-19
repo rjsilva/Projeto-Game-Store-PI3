@@ -27,7 +27,8 @@
         <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <h3>Cadastro de Produto</h3>
-            <form id="frmcadastro" method="post" onsubmit="validarCampos(this); return false;" class="formulariocadastro">
+            <form id="frmcadastro" method="post" onsubmit="validarCampos(this);
+                    return false;" class="formulariocadastro">
                 <table id="tabelacadastro">
                     <tr>
                         <td><label for="acessorio">Nome Produto:</label></td>

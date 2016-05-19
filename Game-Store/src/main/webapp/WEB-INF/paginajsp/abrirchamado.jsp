@@ -15,6 +15,11 @@
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Abrir Chamado - Suporte Técnico</title>
+        <style type="text/css">
+            #btncadastrar{
+                margin: 20px 110px;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="../template/layout.jsp"/>
@@ -58,7 +63,7 @@
                     </tr>
                 </table>
                 <div class="col-sm-5">
-                    <input class="btn btn-primary" id="btncadastrar" type="submit" value="Cadastrar"/>
+                    <input class="btn btn-primary" id="btncadastrar" type="submit" value="Enviar"/>
                 </div>
             </form>
         </div>

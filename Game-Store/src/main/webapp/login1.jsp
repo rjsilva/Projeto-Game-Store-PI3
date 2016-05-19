@@ -15,13 +15,41 @@
         <script type="text/javascript" src="js/validacao.js"></script>
         <link rel="stylesheet" href="css/estilologin1.css"/>
         <title>Login - Game Store</title>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#flip").click(function () {
+                    $("#panel").slideToggle("slow");
+                });
+            });
+        </script>
+        <style type="text/css">
+            h1{
+                text-align: center;
+                color:black ;
+            }
+            #panel, #flip {
+                padding: 5px;
+                text-align: center;
+            }
+            #panel {
+                padding: 20px;
+                display: none;
+            }
+            #flip{
+                color:black;
+                margin-left: 45%;
+                margin-top: 5%;
+            }
+        </style>
     </head>
-    <body onload="zerarCampo()">
-        <h3>GAME STORE</h3>
+    <body background="img/controle.jpg">
+        <h1>GAME STORE - LOJA DE JOGOS ELETRÔNICO</h1>
         <div class="msgErro">
             ${msgErro != null ? msgErro : '' }
         </div>
-        <div class="loginBox">
+        <button type="button" class="btn btn-default" id="flip">LOGAR NO SISTEMA</button>
+        
+        <div class="loginBox" id="panel">
             <form action="UsuarioServlet?acao=login1" class="form-horizontal" role="form" method="post">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Login:</label>

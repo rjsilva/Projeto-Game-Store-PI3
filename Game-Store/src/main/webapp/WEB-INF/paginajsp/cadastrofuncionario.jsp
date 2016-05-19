@@ -29,9 +29,6 @@
                 margin: 20px 40px;
             }
         </style>
-        <%
-            SimpleDateFormat formato = new SimpleDateFormat("dd/mm/YYYY");
-        %>
     </head>
     <body onload="desabilitaBotao()">
         <jsp:include page="../template/layout.jsp"/>
@@ -70,7 +67,7 @@
                         <td><label for="dtnascimento">Data Nascimento:</label></td>
                         <td class="col-sm-2">
                             <input class="form-control" type="text" name="data" id="data" onkeypress="return SomenteNumero(event)" onblur="mascara(this, mdata);" OnKeyUp="mascara_data(this.value)"  maxlength="10" placeholder="digite a data nascimento" 
-                                   value="${formato.Parse(func.dt_nascimento)}"/>
+                                   value="${func.dt_nascimento}"/>
                         </td>
                     </tr>
                     <tr>

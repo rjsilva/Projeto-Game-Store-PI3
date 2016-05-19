@@ -165,7 +165,7 @@ public class AcessorioServlet extends HttpServlet {
                 ace.setNota_fiscal(Integer.parseInt(nf_fiscal));
                 aceDao.cadastrar(ace);
 
-                request.setAttribute("msg", "cadastrado com sucesso");
+                request.setAttribute("msgCadastro", "cadastrado com sucesso");
                 response.sendRedirect("AcessorioServlet?acao=cadastro");
 
             } catch (PersistenceException ex) {
