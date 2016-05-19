@@ -73,14 +73,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="perfil">Email:</label></td>
+                        <td><label for="email">Email:</label></td>
                         <td class="col-sm-2">
                             <input class="form-control" type="text" name="email" id="email" onblur="validarEmail(form.email)"  maxlength="60" size='65' placeholder="digite o email">
                         </td>
                     </tr>
                 </table>
                 <div class="col-sm-5">
-                    <input class="btn btn-primary" id="btncriarusuario" type="submit" value="Criar"/>
+                    <input class="btn btn-primary" id="btncriarusuario" type="submit" value="Enviar"/>
                 </div>
             </form>
         </div>

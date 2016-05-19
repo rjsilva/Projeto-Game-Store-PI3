@@ -13,7 +13,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,8 +59,10 @@ public class UsuarioDao implements GenericDao<Usuario> {
 
             stm.execute();
             stm.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            
+              Logger.getLogger(UsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
@@ -108,10 +109,5 @@ public class UsuarioDao implements GenericDao<Usuario> {
         }
 
         return null;
-    }
-
-    public void enviarEmail() {
-
-     
     }
 }

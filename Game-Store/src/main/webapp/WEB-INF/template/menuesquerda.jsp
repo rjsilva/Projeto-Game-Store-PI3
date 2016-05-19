@@ -27,7 +27,6 @@
             <li><a href="VendaServlet?acao=venda">Registrar Vendas</a></li>
             <li><a href="PerfilServlet?acao=mostrartelausuario">Criar Usuário</a></li>
             <li><a href="login1.jsp">Sair</a></li>
-
         </ul>
     </nav>
 </body>

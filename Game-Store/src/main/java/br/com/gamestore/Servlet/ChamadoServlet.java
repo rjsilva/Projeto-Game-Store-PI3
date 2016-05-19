@@ -10,6 +10,10 @@ import br.com.gamestore.modelo.Chamado;
 import br.com.gamestore.modelo.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -62,11 +66,26 @@ public class ChamadoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String acao = request.getParameter("acao");
+        ChamadoDao chamadoDao = new ChamadoDao();
+        
         if (acao.equals("tela")) {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/abrirchamado.jsp");
             dispatcher.forward(request, response);
+        } else if (acao.equals("listar")) {
+
+            try {
+                List<Chamado> listachamado = chamadoDao.listarTodos();
+                request.setAttribute("listachamado", listachamado);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/listachamado.jsp");
+                dispatcher.forward(request, response);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ChamadoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -86,7 +105,7 @@ public class ChamadoServlet extends HttpServlet {
         Chamado chamado = new Chamado();
         Funcionario funcionario = new Funcionario();
         ChamadoDao cdao = new ChamadoDao();
-        
+
         if (acao.equals("cadastrar")) {
 
             try {
@@ -96,17 +115,17 @@ public class ChamadoServlet extends HttpServlet {
                 String telefone = request.getParameter("telefone");
                 String assunto = request.getParameter("assunto");
                 String comentario = request.getParameter("comentario");
-                
+
                 chamado.getFuncionario().setNome(nomefuncionario);
                 chamado.setEmail(email);
                 chamado.setTelefone(telefone);
                 chamado.setAssunto(assunto);
                 chamado.setComentario(comentario);
-                
+
                 cdao.cadastrar(chamado);
 
             } catch (Exception e) {
-                
+
             }
 
         }

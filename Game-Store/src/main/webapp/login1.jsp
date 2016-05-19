@@ -17,7 +17,7 @@
         <title>Login - Game Store</title>
         <script type="text/javascript">
             $(document).ready(function () {
-                $("#flip").click(function () {
+                $("#flip").mouseover(function () {
                     $("#panel").slideToggle("slow");
                 });
             });
@@ -38,12 +38,11 @@
             #flip{
                 color:black;
                 margin-left: 45%;
-                margin-top: 5%;
+                margin-top: 10%;
             }
         </style>
     </head>
-    <body background="img/controle.jpg">
-        <h1>GAME STORE - LOJA DE JOGOS ELETRÔNICO</h1>
+    <body background="img/login.jpg">
         <div class="msgErro">
             ${msgErro != null ? msgErro : '' }
         </div>

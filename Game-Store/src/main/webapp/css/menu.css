@@ -1,63 +1,90 @@
-html, body {
-    font-family: Arial, Helvetica, sans-serif;
+
+#menu-v li, #menu-v a {zoom:1;} /* Hacks for IE6, IE7 */
+#menu-v, #menu-v ul
+{
+    width: 198px; /* Main Menu Item widths */
+    border: 1px solid #ccc;
+    border-top:none;
+    position: relative;
+    font-size:0;
+    list-style: none;
+    margin: 0;
+    padding: 0; 
+    display:block;
+    z-index:9;
 }
+                
+/* Top level menu links style
+---------------------------------------*/
 
-/* define a fixed width for the entire menu */
-.navigation {
-  width: 200px;
+#menu-v li
+{
+    background: grey url(bg.gif) repeat-x 0 2px;
+    list-style: none;
+    margin: 0; 
+    padding: 0;
 }
-
-/* reset our lists to remove bullet points and padding */
-.mainmenu, .submenu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+#menu-v li a
+{
+    font: normal 15px Arial;
+    border-top: 1px solid #ccc;
+    display: block;
+    /*overflow: auto; force hasLayout in IE7 */
+    color: black;
+    text-decoration: none;
+    line-height:26px;
+    padding-left:26px;            
 }
-
-/* make ALL links (main and submenu) have padding and background color */
-.mainmenu a {
-  display: block;
-  background-color: #CCC;
-  text-decoration: none;
-  padding: 7px;
-  color: #000;
+#menu-v ul li a
+{
+    line-height:30px;
 }
-
-/* add hover behaviour */
-.mainmenu a:hover {
-    background-color: #C5C5C5;
+                
+#menu-v li a.arrow:hover
+{
+    background-image:url(arrowon.gif);
+    background-repeat: no-repeat;
+    background-position: 97% 50%;
 }
-
-
-/* when hovering over a .mainmenu item,
-  display the submenu inside it.
-  we're changing the submenu's max-height from 0 to 200px;
-*/
-
-.mainmenu li:hover .submenu {
-  display: block;
-  max-height: 200px;
+        
+/*Sub level menu items
+---------------------------------------*/
+#menu-v li ul
+{
+    position: absolute;
+    width: 200px; /*Sub Menu Items width */
+    visibility:hidden;
 }
-
-/*
-  we now overwrite the background-color for .submenu links only.
-  CSS reads down the page, so code at the bottom will overwrite the code at the top.
-*/
-
-.submenu a {
-  background-color: #999;
+        
+#menu-v a.arrow
+{
+    background-image:url(arrow.gif);
+    background-repeat: no-repeat;
+    background-position: 97% 50%;
 }
-
-/* hover behaviour for links inside .submenu */
-.submenu a:hover {
-  background-color: #666;
+#menu-v li:hover, #menu-v li.onhover
+{
+    background-position:0 -62px;
 }
-
-/* this is the initial state of all submenus.
-  we set it to max-height: 0, and hide the overflowed content.
-*/
-.submenu {
-  overflow: hidden;
-  max-height: 0;
-  -webkit-transition: all 0.5s ease-out;
+#menu-v ul li
+{
+    background: rgba(255, 255, 255, 0.86);
+    background-image:none;
 }
+#menu-v ul li:hover, #menu-v ul li.onhover
+{
+    background: #FFF;
+    background-image:none;
+}
+        
+/* Holly Hack for IE \
+* html #menu-v  li
+{
+    float:left;
+    height: 1%;
+}
+* html #menu-v  li a
+{
+    height: 1%;
+}*/
+/* End */

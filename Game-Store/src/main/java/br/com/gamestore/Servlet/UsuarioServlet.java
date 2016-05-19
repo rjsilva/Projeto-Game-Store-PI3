@@ -52,26 +52,4 @@ public class UsuarioServlet extends HttpServlet {
         request.getRequestDispatcher(proxima).forward(request, response);
     }
 
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//
-//        String acao = request.getParameter("acao");
-//        String id = request.getParameter("id");
-//        Usuario user = new Usuario();
-//        UsuarioDao userDao = new UsuarioDao();
-//
-//        if (id.equals("null") || id.isEmpty()) {
-//
-//            String usuario = request.getParameter("usuario");
-//            String senha = request.getParameter("senha");
-//            String perfil = request.getParameter("perfil");
-//
-//            user.setUsuario(usuario);
-//            user.setSenha(senha);
-//            user.setPerfil(perfil);
-//
-//            userDao.cadastrar(user);
-//            response.sendRedirect("AcessorioServlet?acao=cadastro");
-//        }
-//    }
 }

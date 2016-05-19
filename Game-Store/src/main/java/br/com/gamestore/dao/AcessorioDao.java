@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author rjs
  */
 public class AcessorioDao implements GenericDao<Acessorio> {
+
     private HttpServletRequest request;
 
     @Override
@@ -43,8 +44,8 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             stm.setInt(6, ac.getNota_fiscal());
             stm.execute();
             stm.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+               Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -60,8 +61,8 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             PreparedStatement stm = conexao.prepareStatement(sql);
             stm.setLong(1, ac.getId());
             stm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+               Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -86,8 +87,8 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
             stm.execute();
             stm.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -118,8 +119,8 @@ public class AcessorioDao implements GenericDao<Acessorio> {
                 lista.add(ac);
             }
 
-        } catch (PersistenceException e) {
-            e.printStackTrace();
+        } catch (PersistenceException ex) {
+            Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
     }

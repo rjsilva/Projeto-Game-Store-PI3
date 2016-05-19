@@ -73,7 +73,7 @@ CREATE TABLE TB_USUARIO (
  CONSTRAINT FK_USUARIO_FILIAL FOREIGN KEY(ID_FILIAL)
                            REFERENCES TB_FILIAL(ID_FILIAL) ON DELETE CASCADE
 );
-INSERT INTO TB_USUARIO(ID_FILIAL,LOGIN,SENHA,PERFIL,NOME_USUARIO)VALUES(100,'admin','admin','admin','admin')
+INSERT INTO TB_USUARIO(ID_FILIAL,LOGIN,SENHA,PERFIL,NOME_USUARIO)VALUES(4,'admin','admin','admin','admin')
 -------------------------fim tabela usuarios---------------------------------
 
 -----------TABELA DE ESTOQUE-------------------------

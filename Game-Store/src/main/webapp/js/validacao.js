@@ -1,3 +1,12 @@
+//=====VÁLIDA O USUÁRIO LOGADO============================//
+
+function validarPermissaoAcesso(){
+    var user = document.getElementById("user").value;
+    if(user != "SUPORTE"){
+        
+        document.getElementById("btnAtenderChamado").style.display = 'none';
+    }
+}
 
 //======DESABILITA OS BOTÕES SE O ID ESTIVER VÁZIO========//
 function desabilitaBotao() {
@@ -171,6 +180,36 @@ function validarCamposFuncionario(frm) {
     }
     frm.submit();
 }
+
+//==============VALIDAR CAMPO ABRIR CHAMADO ======================//
+function validarCampoAbrirChamado(frm) {
+
+    if (frm.email.value == "") {
+
+        alert("Informe seu email");
+        return false;
+    }
+    if (frm.telefone.value == "") {
+
+        alert("Informe seu telefone");
+        return false;
+    }
+    if (frm.assunto.value == "") {
+
+        alert("Informe o assunto");
+        return false;
+    }
+    if (frm.comentario.value == "" || frm.comentario.value == null) {
+
+        alert("Detalhe o problema");
+        return false;
+    }
+    
+    frm.submit();
+}
+
+
+
 
 
 //====FORMATA O VALOR NO CAMPO INPUT========//
@@ -546,7 +585,6 @@ function validarEmail(field) {
             (dominio.search(".") != -1) &&
             (dominio.indexOf(".") >= 1) &&
             (dominio.lastIndexOf(".") < dominio.length - 1)) {
-        alert("E-mail valido");
     }
     else {
         alert("E-mail invalido");

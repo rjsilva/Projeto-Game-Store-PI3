@@ -17,7 +17,7 @@
         <title>Abrir Chamado - Suporte Técnico</title>
         <style type="text/css">
             #btncadastrar{
-                margin: 20px 110px;
+                margin: 20px 120px;
             }
         </style>
     </head>
@@ -25,12 +25,18 @@
         <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <h3>Abrir Chamado</h3>
-            <form action="ChamadoServlet?acao=cadastrar" method="post" class="formulariocadastro">
+            <form action="ChamadoServlet?acao=cadastrar" method="post" class="formulariocadastro" name="form" onsubmit="validarCampoAbrirChamado(this); return false;">
                 <table>
                     <tr>
-                        <td><label for="nome">Nome:</label></td>
+                        <td></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="nomefuncionario" name="nomefuncionario" placeholder="digite seu nome"/>
+                            <input class="form-control" type="hidden" id="nomefuncionario" name="nomefuncionario" placeholder="digite seu nome" value="${user.nome}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="email" id="email" name="email" onblur="validarEmail(form.email)"  maxlength="60" size="65" placeholder="digite seu email"/>
                         </td>
                         <td><label for="acessorio">Código:</label></td>
                         <td class="col-sm-2">
@@ -38,15 +44,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="email">Email:</label></td>
-                        <td class="col-sm-2">
-                            <input class="form-control" type="email" id="email" name="email" placeholder="digite seu email"/>
-                        </td>
-                    </tr>
-                    <tr>
                         <td><label for="telefone">Telefone:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="telefone" id="telefone" name="telefone" placeholder="digite seu telefone"/>
+                            <input class="form-control" type="telefone" id="telefone" name="telefone" placeholder="digite seu telefone" maxlength="15" onkeyup="mascara(this, mtel);"/>
                         </td>
                     </tr>
                     <tr>

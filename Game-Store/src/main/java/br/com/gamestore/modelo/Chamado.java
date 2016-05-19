@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class Chamado implements Serializable{
 
-    private Integer  Id_chamado;
+    private Integer  id;
     
     private Funcionario funcionario;
     
@@ -31,21 +31,6 @@ public class Chamado implements Serializable{
         
         this.funcionario = new Funcionario();
     }
-
-    /**
-     * @return the Id_chamado
-     */
-    public Integer getId_chamado() {
-        return Id_chamado;
-    }
-
-    /**
-     * @param Id_chamado the Id_chamado to set
-     */
-    public void setId_chamado(Integer Id_chamado) {
-        this.Id_chamado = Id_chamado;
-    }
-
     /**
      * @return the email
      */
@@ -128,6 +113,20 @@ public class Chamado implements Serializable{
      */
     public void setStatus(String Status) {
         this.Status = Status;
+    }
+
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
     }
     
 }

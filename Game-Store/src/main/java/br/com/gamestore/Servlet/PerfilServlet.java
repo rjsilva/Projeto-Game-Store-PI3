@@ -5,6 +5,7 @@
  */
 package br.com.gamestore.Servlet;
 
+import br.com.gamestore.controler.UsuarioControler;
 import br.com.gamestore.dao.FilialDao;
 import br.com.gamestore.dao.FuncionarioDao;
 import br.com.gamestore.dao.UsuarioDao;
@@ -24,9 +25,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
-import static sun.security.jgss.GSSUtil.login;
 
 /**
  *
@@ -98,41 +96,33 @@ public class PerfilServlet extends HttpServlet {
 
                 String nome = request.getParameter("funcionario");
                 String filial = request.getParameter("filial");
-                String usuario = request.getParameter("login");
+                String login = request.getParameter("login");
                 UUID uuid = UUID.randomUUID();
                 String senha = uuid.toString();
                 String perfil = request.getParameter("perfil");
+                String emailusuario = request.getParameter("email");
 
                 user.setNome(nome);
                 user.getFilial().setId(Integer.parseInt(filial));
-                user.setLogin(usuario);
+                user.setLogin(login);
                 user.setSenha(senha.replaceAll("-", "").substring(0, 5));
                 user.setPerfil(perfil);
                 userDao.cadastrar(user);
 
-                String emailusuario = request.getParameter("email");
-                SimpleEmail email = new SimpleEmail();
-                email.setHostName("smtp.gmail.com");
-                email.setSmtpPort(465);
-                email.setAuthentication("rkfsystem@gmail.com", "rkfsystemgamestore");
-                email.setSSLOnConnect(true);
-                email.setFrom("rkfsystem@gmail.com");
-                email.setSubject("usuario e senha de acesso ao sistema");
-                email.setMsg("Usuario" + usuario + "\n" + "Senha" + senha.replaceAll("-","").substring(0,5));
-                email.addTo(emailusuario);
-                email.send();
+                if (user != null) {
 
-                response.sendRedirect("AcessorioServlet?acao=criarusuario");
+                    UsuarioControler userControler = new UsuarioControler();
+                    userControler.enviarEmail(login, senha, emailusuario);
+                }
 
             } catch (Exception ex) {
 
                 Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            response.sendRedirect("PerfilServlet?acao=mostrartelausuario");
         }
 
-        // request.getRequestDispatcher("criarusuario.jsp").forward(request, response);
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/criarusuario.jsp");
-//        dispatcher.forward(request, response);
     }
 
     /**
