@@ -25,7 +25,7 @@
         <style type="text/css">
             h1{
                 text-align: center;
-                color:black ;
+                color:#ffffff;
             }
             #panel, #flip {
                 padding: 5px;
@@ -42,7 +42,8 @@
             }
         </style>
     </head>
-    <body background="img/login.jpg">
+    <body>
+        <h1>Game Store</h1>
         <div class="msgErro">
             ${msgErro != null ? msgErro : '' }
         </div>

@@ -33,6 +33,7 @@
                         <li><a href="FuncionarioServlet?acao=listar">Funcionário</a></li>
                         <li><a href="FilialServlet?acao=listar">Filial</a></li>
                         <li><a href="ChamadoServlet?acao=listar">Chamado</a></li>
+                        <li><a href="PerfilServlet?acao=listarusuarios">Usuários</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Relatório</a>

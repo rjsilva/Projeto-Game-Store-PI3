@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.PersistenceException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -79,6 +80,21 @@ public class PerfilServlet extends HttpServlet {
             }
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/criarusuario.jsp");
             dispatcher.forward(request, response);
+        } else if (acao.equals("listarusuarios")) {
+            UsuarioDao userDao = new UsuarioDao();
+            try {
+                List<Usuario> listausuario = userDao.listarUsuarios();
+                request.setAttribute("listausuario", listausuario);
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/listausuario.jsp");
+                dispatcher.forward(request, response);
+
+            } catch (PersistenceException ex) {
+                Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(PerfilServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }
 

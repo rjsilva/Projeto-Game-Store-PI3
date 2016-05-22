@@ -40,7 +40,7 @@
                             <select class="form-control" name="funcionario" id="funcionario">
                                 <option value="0">Selecione um Acessório</option>
                                 <c:forEach items="${listafuncionario}" var="funcionario">
-                                    <option value="${funcionario.nome}">${funcionario.nome}</option>
+                                    <option value="${funcionario.id}">${funcionario.nome}</option>
                                 </c:forEach>
                             </select>
                         </td>
