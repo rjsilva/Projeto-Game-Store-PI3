@@ -40,6 +40,7 @@
                     </tr>
                 </c:forEach>
             </table>
+            <a href="RelatorioServlet?acao=imprimir" class="btn btn-primary">Imprimir</a></td>
         </div>
     </body>
 </html>

@@ -7,7 +7,7 @@ package br.com.gamestore.dao;
 
 import br.com.gamestore.Servlet.FuncionarioServlet;
 import br.com.gamestore.modelo.Funcionario;
-import com.mycompany.gamestore.util.Conexao;
+import br.com.gamestore.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,20 +99,27 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
     @Override
     public void atualizar(Funcionario funcionario) {
 
-        PreparedStatement stm = null;
-
-        String sql = "UPDATE TB_FUNCIONARIO SET NOME_FUNCIONARIO=? , CPF=? ,TELEFONE=?, DT_NASCIMENTO=?, CARGO=?,LOCAL_TRABALHO=?"
-                + " WHERE ID_FILIAL=?";
         try {
-
+            PreparedStatement stm = null;
             Connection conexao = Conexao.obterConexao();
+
+            String nomefilial = null;
+            String sql = "UPDATE TB_FUNCIONARIO SET NOME_FUNCIONARIO=? , CPF=? ,TELEFONE=?, DT_NASCIMENTO=?, CARGO=?,LOCAL_TRABALHO=?"
+                    + " WHERE ID_FUNCIONARIO=?";
+            String sqlfilial = "SELECT RAZAO_SOCIAL FROM TB_FILIAL WHERE ID_FILIAL =" + funcionario.getLocal_trabalho();
+            PreparedStatement stmfuncionariofilial = conexao.prepareStatement(sqlfilial);
+            ResultSet resultfilial = stmfuncionariofilial.executeQuery();
+            resultfilial.next();
+            nomefilial = resultfilial.getString("RAZAO_SOCIAL");
+
             stm = conexao.prepareStatement(sql);
             stm.setString(1, funcionario.getNome());
             stm.setString(2, funcionario.getCpf());
             stm.setString(3, funcionario.getTelefone());
             stm.setDate(4, new java.sql.Date(funcionario.getDt_nascimento().getTime()));
             stm.setString(5, funcionario.getCargo());
-            stm.setString(6, funcionario.getLocal_trabalho());
+            stm.setString(6, nomefilial);
+            stm.setInt(7,funcionario.getId());
 
             stm.execute();
 

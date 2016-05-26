@@ -7,6 +7,7 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -52,10 +53,6 @@
                         <td class="col-sm-2">
                             <input class="form-control" type="text" name="cpf" id="cpf" onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);"  maxlength="14" placeholder="digite o cpf" value="${func.cpf}"/>
                         </td>
-                        <td><label for="perfil">Perfil:</label></td>
-                        <td class="col-sm-2">
-                            <input class="form-control" id="perfil" name="perfil" type="text" readonly="readonly" value=" ${sessionScope.user.perfil.toUpperCase()}" onmouseover="desabilitaTelaUsuario()"/>
-                        </td>
                     </tr>
                     <tr>
                         <td><label for="telefone">Telefone:</label></td>
@@ -66,8 +63,9 @@
                     <tr>
                         <td><label for="dtnascimento">Data Nascimento:</label></td>
                         <td class="col-sm-2">
+                            <fmt:formatDate var="data" value="${func.dt_nascimento}" type="both" pattern="dd/MM/yyyy" dateStyle="full"/>
                             <input class="form-control" type="text" name="data" id="data" onkeypress="return SomenteNumero(event)" onblur="mascara(this, mdata);" OnKeyUp="mascara_data(this.value)"  maxlength="10" placeholder="digite a data nascimento" 
-                                   value="${func.dt_nascimento}"/>
+                              value="${data}"/>
                         </td>
                     </tr>
                     <tr>

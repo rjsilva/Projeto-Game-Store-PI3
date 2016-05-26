@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.gamestore.util;
+package br.com.gamestore.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,8 +28,8 @@ public class Conexao {
             // Passo 2: Abrir a conexÃ£o
             return DriverManager.getConnection(
                     "jdbc:derby://localhost:1527/gamebd;SecurityMechanism=3",
-                    "gamebd", // usuario
-                    "gamebd"); // senha
+                    "game", // usuario
+                    "game"); // senha
         }
         catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());

@@ -9,7 +9,6 @@ import br.com.gamestore.dao.UsuarioDao;
 import br.com.gamestore.exception.ControleException;
 import br.com.gamestore.exception.PersistenciaException;
 import br.com.gamestore.modelo.Usuario;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;

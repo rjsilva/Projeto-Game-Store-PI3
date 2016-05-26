@@ -151,6 +151,11 @@ function validarCamposFuncionario(frm) {
         alert("Informe um cargo");
         return false;
     }
+     if (frm.filial.value == 0 || frm.filial.value == null) {
+
+        alert("Informe uma filial");
+        return false;
+    }
     if (frm.cep.value == "") {
 
         alert("Informe um cep");
@@ -208,7 +213,46 @@ function validarCampoAbrirChamado(frm) {
     frm.submit();
 }
 
+function validarTelaCriarUsuario(frm) {
 
+
+    if (frm.funcionario.value == 0 || frm.funcionario.value == null) {
+
+        alert("Selecione um Funcionário");
+        
+        return false;
+    }
+    if (frm.filial.value == 0 || frm.filial.value == null) {
+
+        alert("Selecione uma Filial");
+
+        return false;
+    }
+    if (frm.login.value == "" || frm.login.value == null) {
+
+        alert("Crie um Login");
+
+        return false;
+        
+    }if (frm.perfil.value == 0 || frm.perfil.value == null) {
+
+        alert("Selecione um Perfil");
+
+        return false;
+        
+    }if (frm.email.value == "" || frm.email.value == null) {
+
+        alert("Digite um Email");
+
+        return false;
+        
+    }
+    
+    else {
+
+        frm.submit();
+    }
+}
 
 
 
@@ -278,6 +322,7 @@ function SomenteNumero(e) {
             return false;
     }
 }
+//=====FORÇA O USUÁRIO A PREENCHER OS DADOS NA TELA DE VENDA==========//
 function validarTelaVenda(frm) {
 
 

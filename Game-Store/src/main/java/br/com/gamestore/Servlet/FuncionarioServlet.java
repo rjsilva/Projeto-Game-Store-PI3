@@ -113,12 +113,17 @@ public class FuncionarioServlet extends HttpServlet {
             }
         } else if (acao.equals("atualizar")) {
 
-            String id = request.getParameter("id");
-            //request.setAttribute("lista", fdao.buscarPorNome());
-            func = fdao.buscarPorId(Integer.parseInt(id));
-            request.setAttribute("func", func);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofuncionario.jsp");
-            dispatcher.forward(request, response);
+            try {
+                String id = request.getParameter("id");
+                func = fdao.buscarPorId(Integer.parseInt(id));
+                request.setAttribute("func", func);
+                List<Filial> listaFilial = filialDao.listarTodos();
+                request.getSession().setAttribute("listafilial", listaFilial);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofuncionario.jsp");
+                dispatcher.forward(request, response);
+            } catch (PersistenceException | SQLException ex) {
+                Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         } else if (acao.equals("cadastro")) {
 
@@ -208,6 +213,7 @@ public class FuncionarioServlet extends HttpServlet {
         } else {
 
             try {
+                funcionario.setId(Integer.parseInt(id));
                 String nome = request.getParameter("nomefuncionario");
                 String cpf = request.getParameter("cpf");
                 String telefone = request.getParameter("telefone");
@@ -216,26 +222,26 @@ public class FuncionarioServlet extends HttpServlet {
                 data = formato.parse(dt_nascimento);
                 String cargo = request.getParameter("cargo");
                 String local_trabalho = request.getParameter("filial");
-                
+
                 String cep = request.getParameter("cep");
                 String logradouro = request.getParameter("rua");
                 String bairro = request.getParameter("bairro");
                 String uf = request.getParameter("uf");
                 String cidade = request.getParameter("cidade");
-                
+
                 funcionario.getEndereco().setCep(cep);
                 funcionario.getEndereco().setLogradouro(logradouro);
                 funcionario.getEndereco().setBairro(bairro);
                 funcionario.getEndereco().setEstado(uf);
                 funcionario.getEndereco().setCidade(cidade);
-                
+
                 funcionario.setNome(nome);
                 funcionario.setCpf(cpf);
                 funcionario.setTelefone(telefone);
                 funcionario.setDt_nascimento(data);
                 funcionario.setCargo(cargo);
                 funcionario.setLocal_trabalho(local_trabalho);
-                
+
                 fdao.atualizar(funcionario);
                 response.sendRedirect("FuncionarioServlet?acao=listar");
             } catch (ParseException ex) {

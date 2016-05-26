@@ -19,7 +19,7 @@
 
 #menu-v li
 {
-    background: grey url(bg.gif) repeat-x 0 2px;
+    background: black url(bg.gif) repeat-x 0 2px;
     list-style: none;
     margin: 0; 
     padding: 0;
@@ -30,7 +30,7 @@
     border-top: 1px solid #ccc;
     display: block;
     /*overflow: auto; force hasLayout in IE7 */
-    color: black;
+    color: white;
     text-decoration: none;
     line-height:26px;
     padding-left:26px;            
@@ -68,7 +68,7 @@
 }
 #menu-v ul li
 {
-    background: rgba(255, 255, 255, 0.86);
+    background: black;
     background-image:none;
 }
 #menu-v ul li:hover, #menu-v ul li.onhover

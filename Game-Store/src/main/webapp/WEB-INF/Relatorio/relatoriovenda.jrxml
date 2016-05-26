@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="814f45fb-34f4-48a8-a242-efde89905039">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     TB_VENDA_A."ID_VENDA" AS ID_VENDA,
+     TB_VENDA_A."NOME_PRODUTO" AS PRODUTO,
+     TB_VENDA_A."NOME_FUNCIONARIO" AS FUNCIONARIO,
+     TB_VENDA_A."NOME_FILIAL" AS FILIAL,
+     TB_VENDA_A."DATA_VENDA" AS DATA_VENDA,
+     TB_VENDA_A."QUANTIDADE_VENDA" AS QUANTIDADE_VENDA,
+     TB_VENDA_A."PRECOUNITARIO" AS PRECO_UNITARIO
+FROM
+     "GAME"."TB_VENDA" TB_VENDA_A]]>
+	</queryString>
+	<field name="ID_VENDA" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRODUTO" class="java.lang.String"/>
+	<field name="FUNCIONARIO" class="java.lang.String"/>
+	<field name="FILIAL" class="java.lang.String"/>
+	<field name="DATA_VENDA" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="QUANTIDADE_VENDA" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRECO_UNITARIO" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a558567a-2ce6-4828-ad61-5a8df3c718dc" x="0" y="0" width="555" height="79"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE VENDA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="17b4cf3e-ca6c-455d-b727-20f416b5b270" x="0" y="0" width="72" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ID_VENDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d597293-63f1-4248-aaea-0525c199ff27" x="72" y="0" width="92" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PRODUTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f4ffe075-fc90-4968-91cb-b8b93f15b427" x="164" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FUNCIONARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7e668ff1-1857-45b3-8946-4b30faa57696" x="243" y="0" width="59" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[FILIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bcfc7e7a-f55d-42d9-bef3-b9eae38dce43" x="302" y="0" width="76" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DATA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="437049dd-70b4-4496-b78c-209b311cbbc7" x="378" y="0" width="96" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PRECO_UNITARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="35ed0ff0-7fae-467e-98b7-b9f35d24dfa5" x="474" y="0" width="81" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[QUANTIDADE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="e4d34899-906c-4ff2-9c05-d8ac37271388" x="0" y="0" width="72" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ID_VENDA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1f101397-c360-4594-929b-593dd5559a50" x="72" y="0" width="92" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PRODUTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="124e6642-21b1-4677-9e79-02e5df8f55a3" x="164" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FUNCIONARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d6835de4-e413-44b6-8cb3-99469c6ff512" x="243" y="0" width="59" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FILIAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="176f1cb0-2bfa-41c6-8d33-b6e4d27f0bd6" x="302" y="0" width="76" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DATA_VENDA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b8f4320b-c346-4fd0-b428-53538a861108" x="378" y="1" width="96" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PRECO_UNITARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7196e95f-72da-48c2-a4bb-c7073d1099c3" x="461" y="1" width="94" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{QUANTIDADE_VENDA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

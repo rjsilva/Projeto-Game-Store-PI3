@@ -8,7 +8,7 @@ package br.com.gamestore.dao;
 import br.com.gamestore.Servlet.FilialServlet;
 import br.com.gamestore.Servlet.FuncionarioServlet;
 import br.com.gamestore.modelo.Filial;
-import com.mycompany.gamestore.util.Conexao;
+import br.com.gamestore.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -8,17 +8,25 @@ package br.com.gamestore.dao;
 import br.com.gamestore.Servlet.VendaServlet;
 import br.com.gamestore.modelo.Acessorio;
 import br.com.gamestore.modelo.Venda;
-import com.mycompany.gamestore.util.Conexao;
+import br.com.gamestore.util.Conexao;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -98,12 +106,7 @@ public class VendaDao {
         }
 
     }
-    
-    public void cancelarVenda(){
-        
-        
-    }
-    
+
     public List<Venda> listarTodos() throws PersistenceException, SQLException {
 
         Statement stmt = null;
@@ -135,5 +138,12 @@ public class VendaDao {
         return listavenda;
     }
 
+    public void imprimirRelatorioVenda(String caminho) throws SQLException, JRException {
 
+        Map<String, Object> parametro = new HashMap<>();
+        Connection conexao = Conexao.obterConexao();
+        JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametro, conexao);
+        JasperPrintManager.printReport(relatorio, true);
+        //JasperViewer.viewReport(relatorio);
+    }
 }

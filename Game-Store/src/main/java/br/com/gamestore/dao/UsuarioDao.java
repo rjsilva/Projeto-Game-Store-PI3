@@ -8,7 +8,7 @@ package br.com.gamestore.dao;
 import br.com.gamestore.Servlet.UsuarioServlet;
 import br.com.gamestore.exception.PersistenciaException;
 import br.com.gamestore.modelo.Usuario;
-import com.mycompany.gamestore.util.Conexao;
+import br.com.gamestore.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

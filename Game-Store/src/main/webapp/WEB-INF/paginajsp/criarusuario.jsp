@@ -26,7 +26,8 @@
         <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <h3>Criar Usuário</h3>
-            <form name="form" action="PerfilServlet?acao=criar" method="post" >
+            <form name="form" action="PerfilServlet?acao=criar" method="post"  onsubmit="validarTelaCriarUsuario(this);
+                    return false;">
                 <table>
                     <tr>
                         <td></td>
@@ -69,7 +70,12 @@
                     <tr>
                         <td><label for="perfil">Perfil:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="perfil" name="perfil" placeholder="digite seu perfil"/>
+                            <select class="form-control" name="perfil" id="perfil">
+                                <option selected>Selecione um perfil</option>
+                                <option selected>Gerente</option>
+                                <option selected>Suporte</option>
+                                <option selected>BackOffice</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>

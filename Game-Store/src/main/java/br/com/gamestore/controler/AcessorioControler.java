@@ -9,7 +9,7 @@ import br.com.gamestore.dao.AcessorioDao;
 import br.com.gamestore.dao.GenericDao;
 import br.com.gamestore.exception.ControleException;
 import br.com.gamestore.modelo.Acessorio;
-import com.mycompany.gamestore.util.Conexao;
+import br.com.gamestore.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -38,7 +38,7 @@ tabela, tr, td{
     border: thin solid lightgray;
     padding: 0px;
     width: 200px;
-    background-color:grey;
+    background-color:black;
     height:620px;
     border: 1px solid darkgray;
     font-size: 15px;
@@ -67,7 +67,7 @@ tabela, tr, td{
     padding: 15px;
     height: 80px;
     margin-bottom: 10px;
-    background-color:#ccddff;
+    background-color:seagreen ;
     border: 1px solid darkgray;
 }
 
