@@ -80,9 +80,9 @@ public class VendaServlet extends HttpServlet {
             Acessorio ac = new Acessorio();
             if (getProduto != null && !"".equals(getProduto)) {
 
-                String idproduto = request.getParameter("idProduto");
-                int id = Integer.parseInt(idproduto);
-                ac = acdao.buscarPorId(id);
+                String nomeproduto = request.getParameter("idProduto");
+                int id = Integer.parseInt(nomeproduto);
+                ac = acdao.buscarQuantEstoque(id);
                 request.setAttribute("ac", ac);
             } else {
 
@@ -93,7 +93,7 @@ public class VendaServlet extends HttpServlet {
                 }
             }
             //request.setAttribute("listafilial", filialDao.buscarPorNome());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/venda.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/registrarvenda.jsp");
             dispatcher.forward(request, response);
         } else if (acao.equals("relatoriovenda")) {
 

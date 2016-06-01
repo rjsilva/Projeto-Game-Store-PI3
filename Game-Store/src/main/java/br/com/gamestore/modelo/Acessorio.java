@@ -19,7 +19,7 @@ public class Acessorio implements Serializable{
     
     private String marca;
     
-    private Long preco;
+    private double preco;
     
     private String tipo;
     
@@ -119,15 +119,16 @@ public class Acessorio implements Serializable{
     /**
      * @return the preco
      */
-    public Long getPreco() {
+    public double getPreco() {
         return preco;
     }
 
     /**
      * @param preco the preco to set
      */
-    public void setPreco(Long preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
+
 
 }

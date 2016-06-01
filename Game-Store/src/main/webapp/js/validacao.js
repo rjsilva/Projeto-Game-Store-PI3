@@ -281,7 +281,11 @@ function validarTelaVenda(frm) {
 
         return false;
     }
-    if (frm.quantvenda.value > frm.qtdestoque.value) {
+    var quantvenda = document.getElementById("quantvenda").value;
+    var quantestoque = document.getElementById("qtdestoque").value;
+    var venda = parseInt(quantvenda);
+    var estoque = parseInt(quantestoque);
+    if (venda > estoque) {
 
         alert("quantidade de venda não pode ser maior do que a do estoque");
 

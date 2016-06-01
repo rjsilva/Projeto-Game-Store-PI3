@@ -24,15 +24,12 @@
         </style>
         <script type="text/javascript">
             function inicial() {
-
                 document.getElementById("nomeproduto").value = ${param.idProduto != null ? param.idProduto : '0'};
             }
             function BuscaQuantEstoque(produto) {
-
                 var idProduto = produto.options[produto.selectedIndex].value;
                 location.href = "VendaServlet?acao=venda&getproduto=true&idProduto=" + idProduto;
             }
-
         </script>
     </head>
     <body onload="inicial()">

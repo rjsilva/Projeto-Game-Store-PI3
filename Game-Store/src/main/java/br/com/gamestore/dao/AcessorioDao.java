@@ -7,6 +7,7 @@ package br.com.gamestore.dao;
 
 import br.com.gamestore.Servlet.AcessorioServlet;
 import br.com.gamestore.modelo.Acessorio;
+import br.com.gamestore.modelo.Venda;
 import br.com.gamestore.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +33,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
     public void cadastrar(Acessorio ac) {
         PreparedStatement stm = null;
         Integer codproduto = null;
-        
+
         try {
             Connection conexao = Conexao.obterConexao();
             String sqlproduto = "INSERT INTO TB_ACESSORIOS(NOME_ACESSORIO,MARCA, PRECO, TIPO, QUANTIDADE, NOTA_FISCAL)"
@@ -40,7 +41,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             stm = conexao.prepareStatement(sqlproduto, Statement.RETURN_GENERATED_KEYS);
             stm.setString(1, ac.getNome());
             stm.setString(2, ac.getMarca());
-            stm.setLong(3, ac.getPreco());
+            stm.setDouble(3, ac.getPreco());
             stm.setString(4, ac.getTipo());
             stm.setInt(5, ac.getQuantidade());
             stm.setInt(6, ac.getNota_fiscal());
@@ -58,7 +59,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             stm.setInt(1, codproduto);
             stm.setString(2, ac.getNome());
             stm.setString(3, ac.getMarca());
-            stm.setLong(4, ac.getPreco());
+            stm.setDouble(4, ac.getPreco());
             stm.setString(5, ac.getTipo());
             stm.setInt(6, ac.getQuantidade());
             stm.setInt(7, ac.getNota_fiscal());
@@ -89,13 +90,17 @@ public class AcessorioDao implements GenericDao<Acessorio> {
     @Override
     public void atualizar(Acessorio ac) {
 
-        String sql = "UPDATE TB_ACESSORIOS SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=? , NOTA_FISCAL=?"
-                + " WHERE ID_ACESSORIO=?";
+        PreparedStatement stm = null;
 
         try {
+            /**
+             * ATUALIZA A TABELA DE PRODUTOS LANÇADO NO SISTEMA
+             */
+            String sql = "UPDATE TB_ACESSORIOS SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=? , NOTA_FISCAL=?"
+                    + " WHERE ID_ACESSORIO=?";
 
             Connection conexao = Conexao.obterConexao();
-            PreparedStatement stm = conexao.prepareStatement(sql);
+            stm = conexao.prepareStatement(sql);
 
             stm.setString(1, ac.getNome());
             stm.setString(2, ac.getMarca());
@@ -106,6 +111,34 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             stm.setLong(7, ac.getId());
 
             stm.execute();
+
+            /**
+             * PEGA A QUANTIDADE DA VENDA E SUBTRAI COM A QUANTIDADE DO ESTOQUE
+             * QUE FOI ATUALIZADO
+             */
+            int quant = 0, resul = 0;
+            String sqlvenda = "SELECT QUANTIDADE_VENDA FROM TB_VENDA WHERE NOME_PRODUTO = '" + ac.getNome() + "'";
+            stm = conexao.prepareStatement(sqlvenda);
+            ResultSet result = stm.executeQuery();
+            result.next();
+            quant = result.getInt("QUANTIDADE_VENDA");
+            resul = ac.getQuantidade() - quant;
+            /**
+             * ATUALIZA A TABELA DE ESTOQUE
+             */
+            String sqlestoque = "UPDATE TB_ESTOQUE SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=? , NOTA_FISCAL=?"
+                    + " WHERE ID_ACESSORIO =?";
+            stm = conexao.prepareStatement(sqlestoque);
+            stm.setString(1, ac.getNome());
+            stm.setString(2, ac.getMarca());
+            stm.setDouble(3, ac.getPreco());
+            stm.setString(4, ac.getTipo());
+            stm.setInt(5, resul);
+            stm.setInt(6, ac.getNota_fiscal());
+            stm.setLong(7, ac.getId());
+
+            stm.execute();
+
             stm.close();
         } catch (SQLException ex) {
             Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -203,12 +236,36 @@ public class AcessorioDao implements GenericDao<Acessorio> {
         return null;
     }
 
+    public Acessorio buscarQuantEstoque(Integer id) {
+
+        String sql = "SELECT QUANTIDADE FROM TB_ESTOQUE WHERE ID_ACESSORIO = " + id;
+
+        try {
+
+            Connection conexao = Conexao.obterConexao();
+            PreparedStatement stm = conexao.prepareStatement(sql);
+
+            ResultSet resultados = stm.executeQuery();
+            while (resultados.next()) {
+                Acessorio ac = new Acessorio();
+                ac.setQuantidade(resultados.getInt("QUANTIDADE"));
+
+                return ac;
+            }
+
+        } catch (Exception ex) {
+
+            Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public List<Acessorio> listarEstoque() throws PersistenceException, SQLException {
 
         Statement stmt = null;
         Connection conn = null;
 
-        String sql = "SELECT * FROM TB_ESTOQUE";
+        String sql = "SELECT ID_ESTOQUE,NOME_ACESSORIO,MARCA,PRECO,TIPO,NOTA_FISCAL,QUANTIDADE FROM TB_ESTOQUE";
         List<Acessorio> lista = new ArrayList<>();
 
         try {
@@ -217,13 +274,13 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
                 Acessorio ac = new Acessorio();
-                ac.setId(resultados.getInt(1));
-                ac.setNome(resultados.getString(2));
-                ac.setMarca(resultados.getString(3));
-                ac.setPreco(resultados.getLong(4));
-                ac.setTipo(resultados.getString(5));
-                ac.setQuantidade(resultados.getInt(6));
-                ac.setNota_fiscal(resultados.getInt(7));
+                ac.setId(resultados.getInt("ID_ESTOQUE"));
+                ac.setNome(resultados.getString("NOME_ACESSORIO"));
+                ac.setMarca(resultados.getString("MARCA"));
+                ac.setPreco(resultados.getDouble("PRECO"));
+                ac.setTipo(resultados.getString("TIPO"));
+                ac.setNota_fiscal(resultados.getInt("NOTA_FISCAL"));
+                ac.setQuantidade(resultados.getInt("QUANTIDADE"));
 
                 lista.add(ac);
             }
