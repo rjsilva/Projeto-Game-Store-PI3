@@ -25,6 +25,7 @@
                     </ul>
                 </li>
                 <li><a href="VendaServlet?acao=venda">Registrar Venda</a></li>
+                <li><a href="paginajsp/cancelarvenda.jsp">Cancelar Venda</a></li>
                 <li><a href="ChamadoServlet?acao=tela">Abrir Chamado</a></li>
                 <li><a href="PerfilServlet?acao=mostrartelausuario">Criar Usuário</a></li>
                 <li><a href="#">Consultas</a>

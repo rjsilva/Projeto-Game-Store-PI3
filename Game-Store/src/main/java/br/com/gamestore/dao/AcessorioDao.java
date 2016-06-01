@@ -73,15 +73,24 @@ public class AcessorioDao implements GenericDao<Acessorio> {
     @Override
     public void excluir(Acessorio ac) {
 
-        String sql = "DELETE FROM TB_ACESSORIOS WHERE ID_ACESSORIO=?";
+        PreparedStatement stm = null;
 
         try {
 
+            String sql = "DELETE FROM TB_ACESSORIOS WHERE ID_ACESSORIO=?";
+
             Connection conexao = Conexao.obterConexao();
 
-            PreparedStatement stm = conexao.prepareStatement(sql);
+            stm = conexao.prepareStatement(sql);
             stm.setLong(1, ac.getId());
             stm.execute();
+
+            String sqlestoque = "DELETE FROM TB_ESTOQUE WHERE ID_ACESSORIO = " + ac.getId();
+            stm = conexao.prepareStatement(sqlestoque);
+            stm.execute();
+
+            stm.close();
+
         } catch (SQLException ex) {
             Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -116,28 +125,45 @@ public class AcessorioDao implements GenericDao<Acessorio> {
              * PEGA A QUANTIDADE DA VENDA E SUBTRAI COM A QUANTIDADE DO ESTOQUE
              * QUE FOI ATUALIZADO
              */
-            int quant = 0, resul = 0;
+            int quantvenda = 0, resul, quantproduto = 0;
             String sqlvenda = "SELECT QUANTIDADE_VENDA FROM TB_VENDA WHERE NOME_PRODUTO = '" + ac.getNome() + "'";
             stm = conexao.prepareStatement(sqlvenda);
             ResultSet result = stm.executeQuery();
-            result.next();
-            quant = result.getInt("QUANTIDADE_VENDA");
-            resul = ac.getQuantidade() - quant;
-            /**
-             * ATUALIZA A TABELA DE ESTOQUE
-             */
-            String sqlestoque = "UPDATE TB_ESTOQUE SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=? , NOTA_FISCAL=?"
-                    + " WHERE ID_ACESSORIO =?";
-            stm = conexao.prepareStatement(sqlestoque);
-            stm.setString(1, ac.getNome());
-            stm.setString(2, ac.getMarca());
-            stm.setDouble(3, ac.getPreco());
-            stm.setString(4, ac.getTipo());
-            stm.setInt(5, resul);
-            stm.setInt(6, ac.getNota_fiscal());
-            stm.setLong(7, ac.getId());
+            if (result.next()) {
+                quantvenda = result.getInt("QUANTIDADE_VENDA");
+                quantproduto = ac.getQuantidade();
+                resul = quantproduto - quantvenda;
+                /**
+                 * ATUALIZA A TABELA DE ESTOQUE
+                 */
+                String sqlestoque = "UPDATE TB_ESTOQUE SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=? , NOTA_FISCAL=?"
+                        + " WHERE ID_ACESSORIO =?";
+                stm = conexao.prepareStatement(sqlestoque);
+                stm.setString(1, ac.getNome());
+                stm.setString(2, ac.getMarca());
+                stm.setDouble(3, ac.getPreco());
+                stm.setString(4, ac.getTipo());
+                stm.setInt(5, resul);
+                stm.setInt(6, ac.getNota_fiscal());
+                stm.setLong(7, ac.getId());
+                
+                stm.execute();
+                
+            } else {
 
-            stm.execute();
+                String sqlestoque = "UPDATE TB_ESTOQUE SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=? , NOTA_FISCAL=?"
+                        + " WHERE ID_ACESSORIO =?";
+                stm = conexao.prepareStatement(sqlestoque);
+                stm.setString(1, ac.getNome());
+                stm.setString(2, ac.getMarca());
+                stm.setDouble(3, ac.getPreco());
+                stm.setString(4, ac.getTipo());
+                stm.setInt(5, ac.getQuantidade());
+                stm.setInt(6, ac.getNota_fiscal());
+                stm.setLong(7, ac.getId());
+
+                stm.execute();
+            }
 
             stm.close();
         } catch (SQLException ex) {
