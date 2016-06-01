@@ -51,7 +51,7 @@
                     <tr>
                         <td><label for="preco">Preço(R$):</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="preco" name="preco" placeholder="digite o preço" onkeypress="return formatar_moeda(this, ',', '.', event);" value="${ac.preco}"/>
+                            <input class="form-control" type="text" id="preco" name="preco" placeholder="digite o preço" onkeyup="moeda(this);" value="${ac.preco}"/>
                         </td>
                     </tr>
                     <tr>
@@ -76,7 +76,7 @@
                 <div class="col-sm-5">
                     <input class="btn btn-primary" id="btncadastrar" type="submit" value="Cadastrar"/>
                     <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
-                    <input class="btn btn-primary" id="btncancelar" type="button" value="Cancelar" onclick="BotaoCancelarProduto()"/>
+                    <a class="btn btn-primary" id="btncancelar" href="AcessorioServlet?acao=cadastro">Cancelar</a>
                 </div>
             </form>
         </div>

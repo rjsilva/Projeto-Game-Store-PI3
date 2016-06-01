@@ -38,7 +38,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             PreparedStatement stm = conexao.prepareStatement(sql);
             stm.setString(1, ac.getNome());
             stm.setString(2, ac.getMarca());
-            stm.setDouble(3, ac.getPreco());
+            stm.setLong(3, ac.getPreco());
             stm.setString(4, ac.getTipo());
             stm.setInt(5, ac.getQuantidade());
             stm.setInt(6, ac.getNota_fiscal());
@@ -111,7 +111,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
                 ac.setId(resultados.getInt(1));
                 ac.setNome(resultados.getString(2));
                 ac.setMarca(resultados.getString(3));
-                ac.setPreco(resultados.getDouble(4));
+                ac.setPreco(resultados.getLong(4));
                 ac.setTipo(resultados.getString(5));
                 ac.setQuantidade(resultados.getInt(6));
                 ac.setNota_fiscal(resultados.getInt(7));
@@ -168,7 +168,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
                 ac.setId(resultados.getInt(1));
                 ac.setNome(resultados.getString(2));
                 ac.setMarca(resultados.getString(3));
-                ac.setPreco(resultados.getDouble(4));
+                ac.setPreco(resultados.getLong(4));
                 ac.setTipo(resultados.getString(5));
                 ac.setQuantidade(resultados.getInt(6));
                 ac.setNota_fiscal(resultados.getInt(7));

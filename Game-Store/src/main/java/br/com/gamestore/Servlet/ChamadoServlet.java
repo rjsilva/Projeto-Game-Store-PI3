@@ -66,10 +66,11 @@ public class ChamadoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String acao = request.getParameter("acao");
+        String id = request.getParameter("id");
         ChamadoDao chamadoDao = new ChamadoDao();
-        
+
         if (acao.equals("tela")) {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/abrirchamado.jsp");
@@ -77,7 +78,7 @@ public class ChamadoServlet extends HttpServlet {
         } else if (acao.equals("listar")) {
 
             try {
-                List<Chamado> listachamado = chamadoDao.listarTodos();
+                List<Chamado> listachamado = chamadoDao.listarTodosChamados();
                 request.setAttribute("listachamado", listachamado);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/listachamado.jsp");
@@ -100,7 +101,6 @@ public class ChamadoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String acao = request.getParameter("acao");
         Chamado chamado = new Chamado();
         Funcionario funcionario = new Funcionario();
@@ -121,10 +121,14 @@ public class ChamadoServlet extends HttpServlet {
                 chamado.setTelefone(telefone);
                 chamado.setAssunto(assunto);
                 chamado.setComentario(comentario);
+                chamado.setStatus("EM ANDAMENTO");
 
                 cdao.cadastrar(chamado);
+                response.sendRedirect("ChamadoServlet?acao=tela");
 
-            } catch (Exception e) {
+            } catch (Exception ex) {
+
+                Logger.getLogger(ChamadoServlet.class.getName()).log(Level.SEVERE, null, ex);
 
             }
 

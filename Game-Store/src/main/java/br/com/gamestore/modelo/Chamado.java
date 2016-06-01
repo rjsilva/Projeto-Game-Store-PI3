@@ -6,6 +6,7 @@
 package br.com.gamestore.modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -26,6 +27,8 @@ public class Chamado implements Serializable{
     private String telefone;
     
     private String Status;
+    
+    private Date data;
     
     public Chamado(){
         
@@ -127,6 +130,20 @@ public class Chamado implements Serializable{
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * @return the data
+     */
+    public Date getData() {
+        return data;
+    }
+
+    /**
+     * @param data the data to set
+     */
+    public void setData(Date data) {
+        this.data = data;
     }
     
 }

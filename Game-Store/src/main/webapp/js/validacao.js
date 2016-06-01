@@ -1,9 +1,9 @@
 //=====VÁLIDA O USUÁRIO LOGADO============================//
 
-function validarPermissaoAcesso(){
+function validarPermissaoAcesso() {
     var user = document.getElementById("user").value;
-    if(user != "SUPORTE"){
-        
+    if (user != "SUPORTE") {
+
         document.getElementById("btnAtenderChamado").style.display = 'none';
     }
 }
@@ -15,7 +15,7 @@ function desabilitaBotao() {
     if (id != "" || id == "null") {
 
         document.getElementById("btncadastrar").style.display = 'none';
-        
+
     } else {
 
         document.getElementById("btncancelar").style.display = 'none';
@@ -151,7 +151,7 @@ function validarCamposFuncionario(frm) {
         alert("Informe um cargo");
         return false;
     }
-     if (frm.filial.value == 0 || frm.filial.value == null) {
+    if (frm.filial.value == 0 || frm.filial.value == null) {
 
         alert("Informe uma filial");
         return false;
@@ -209,7 +209,7 @@ function validarCampoAbrirChamado(frm) {
         alert("Detalhe o problema");
         return false;
     }
-    
+
     frm.submit();
 }
 
@@ -219,7 +219,7 @@ function validarTelaCriarUsuario(frm) {
     if (frm.funcionario.value == 0 || frm.funcionario.value == null) {
 
         alert("Selecione um Funcionário");
-        
+
         return false;
     }
     if (frm.filial.value == 0 || frm.filial.value == null) {
@@ -233,94 +233,38 @@ function validarTelaCriarUsuario(frm) {
         alert("Crie um Login");
 
         return false;
-        
-    }if (frm.perfil.value == 0 || frm.perfil.value == null) {
+
+    }
+    if (frm.perfil.value == 0 || frm.perfil.value == null) {
 
         alert("Selecione um Perfil");
 
         return false;
-        
-    }if (frm.email.value == "" || frm.email.value == null) {
+
+    }
+    if (frm.email.value == "" || frm.email.value == null) {
 
         alert("Digite um Email");
 
         return false;
-        
+
     }
-    
+
     else {
 
         frm.submit();
     }
 }
-
-
-
 //====FORMATA O VALOR NO CAMPO INPUT========//
-function formatar_moeda(campo, separador_milhar, separador_decimal, tecla) {
-
-    var sep = 0;
-    var key = '';
-    var i = j = 0;
-    var len = len2 = 0;
-    var strCheck = '0123456789';
-    var aux = aux2 = '';
-    var whichCode = (window.Event) ? tecla.which : tecla.keyCode;
-    if (whichCode == 13)
-        return true; // Tecla Enter
-    if (whichCode == 8)
-        return true; // Tecla Delete
-    key = String.fromCharCode(whichCode); // Pegando o valor digitado
-    if (strCheck.indexOf(key) == -1)
-        return false; // Valor inválido (não inteiro)
-    len = campo.value.length;
-    for (i = 0; i < len; i++)
-        if ((campo.value.charAt(i) != '0') && (campo.value.charAt(i) != separador_decimal))
-            break;
-    aux = '';
-    for (; i < len; i++)
-        if (strCheck.indexOf(campo.value.charAt(i)) != -1)
-            aux += campo.value.charAt(i);
-    aux += key;
-    len = aux.length;
-    if (len == 0)
-        campo.value = '';
-    if (len == 1)
-        campo.value = '0' + separador_decimal + '0' + aux;
-    if (len == 2)
-        campo.value = '0' + separador_decimal + aux;
-    if (len > 2) {
-        aux2 = '';
-        for (j = 0, i = len - 3; i >= 0; i--) {
-            if (j == 3) {
-                aux2 += separador_milhar;
-                j = 0;
-            }
-            aux2 += aux.charAt(i);
-            j++;
-        }
-
-        campo.value = '';
-        len2 = aux2.length;
-        for (i = len2 - 1; i >= 0; i--)
-            campo.value += aux2.charAt(i);
-        campo.value += separador_decimal + aux.substr(len - 2, len);
-    }
-
-    return false;
-}
-
-//=======FUNÇÃO PARA  RECEBER SÓ NÚMEROS================//
-function SomenteNumero(e) {
-    var tecla = (window.event) ? event.keyCode : e.which;
-    if ((tecla > 47 && tecla < 58))
-        return true;
-    else {
-        if (tecla == 8 || tecla == 0)
-            return true;
-        else
-            return false;
-    }
+function moeda(z) {
+    v = z.value;
+    v = v.replace(/\D/g, "") // permite digitar apenas numero
+    v = v.replace(/(\d{1})(\d{14})$/, "$1.$2") // coloca ponto antes dos ultimos digitos
+    v = v.replace(/(\d{1})(\d{11})$/, "$1.$2") // coloca ponto antes dos ultimos 11 digitos
+    v = v.replace(/(\d{1})(\d{8})$/, "$1.$2") // coloca ponto antes dos ultimos 8 digitos
+    v = v.replace(/(\d{1})(\d{5})$/, "$1.$2") // coloca ponto antes dos ultimos 5 digitos
+    v = v.replace(/(\d{1})(\d{1,2})$/, "$1,$2") // coloca virgula antes dos ultimos 2 digitos
+    z.value = v;
 }
 //=====FORÇA O USUÁRIO A PREENCHER OS DADOS NA TELA DE VENDA==========//
 function validarTelaVenda(frm) {

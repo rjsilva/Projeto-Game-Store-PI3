@@ -25,7 +25,8 @@
         <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <h3>Abrir Chamado</h3>
-            <form action="ChamadoServlet?acao=cadastrar" method="post" class="formulariocadastro" name="form" onsubmit="validarCampoAbrirChamado(this); return false;">
+            <form action="ChamadoServlet?acao=cadastrar" method="post" class="formulariocadastro" name="form" onsubmit="validarCampoAbrirChamado(this);
+                    return false;">
                 <table>
                     <tr>
                         <td></td>
@@ -64,6 +65,8 @@
                 </table>
                 <div class="col-sm-5">
                     <input class="btn btn-primary" id="btncadastrar" type="submit" value="Enviar"/>
+                    <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
+                    <a class="btn btn-primary" id="btncancelar" href="ChamadoServlet?acao=tela">Cancelar</a>
                 </div>
             </form>
         </div>

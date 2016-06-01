@@ -9,7 +9,6 @@ import br.com.gamestore.Servlet.VendaServlet;
 import br.com.gamestore.modelo.Acessorio;
 import br.com.gamestore.modelo.Venda;
 import br.com.gamestore.util.Conexao;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,8 +25,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
-import net.sf.jasperreports.view.JasperViewer;
-
 /**
  *
  * @author rjs
@@ -127,7 +124,7 @@ public class VendaDao {
                 venda.getFilial().setRazao_social(resultados.getString(4));
                 venda.setDtvenda(resultados.getDate(5));
                 venda.setQuantidade(resultados.getInt(6));
-                venda.getAcessorio().setPreco(resultados.getDouble(7));
+                venda.getAcessorio().setPreco(resultados.getLong(7));
 
                 listavenda.add(venda);
             }
@@ -144,6 +141,5 @@ public class VendaDao {
         Connection conexao = Conexao.obterConexao();
         JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametro, conexao);
         JasperPrintManager.printReport(relatorio, true);
-        //JasperViewer.viewReport(relatorio);
     }
 }

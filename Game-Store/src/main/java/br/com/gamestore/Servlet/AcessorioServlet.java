@@ -112,7 +112,7 @@ public class AcessorioServlet extends HttpServlet {
 
             ace.setNome("");
             ace.setMarca("");
-            ace.setPreco(0);
+            ace.setPreco(null);
             ace.setTipo("");
             ace.setQuantidade(0);
             ace.setNota_fiscal(0);
@@ -152,14 +152,14 @@ public class AcessorioServlet extends HttpServlet {
             try {
                 String nome = request.getParameter("acessorio");
                 String marca = request.getParameter("marca");
-                String preco = request.getParameter("preco");
+                String preco = request.getParameter("preco").replace(".", "").replace(",", "");
                 String tipo = request.getParameter("tipo");
                 String quantidade = request.getParameter("quantidade");
                 String nf_fiscal = request.getParameter("nf");
 
                 ace.setNome(nome);
                 ace.setMarca(marca);
-                ace.setPreco(Double.parseDouble(preco));
+                ace.setPreco(Long.parseLong(preco));
                 ace.setTipo(tipo);
                 ace.setQuantidade(Integer.parseInt(quantidade));
                 ace.setNota_fiscal(Integer.parseInt(nf_fiscal));
@@ -189,7 +189,7 @@ public class AcessorioServlet extends HttpServlet {
 
             ace.setNome(nome);
             ace.setMarca(marca);
-            ace.setPreco(Double.parseDouble(preco));
+            ace.setPreco(Long.parseLong(preco));
             ace.setTipo(tipo);
             ace.setQuantidade(Integer.parseInt(quantidade));
             ace.setNota_fiscal(Integer.parseInt(nf_fisCaL));

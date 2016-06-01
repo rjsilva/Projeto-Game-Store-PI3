@@ -72,7 +72,7 @@ public class RelatorioServlet extends HttpServlet {
 
         String acao = request.getParameter("acao");
 
-          String caminho = this.getServletContext().getRealPath("/WEB-INF/Relatorio/relatoriovenda.jrxml"); 
+          String caminho = this.getServletContext().getRealPath("/WEB-INF/Relatorio/relatoriovenda.jasper"); 
 
         if (acao.equals("imprimir")) {
 

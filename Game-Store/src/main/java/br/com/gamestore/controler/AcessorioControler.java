@@ -7,12 +7,7 @@ package br.com.gamestore.controler;
 
 import br.com.gamestore.dao.AcessorioDao;
 import br.com.gamestore.dao.GenericDao;
-import br.com.gamestore.exception.ControleException;
 import br.com.gamestore.modelo.Acessorio;
-import br.com.gamestore.util.Conexao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.PersistenceException;
@@ -69,7 +64,7 @@ public class AcessorioControler implements GenericDao<HttpServletRequest> {
             String nome = request.getParameter("acessorio");
             String marca = request.getParameter("marca");
             String preco = request.getParameter("preco");
-            Double preco2 = Double.parseDouble(preco);
+            Long preco2 = Long.parseLong(preco);
             String tipo = request.getParameter("tipo");
             String quantidade = request.getParameter("quantidade");
             Integer quant = Integer.parseInt(quantidade);

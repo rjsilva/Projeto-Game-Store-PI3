@@ -15,6 +15,12 @@
         <script type="text/javascript" src="js/validacao.js"></script>
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <title>Lista Chamado</title>
+        <style type="text/css">
+            #btnchamado{
+                
+                margin: 0px 500px;
+            }
+        </style>
     </head>
     <body onload="validarPermissaoAcesso()">
         <jsp:include page="../template/layout.jsp"/>
@@ -28,7 +34,7 @@
                     <th>ASSUNTO</th>
                     <th>EMAIL</th>
                     <th>STATUS</th>
-                    <th>Atender</th>
+                    <th>DATA_CHAMADO</th>
                 </tr>
                 <c:forEach items="${listachamado}" var="chamado">
                     <tr>
@@ -36,11 +42,12 @@
                         <td>${chamado.telefone}</td>
                         <td>${chamado.assunto}</td>
                         <td>${chamado.email}</td>
-                        <td>Não Atendido</td>
-                        <td><a id="btnAtenderChamado" href="ChamadoServlet?acao=atualizar&id=${chamado.id}" class="btn btn-primary">Atender</a></td>
+                        <td>${chamado.status}</td>
+                        <td>${chamado.data}</td>
                     </tr>
                 </c:forEach>
             </table>
+            <a href="ChamadoServlet?acao=atualizar&id=${chamado.id}" class="btn btn-primary" id="btnchamado">Atender Chamado</a>
         </div>
     </body>
 </html>

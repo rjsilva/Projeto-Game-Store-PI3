@@ -6,7 +6,6 @@
 package br.com.gamestore.dao;
 
 import br.com.gamestore.Servlet.AcessorioServlet;
-import br.com.gamestore.modelo.Acessorio;
 import br.com.gamestore.modelo.Chamado;
 import br.com.gamestore.util.Conexao;
 import java.sql.Connection;
@@ -30,14 +29,16 @@ public class ChamadoDao implements GenericDao<Chamado> {
     public void cadastrar(Chamado cha) {
         try {
             Connection conexao = Conexao.obterConexao();
-            String sql = "INSERT INTO TB_CHAMADO(NOME_FUNCIONARIO,EMAIL, ASSUNTO, COMENTARIO,TELEFONE)"
-                    + "values(?,?,?,?,?)";
+            String sql = "INSERT INTO TB_CHAMADO(NOME_PESSOA,EMAIL, ASSUNTO,COMENTARIO,TELEFONE,STATUS, DATA_CHAMADO)"
+                    + "values(?,?,?,?,?,?,?)";
             PreparedStatement stm = conexao.prepareStatement(sql);
             stm.setString(1, cha.getFuncionario().getNome());
             stm.setString(2, cha.getEmail());
             stm.setString(3, cha.getAssunto());
             stm.setString(4, cha.getComentario());
             stm.setString(5, cha.getTelefone());
+            stm.setString(6, cha.getStatus());
+            stm.setDate(7, new java.sql.Date(System.currentTimeMillis()));
             stm.execute();
             stm.close();
         } catch (SQLException e) {
@@ -59,9 +60,8 @@ public class ChamadoDao implements GenericDao<Chamado> {
     public Chamado buscarPorId(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    public List<Chamado> listarTodos() throws PersistenceException, SQLException {
+
+    public List<Chamado> listarTodosChamados() throws PersistenceException, SQLException {
 
         Statement stmt = null;
         Connection conn = null;
@@ -75,12 +75,12 @@ public class ChamadoDao implements GenericDao<Chamado> {
             ResultSet resultados = stm.executeQuery();
             while (resultados.next()) {
                 Chamado chamado = new Chamado();
-                chamado.setId(resultados.getInt(1));
-                chamado.getFuncionario().setNome(resultados.getString(2));
-                chamado.setEmail(resultados.getString(3));
-                chamado.setAssunto(resultados.getString(4));
-                chamado.setComentario(resultados.getString(5));
-                chamado.setTelefone(resultados.getString(6));
+                chamado.getFuncionario().setNome(resultados.getString("NOME_PESSOA"));
+                chamado.setTelefone(resultados.getString("TELEFONE"));
+                chamado.setAssunto(resultados.getString("ASSUNTO"));
+                chamado.setEmail(resultados.getString("EMAIL"));
+                chamado.setStatus(resultados.getString("STATUS"));
+                chamado.setData(resultados.getDate("DATA_CHAMADO"));
 
                 listaChamado.add(chamado);
             }
@@ -90,6 +90,5 @@ public class ChamadoDao implements GenericDao<Chamado> {
         }
         return listaChamado;
     }
-
 
 }
