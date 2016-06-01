@@ -125,7 +125,7 @@ public class AcessorioServlet extends HttpServlet {
         } else if (acao.equals("relatorio")) {
 
             try {
-                List<Acessorio> lista = acdao.listarTodos();
+                List<Acessorio> lista = acdao.listarEstoque();
                 request.setAttribute("lista", lista);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/relatorioestoque.jsp");

@@ -30,12 +30,14 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
     @Override
     public void cadastrar(Acessorio ac) {
-
+        PreparedStatement stm = null;
+        Integer codproduto = null;
+        
         try {
             Connection conexao = Conexao.obterConexao();
-            String sql = "INSERT INTO TB_ACESSORIOS(NOME_ACESSORIO,MARCA, PRECO, TIPO, QUANTIDADE, NOTA_FISCAL)"
+            String sqlproduto = "INSERT INTO TB_ACESSORIOS(NOME_ACESSORIO,MARCA, PRECO, TIPO, QUANTIDADE, NOTA_FISCAL)"
                     + "values(?,?,?,?,?,?)";
-            PreparedStatement stm = conexao.prepareStatement(sql);
+            stm = conexao.prepareStatement(sqlproduto, Statement.RETURN_GENERATED_KEYS);
             stm.setString(1, ac.getNome());
             stm.setString(2, ac.getMarca());
             stm.setLong(3, ac.getPreco());
@@ -43,9 +45,27 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             stm.setInt(5, ac.getQuantidade());
             stm.setInt(6, ac.getNota_fiscal());
             stm.execute();
+
+            ResultSet rs = stm.getGeneratedKeys();
+            if (rs.next()) {
+
+                codproduto = rs.getInt(1);
+            }
+
+            String sqlestoque = "INSERT INTO TB_ESTOQUE(ID_ACESSORIO,NOME_ACESSORIO,MARCA, PRECO, TIPO, QUANTIDADE, NOTA_FISCAL)"
+                    + "values(?,?,?,?,?,?,?)";
+            stm = conexao.prepareStatement(sqlestoque, Statement.RETURN_GENERATED_KEYS);
+            stm.setInt(1, codproduto);
+            stm.setString(2, ac.getNome());
+            stm.setString(3, ac.getMarca());
+            stm.setLong(4, ac.getPreco());
+            stm.setString(5, ac.getTipo());
+            stm.setInt(6, ac.getQuantidade());
+            stm.setInt(7, ac.getNota_fiscal());
+            stm.execute();
             stm.close();
         } catch (SQLException ex) {
-               Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -62,7 +82,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             stm.setLong(1, ac.getId());
             stm.execute();
         } catch (SQLException ex) {
-               Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -100,7 +120,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
         String sql = "SELECT ID_ACESSORIO, NOME_ACESSORIO, MARCA, PRECO, TIPO, QUANTIDADE, NOTA_FISCAL"
                 + " FROM TB_ACESSORIOS";
-        List<Acessorio> lista = new ArrayList<Acessorio>();
+        List<Acessorio> lista = new ArrayList<>();
 
         try {
             Connection conexao = Conexao.obterConexao();
@@ -183,21 +203,34 @@ public class AcessorioDao implements GenericDao<Acessorio> {
         return null;
     }
 
-    public void baixarEstoque(Acessorio ac) {
+    public List<Acessorio> listarEstoque() throws PersistenceException, SQLException {
 
-        String sql = "UPDATE TB_ACESSORIOS SET QUANTIDADE = ? WHERE ID_ACESSORIO = ?";
+        Statement stmt = null;
+        Connection conn = null;
+
+        String sql = "SELECT * FROM TB_ESTOQUE";
+        List<Acessorio> lista = new ArrayList<>();
 
         try {
-
             Connection conexao = Conexao.obterConexao();
             PreparedStatement stm = conexao.prepareStatement(sql);
-            stm.setInt(5, ac.getQuantidade());
+            ResultSet resultados = stm.executeQuery();
+            while (resultados.next()) {
+                Acessorio ac = new Acessorio();
+                ac.setId(resultados.getInt(1));
+                ac.setNome(resultados.getString(2));
+                ac.setMarca(resultados.getString(3));
+                ac.setPreco(resultados.getLong(4));
+                ac.setTipo(resultados.getString(5));
+                ac.setQuantidade(resultados.getInt(6));
+                ac.setNota_fiscal(resultados.getInt(7));
 
-            stm.execute();
-            stm.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+                lista.add(ac);
+            }
+
+        } catch (PersistenceException ex) {
+            Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return lista;
     }
 }

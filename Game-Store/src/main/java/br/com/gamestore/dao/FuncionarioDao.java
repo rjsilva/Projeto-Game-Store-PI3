@@ -43,7 +43,7 @@ public class FuncionarioDao implements GenericDao<Funcionario> {
             stmendereco.setString(4, funcionario.getEndereco().getEstado());
             stmendereco.setString(5, funcionario.getEndereco().getCidade());
 
-            stmendereco.executeUpdate();
+            stmendereco.execute();
 
             ResultSet rs = stmendereco.getGeneratedKeys();
             if (rs.next()) {

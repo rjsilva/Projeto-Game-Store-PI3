@@ -21,13 +21,8 @@
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Cadastro Funcionário</title>
         <style type="text/css">
-            #btncadastrar{
-
-                margin: 20px 100px;
-            }
             #btnatualizar{
-
-                margin: 20px 40px;
+                margin-left: 55px;
             }
         </style>
     </head>
@@ -65,7 +60,7 @@
                         <td class="col-sm-2">
                             <fmt:formatDate var="data" value="${func.dt_nascimento}" type="both" pattern="dd/MM/yyyy" dateStyle="full"/>
                             <input class="form-control" type="text" name="data" id="data" onkeypress="return SomenteNumero(event)" onblur="mascara(this, mdata);" OnKeyUp="mascara_data(this.value)"  maxlength="10" placeholder="digite a data nascimento" 
-                              value="${data}"/>
+                                   value="${data}"/>
                         </td>
                     </tr>
                     <tr>
@@ -113,7 +108,7 @@
                 <div class="col-sm-5">
                     <input class="btn btn-primary" id="btncadastrar" type="submit" value="Cadastrar"/>
                     <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
-                    <input class="btn btn-primary" id="btncancelar" type="button" value="Cancelar" onclick="BotaoCancelar()"/>
+                    <a class="btn btn-primary" id="btncancelar" href="FuncionarioServlet?acao=listar">Cancelar</a>
                 </div>
             </form>
         </div>

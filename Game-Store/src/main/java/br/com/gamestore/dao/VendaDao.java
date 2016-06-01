@@ -84,13 +84,13 @@ public class VendaDao {
             stm.execute();
             Acessorio ac = new Acessorio();
             int quant = 0, resul = 0;
-            String sqlproduto = "SELECT * FROM TB_ACESSORIOS WHERE ID_ACESSORIO = " + venda.getAcessorio().getNome();
+            String sqlproduto = "SELECT * FROM TB_ESTOQUE WHERE ID_ACESSORIO = " + venda.getAcessorio().getNome();
             stm = conexao.prepareStatement(sqlproduto);
             ResultSet result = stm.executeQuery();
             result.next();
             quant = result.getInt("QUANTIDADE");
             resul = quant - venda.getQuantidade();
-            String sql2 = "UPDATE TB_ACESSORIOS SET QUANTIDADE=? WHERE ID_ACESSORIO= " + venda.getAcessorio().getNome();
+            String sql2 = "UPDATE TB_ESTOQUE SET QUANTIDADE=? WHERE ID_ACESSORIO= " + venda.getAcessorio().getNome();
             stm = conexao.prepareStatement(sql2);
             stm.setInt(1, resul);
             stm.execute();

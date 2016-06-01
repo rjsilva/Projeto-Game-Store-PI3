@@ -4,8 +4,10 @@
     Author     : rjs
 --%>
 
+<%@page import="br.com.gamestore.modelo.Acessorio"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@taglib prefix="disp" uri="http://displaytag.sf.net" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,7 +22,15 @@
     <body style="background-color: buttonface">
         <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
-           
+            <%
+                List<Acessorio> lista = (List<Acessorio>) request.getAttribute("lista");
+ 
+            %>
+            <disp:table name="sessionScope.lista" pagesize="3">
+                <disp:column property="Nome"></disp:column>
+                <disp:column property="Email"></disp:column>
+            </disp:table>
+            
         </div>
     </body>
 </html>

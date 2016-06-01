@@ -17,9 +17,8 @@
         <script type="text/javascript" src="js/validacao.js"></script>
         <title>Cadastro Filial</title>
         <style type="text/css">
-            #btncadastrar{
-                
-                margin: 20px 130px;
+            #btnatualizar{
+               margin-left: 85px;
             }
         </style>
     </head>
@@ -82,7 +81,7 @@
                 <div class="col-sm-5">
                     <input class="btn btn-primary" id="btncadastrar" type="submit" value="Cadastrar"/>
                     <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
-                    <a class="btn btn-primary" href="FilialServlet?acao=listar" id="btncancelar">Voltar</a>
+                    <a class="btn btn-primary" href="FilialServlet?acao=listar" id="btncancelar">Cancelar</a>
                 </div>
             </form>
         </div>

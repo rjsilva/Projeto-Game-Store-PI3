@@ -41,6 +41,7 @@
                         <li><a href="VendaServlet?acao=relatoriovenda">Venda</a></li>
                         <li><a href="AcessorioServlet?acao=relatorio">Estoque</a>
                         </li>
+                        <li><a href="paginajsp/teste.jsp">Teste</a></li>
                     </ul>
                 </li>
                 <li><a href="login1.jsp">Sair</a>

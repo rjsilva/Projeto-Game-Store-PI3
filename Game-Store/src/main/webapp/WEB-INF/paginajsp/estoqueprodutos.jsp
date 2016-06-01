@@ -59,7 +59,7 @@
                         <td><%=ace.getTipo()%></td>
                         <td><%=ace.getQuantidade()%></td>
                         <td><%=ace.getNota_fiscal()%></td>
-                        <td><a href="javascript:exclusao(<%=ace.getId()%>)" class="btn btn-primary">Excluir</a></td>
+                        <td><a href="javascript:exclusao(<%=ace.getId()%>)" class="btn btn-danger">Excluir</a></td>
                         <td><a href="AcessorioServlet?acao=atualizar&id=<%=ace.getId()%>" class="btn btn-primary">Atualizar</a></td>
                     </tr>
                     <%

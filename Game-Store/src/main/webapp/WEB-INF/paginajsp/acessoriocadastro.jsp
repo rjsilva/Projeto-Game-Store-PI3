@@ -76,7 +76,7 @@
                 <div class="col-sm-5">
                     <input class="btn btn-primary" id="btncadastrar" type="submit" value="Cadastrar"/>
                     <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
-                    <a class="btn btn-primary" id="btncancelar" href="AcessorioServlet?acao=cadastro">Cancelar</a>
+                    <a class="btn btn-primary" id="btncancelar" href="AcessorioServlet?acao=listar">Cancelar</a>
                 </div>
             </form>
         </div>

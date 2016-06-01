@@ -43,7 +43,7 @@
                         <td>${filial.razao_social}</td>
                         <td>${filial.cnpj}</td>
                         <td>${filial.telefone}</td>
-                        <td><a href="javascript:exclusao(${filial.id})" class="btn btn-primary">Excluir</a></td>
+                        <td><a href="javascript:exclusao(${filial.id})" class="btn btn-danger">Excluir</a></td>
                         <td><a href="FilialServlet?acao=atualizar&id=${filial.id}" class="btn btn-primary">Atualizar</a></td>
                     </tr>
                 </c:forEach>

@@ -49,7 +49,7 @@
                         <td>${fun.nome}</td>
                         <td>${fun.cargo}</td>
                         <td>${fun.local_trabalho}</td>
-                        <td><a href="javascript:exclusao(${fun.id})" class="btn btn-primary">Excluir</a></td>
+                        <td><a href="javascript:exclusao(${fun.id})" class="btn btn-danger">Excluir</a></td>
                         <td><a href="FuncionarioServlet?acao=atualizar&id=${fun.id}" class="btn btn-primary">Atualizar</a></td>
                     </tr>
                 </c:forEach>
