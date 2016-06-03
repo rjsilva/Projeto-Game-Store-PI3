@@ -4,6 +4,7 @@
     Author     : rjs
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,15 +15,21 @@
         <script type="text/javascript" src="js/menu.js"></script>
     </head>
     <body>
-        <nav id="menu-esquerda">
-            <ul id="menu-v">
-                <li><a href="IndexServlet?acao=mostrartelaindex">Home</a></li>
-                <li><a href="#">Cadastro</a>
-                    <ul class="sub">
-                        <li><a href="AcessorioServlet?acao=cadastro">Produto</a></li>
-                        <li><a href="FilialServlet?acao=mostrartela">Filial</a></li>
-                        <li><a href="FuncionarioServlet?acao=funcionario">Funcionário</a></li>
-                    </ul>
+        <c:set var="usuario" scope="session" value="${sessionScope.user.login.toUpperCase()}"></c:set>
+        <c:out value="${usuario}"></c:out>
+            <nav id="menu-esquerda">
+                <ul id="menu-v">
+                    <li><a href="IndexServlet?acao=mostrartelaindex">Home</a></li>
+                    <li><a href="#">Cadastro</a>
+                    <c:choose>
+                        <c:when test="${usuario eq ADMIN}">
+                            <ul class="sub">
+                                <li><a href="AcessorioServlet?acao=cadastro">Produto</a></li>
+                                <li><a href="FilialServlet?acao=mostrartela">Filial</a></li>
+                                <li><a href="FuncionarioServlet?acao=funcionario">Funcionário</a></li>
+                            </ul>
+                        </c:when>
+                    </c:choose>
                 </li>
                 <li><a href="VendaServlet?acao=venda">Registrar Venda</a></li>
                 <li><a href="paginajsp/cancelarvenda.jsp">Cancelar Venda</a></li>
