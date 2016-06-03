@@ -64,15 +64,15 @@ public class UsuarioDao implements GenericDao<Usuario> {
             nomefuncionario = result.getString("NOME_FUNCIONARIO");
             codfuncionario = result.getInt("ID_FUNCIONARIO");
 
-            String sql = "INSERT INTO TB_USUARIO(ID_FILIAL,ID_FUNCIONARIO, LOGIN, SENHA, PERFIL, NOME_USUARIO)"
+            String sql = "INSERT INTO TB_USUARIO(ID_FILIAL,ID_FUNCIONARIO, LOGIN, SENHA,NOME_USUARIO,NIVEL)"
                     + "values(?,?,?,?,?,?)";
             PreparedStatement stm = conexao.prepareStatement(sql);
             stm.setInt(1, user.getFilial().getId());
             stm.setInt(2, codfuncionario);
             stm.setString(3, user.getLogin());
             stm.setString(4, user.getSenha());
-            stm.setString(5, user.getPerfil());
-            stm.setString(6, nomefuncionario);
+            stm.setString(5, nomefuncionario);
+            stm.setInt(6, user.getNivelacesso());
 
             stm.execute();
             stm.close();
@@ -109,7 +109,7 @@ public class UsuarioDao implements GenericDao<Usuario> {
 
     public List<Usuario> listarUsuarios() throws PersistenceException, SQLException {
 
-        String sql = "SELECT LOGIN, PERFIL, NOME_USUARIO, RAZAO_SOCIAL FROM TB_USUARIO\n"
+        String sql = "SELECT LOGIN, NOME_USUARIO,NIVEL, RAZAO_SOCIAL FROM TB_USUARIO\n"
                 + "INNER JOIN TB_FILIAL ON TB_USUARIO.ID_FILIAL = TB_FILIAL.ID_FILIAL";
         List<Usuario> listaUsuario = new ArrayList<>();
 
@@ -120,8 +120,8 @@ public class UsuarioDao implements GenericDao<Usuario> {
             while (resultados.next()) {
                 Usuario user = new Usuario();
                 user.setLogin(resultados.getString("LOGIN"));
-                user.setPerfil(resultados.getString("PERFIL"));
                 user.setNome(resultados.getString("NOME_USUARIO"));
+                user.setNivelacesso(resultados.getInt("NIVEL"));
                 user.getFilial().setRazao_social(resultados.getString("RAZAO_SOCIAL"));
 
                 listaUsuario.add(user);
@@ -138,7 +138,7 @@ public class UsuarioDao implements GenericDao<Usuario> {
         try {
 
             Connection conexao = Conexao.obterConexao();
-            String sql = "SELECT ID_USUARIO , LOGIN,  PERFIL, NOME_USUARIO FROM TB_USUARIO WHERE LOGIN = ?";
+            String sql = "SELECT ID_USUARIO , LOGIN, NOME_USUARIO, NIVEL FROM TB_USUARIO WHERE LOGIN = ?";
             PreparedStatement stm = conexao.prepareStatement(sql);
 
             stm.setString(1, nome);
@@ -148,8 +148,8 @@ public class UsuarioDao implements GenericDao<Usuario> {
 
                 user.setId(resultados.getInt(1));
                 user.setLogin(resultados.getString(2));
-                user.setPerfil(resultados.getString(3));
-                user.setNome(resultados.getString(4));
+                user.setNome(resultados.getString(3));
+                user.setNivelacesso(resultados.getInt(4));
 
                 return user;
 

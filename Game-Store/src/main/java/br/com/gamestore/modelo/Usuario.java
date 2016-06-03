@@ -19,7 +19,7 @@ public class Usuario implements Serializable{
     
     private String senha;
     
-    private String perfil;
+    private int nivelacesso;
     
     private String nome;
 
@@ -42,20 +42,6 @@ public class Usuario implements Serializable{
      */
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    /**
-     * @return the perfil
-     */
-    public String getPerfil() {
-        return perfil;
-    }
-
-    /**
-     * @param perfil the perfil to set
-     */
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
     }
 
     /**
@@ -112,6 +98,20 @@ public class Usuario implements Serializable{
      */
     public void setFilial(Filial filial) {
         this.filial = filial;
+    }
+
+    /**
+     * @return the nivelacesso
+     */
+    public int getNivelacesso() {
+        return nivelacesso;
+    }
+
+    /**
+     * @param nivelacesso the nivelacesso to set
+     */
+    public void setNivelacesso(int nivelacesso) {
+        this.nivelacesso = nivelacesso;
     }
     
 }

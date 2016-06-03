@@ -15,41 +15,47 @@
         <script type="text/javascript" src="js/menu.js"></script>
     </head>
     <body>
-        <c:set var="usuario" scope="session" value="${sessionScope.user.login.toUpperCase()}"></c:set>
-        <c:out value="${usuario}"></c:out>
+        <c:set var="nivel" scope="session" value="${sessionScope.user.nivelacesso}"></c:set>
             <nav id="menu-esquerda">
                 <ul id="menu-v">
                     <li><a href="IndexServlet?acao=mostrartelaindex">Home</a></li>
-                    <li><a href="#">Cadastro</a>
                     <c:choose>
-                        <c:when test="${usuario eq ADMIN}">
+                        <c:when test="${nivel <= 3}">
+                        <li><a href="#">Cadastro</a>
                             <ul class="sub">
                                 <li><a href="AcessorioServlet?acao=cadastro">Produto</a></li>
                                 <li><a href="FilialServlet?acao=mostrartela">Filial</a></li>
                                 <li><a href="FuncionarioServlet?acao=funcionario">Funcionário</a></li>
                             </ul>
+                        </li>
+                        <li><a href="VendaServlet?acao=venda">Registrar Venda</a></li>
+                        <li><a href="paginajsp/cancelarvenda.jsp">Cancelar Venda</a></li>
                         </c:when>
                     </c:choose>
-                </li>
-                <li><a href="VendaServlet?acao=venda">Registrar Venda</a></li>
-                <li><a href="paginajsp/cancelarvenda.jsp">Cancelar Venda</a></li>
                 <li><a href="ChamadoServlet?acao=tela">Abrir Chamado</a></li>
-                <li><a href="PerfilServlet?acao=mostrartelausuario">Criar Usuário</a></li>
-                <li><a href="#">Consultas</a>
-                    <ul class="sub">
-                        <li><a href="AcessorioServlet?acao=listar">Produto</a></li>
-                        <li><a href="FuncionarioServlet?acao=listar">Funcionário</a></li>
-                        <li><a href="FilialServlet?acao=listar">Filial</a></li>
-                        <li><a href="ChamadoServlet?acao=listar">Chamado</a></li>
-                        <li><a href="PerfilServlet?acao=listarusuarios">Usuários</a></li>
-                    </ul>
-                </li>
+                    <c:choose>
+                        <c:when test="${nivel <= 1}">
+                        <li><a href="PerfilServlet?acao=mostrartelausuario">Criar Usuário</a></li>
+                        </c:when>
+                    </c:choose>
+                    <c:choose>
+                        <c:when test="${nivel <= 3}">
+                        <li><a href="#">Consultas</a>
+                            <ul class="sub">
+                                <li><a href="AcessorioServlet?acao=listar">Produto</a></li>
+                                <li><a href="FuncionarioServlet?acao=listar">Funcionário</a></li>
+                                <li><a href="FilialServlet?acao=listar">Filial</a></li>
+                                <li><a href="ChamadoServlet?acao=listar">Chamado</a></li>
+                                <li><a href="PerfilServlet?acao=listarusuarios">Usuários</a></li>
+                            </ul>
+                        </li>
+                    </c:when>
+                </c:choose>
                 <li><a href="#">Relatório</a>
                     <ul class="sub">
                         <li><a href="VendaServlet?acao=relatoriovenda">Venda</a></li>
                         <li><a href="AcessorioServlet?acao=relatorio">Estoque</a>
                         </li>
-                        <li><a href="paginajsp/teste.jsp">Teste</a></li>
                     </ul>
                 </li>
                 <li><a href="login1.jsp">Sair</a>

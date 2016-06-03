@@ -115,14 +115,24 @@ public class PerfilServlet extends HttpServlet {
                 String login = request.getParameter("login");
                 UUID uuid = UUID.randomUUID();
                 String senha = uuid.toString();
-                String perfil = request.getParameter("perfil");
+                String perfil = request.getParameter("perfil").toUpperCase();
+                int nivelacesso = 0;
+                if (perfil.equals("BACKOFFICE")) {
+
+                    nivelacesso = 2;
+                } else if (perfil.equals("GERENTE")) {
+
+                    nivelacesso = 3;
+                } else if(perfil.equals("SUPORTE")) {
+                    nivelacesso = 4;
+                }
                 String emailusuario = request.getParameter("email");
 
                 user.setNome(nome);
                 user.getFilial().setId(Integer.parseInt(filial));
                 user.setLogin(login);
                 user.setSenha(senha.replaceAll("-", "").substring(0, 5));
-                user.setPerfil(perfil);
+                user.setNivelacesso(nivelacesso);
                 userDao.cadastrar(user);
 
                 if (user != null) {
