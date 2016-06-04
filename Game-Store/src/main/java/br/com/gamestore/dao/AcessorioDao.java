@@ -7,7 +7,6 @@ package br.com.gamestore.dao;
 
 import br.com.gamestore.Servlet.AcessorioServlet;
 import br.com.gamestore.modelo.Acessorio;
-import br.com.gamestore.modelo.Venda;
 import br.com.gamestore.util.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -15,6 +15,11 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/estiloformulario.css"/>
         <title>Relatório de Estoque</title>
+        <style type="text/css">
+            .btnimprimir{
+                margin: 10px 500px;
+            }
+        </style>
     </head>
     <body>
         <jsp:include page="../template/layout.jsp"/>
@@ -40,7 +45,7 @@
                     </tr>
                 </c:forEach>
             </table>
-            <a href="RelatorioServlet?acao=imprimir" class="btn btn-primary">Imprimir</a></td>
+            <a href="RelatorioServlet?acao=imprimir" class="btn btn-primary btnimprimir">Imprimir</a></td>
         </div>
     </body>
 </html>

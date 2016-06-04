@@ -22,14 +22,14 @@
             <table border="1" style="width:100%" class="table">
                 <tr>
                     <th>NOME USUÁRIO</th>
-                    <th>PERFIL</th>
+                    <th>NÍVEL DE ACESSO</th>
                     <th>LOGIN</th>
                     <th>FILIAL</th>
                 </tr>
                 <c:forEach items="${listausuario}" var="usuario">
                     <tr>
                         <td>${usuario.nome}</td>
-                        <td>${usuario.perfil}</td>
+                        <td>${usuario.nivelacesso}</td>
                         <td>${usuario.login}</td>
                         <td>${usuario.filial.razao_social}</td>
                     </tr>

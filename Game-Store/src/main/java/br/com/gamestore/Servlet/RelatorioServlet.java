@@ -6,17 +6,12 @@
 package br.com.gamestore.Servlet;
 
 import br.com.gamestore.dao.VendaDao;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.spi.Context;
-import javax.faces.component.behavior.FacesBehavior;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,7 +67,7 @@ public class RelatorioServlet extends HttpServlet {
 
         String acao = request.getParameter("acao");
 
-          String caminho = this.getServletContext().getRealPath("/WEB-INF/Relatorio/relatoriovenda.jasper"); 
+        String caminho = this.getServletContext().getRealPath("/WEB-INF/Relatorio/relatoriovenda.jasper");
 
         if (acao.equals("imprimir")) {
 
@@ -84,6 +79,7 @@ public class RelatorioServlet extends HttpServlet {
             }
         }
 
+        response.sendRedirect("VendaServlet?acao=relatoriovenda");
     }
 
     /**

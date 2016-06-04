@@ -1,10 +1,9 @@
-//=====VÁLIDA O USUÁRIO LOGADO============================//
-
-function validarPermissaoAcesso() {
-    var user = document.getElementById("user").value;
-    if (user != "SUPORTE") {
-
-        document.getElementById("btnAtenderChamado").style.display = 'none';
+function validaStatus(){
+    
+    var id = document.getElementById("id").value;
+    if(id == "" || id == "null"){
+        
+       document.getElementById("status").style.display = 'none';
     }
 }
 
@@ -22,15 +21,6 @@ function desabilitaBotao() {
         document.getElementById("btnatualizar").style.display = 'none';
     }
 }
-//DESABILTA A TELA CRIAR USUÁRIO CASO O USUÁRIO NÃO TEM PERMISSÃO DE CRIAR USUÁRIOS PARA O SISTEMA//
-function desabilitaTelaUsuario() {
-
-    if (document.getElementById('perfil').value === 'GERENTE') {
-
-        document.getElementById("linkcadastrofuncionario").style.display = 'none';
-    }
-}
-
 //=======VÁLIDA SO CAMPOS EM BRANCO NA TELA DE CADASTRO DE USUÁRIO, FORÇANDO O USUÁRIO A PREENCHER TODOS OS DADOS========//
 function validarCampos(frm) {
 
@@ -212,7 +202,7 @@ function validarCampoAbrirChamado(frm) {
 
     frm.submit();
 }
-
+//==========VÁLIDA OS CAMPOS EM BRANCO NA TELA CRIAR USUÁRIO FORÇANDO O USUÁRIO A PREENCHER OS CAMPOS==========
 function validarTelaCriarUsuario(frm) {
 
 

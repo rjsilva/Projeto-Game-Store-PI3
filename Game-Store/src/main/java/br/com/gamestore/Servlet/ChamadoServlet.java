@@ -5,21 +5,23 @@
  */
 package br.com.gamestore.Servlet;
 
+import br.com.gamestore.controler.ChamadoControler;
 import br.com.gamestore.dao.ChamadoDao;
 import br.com.gamestore.modelo.Chamado;
-import br.com.gamestore.modelo.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.PersistenceException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.mail.EmailException;
 
 /**
  *
@@ -68,14 +70,14 @@ public class ChamadoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String acao = request.getParameter("acao");
-        String id = request.getParameter("id");
+        Chamado chamado = new Chamado();
         ChamadoDao chamadoDao = new ChamadoDao();
 
-        if (acao.equals("tela")) {
+        if (acao.equals("abrirchamado")) {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/abrirchamado.jsp");
             dispatcher.forward(request, response);
-        } else if (acao.equals("listar")) {
+        } else if (acao.equals("listarchamado")) {
 
             try {
                 List<Chamado> listachamado = chamadoDao.listarTodosChamados();
@@ -87,6 +89,44 @@ public class ChamadoServlet extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(ChamadoServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else if (acao.equals("atenderchamado")) {
+
+            try {
+
+                List<Chamado> listachamado;
+                listachamado = chamadoDao.listarTodosChamados();
+                request.setAttribute("listachamado", listachamado);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/atenderchamado.jsp");
+                dispatcher.forward(request, response);
+            } catch (PersistenceException | SQLException ex) {
+                Logger.getLogger(ChamadoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (acao.equals("excluir")) {
+            String id = request.getParameter("id");
+            chamado.setId(Integer.parseInt(id));
+            if (id != null) {
+                chamadoDao.excluir(chamado);
+
+                response.sendRedirect("ChamadoServlet?acao=atenderchamado");
+            }
+        } else if (acao.equals("atualizarchamado")) {
+            String id = request.getParameter("id");
+            chamado = chamadoDao.buscarPorId(Integer.parseInt(id));
+            request.setAttribute("chamado", chamado);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/abrirchamado.jsp");
+            dispatcher.forward(request, response);
+
+            //seta objeto em branco
+        } else if (acao.equals("cadastro")) {
+
+            chamado.setEmail("");
+            chamado.setTelefone("");
+            chamado.setAssunto("");
+            chamado.setComentario("");
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/abrirchamado.jsp");
+            dispatcher.forward(request, response);
+
         }
     }
 
@@ -102,31 +142,63 @@ public class ChamadoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String acao = request.getParameter("acao");
+        String id = request.getParameter("id");
         Chamado chamado = new Chamado();
-        Funcionario funcionario = new Funcionario();
         ChamadoDao cdao = new ChamadoDao();
 
-        if (acao.equals("cadastrar")) {
+        if (id == null || id.equals("")) {
+
+            String nomefuncionario = request.getParameter("nomefuncionario");
+            String email = request.getParameter("email");
+            String telefone = request.getParameter("telefone");
+            String assunto = request.getParameter("assunto");
+            String comentario = request.getParameter("comentario");
+            String status = request.getParameter("status");
+
+            chamado.getFuncionario().setNome(nomefuncionario);
+            chamado.setEmail(email);
+            chamado.setTelefone(telefone);
+            chamado.setAssunto(assunto);
+            chamado.setComentario(comentario);
+            if (status != null && !status.equals("")) {
+                chamado.setStatus(status);
+            } else {
+
+                chamado.setStatus("EM ANDAMENTO");
+
+            }
+
+            cdao.cadastrar(chamado);
+            response.sendRedirect("ChamadoServlet?acao=abrirchamado");
+        } else {
 
             try {
-
+                chamado.setId(Integer.parseInt(id));
                 String nomefuncionario = request.getParameter("nomefuncionario");
                 String email = request.getParameter("email");
                 String telefone = request.getParameter("telefone");
                 String assunto = request.getParameter("assunto");
                 String comentario = request.getParameter("comentario");
-
+                String status = request.getParameter("status");
+                
                 chamado.getFuncionario().setNome(nomefuncionario);
                 chamado.setEmail(email);
                 chamado.setTelefone(telefone);
                 chamado.setAssunto(assunto);
                 chamado.setComentario(comentario);
-                chamado.setStatus("EM ANDAMENTO");
+                if (status != null && !status.equals("")) {
+                    chamado.setStatus(status);
+                } else {
 
-                cdao.cadastrar(chamado);
-                response.sendRedirect("ChamadoServlet?acao=tela");
+                    chamado.setStatus("EM ANDAMENTO");
 
-            } catch (Exception ex) {
+                }
+
+                cdao.atualizar(chamado);
+                ChamadoControler chamadoControler = new ChamadoControler();
+                chamadoControler.enviarEmailChamdo(email, comentario);
+                response.sendRedirect("ChamadoServlet?acao=abrirchamado");
+            } catch (NumberFormatException | EmailException | IOException ex) {
 
                 Logger.getLogger(ChamadoServlet.class.getName()).log(Level.SEVERE, null, ex);
 

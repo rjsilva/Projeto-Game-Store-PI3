@@ -28,8 +28,8 @@ public class Conexao {
             // Passo 2: Abrir a conexÃ£o
             return DriverManager.getConnection(
                     "jdbc:derby://localhost:1527/gamebd;SecurityMechanism=3",
-                    "gamebd", // usuario
-                    "gamebd"); // senha
+                    "game", // usuario
+                    "game"); // senha
         }
         catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());

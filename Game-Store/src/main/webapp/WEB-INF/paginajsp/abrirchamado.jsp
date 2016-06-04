@@ -21,7 +21,7 @@
             }
         </style>
     </head>
-    <body>
+    <body onload="validaStatus()">
         <jsp:include page="../template/layout.jsp"/>
         <div class="conteudo">
             <h3>Abrir Chamado</h3>
@@ -37,36 +37,40 @@
                     <tr>
                         <td><label for="email">Email:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="email" id="email" name="email" onblur="validarEmail(form.email)"  maxlength="60" size="65" placeholder="digite seu email"/>
+                            <input class="form-control" type="email" id="email" name="email" onblur="validarEmail(form.email)"  maxlength="60" size="65" placeholder="digite seu email" value="${chamado.email}"/>
                         </td>
                         <td><label for="acessorio">Código:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" readonly="readonly" id="id" name="id" value="${ac.id}"/>
+                            <input class="form-control" type="text" readonly="readonly" id="id" name="id" value="${chamado.id}" onmouseover="validaStatus()"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="telefone">Telefone:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="telefone" id="telefone" name="telefone" placeholder="digite seu telefone" maxlength="15" onkeyup="mascara(this, mtel);"/>
+                            <input class="form-control" type="telefone" id="telefone" name="telefone" placeholder="digite seu telefone" maxlength="15" onkeyup="mascara(this, mtel);" value="${chamado.telefone}"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="assunto">Assunto:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="assunto" name="assunto" placeholder="digite o assunto"/>
+                            <input class="form-control" type="text" id="assunto" name="assunto" placeholder="digite o assunto" value="${chamado.assunto}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="status">Status:</label></td>
+                        <td class="col-sm-2">
+                            <input class="form-control" type="text" id="status" name="status" placeholder="digite o status" value="${chamado.status}"/>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="assunto">Comentário:</label></td>
                         <td class="col-sm-2">
-                            <textarea class="form-control" rows="5" id="comentario" name="comentario"></textarea>
+                            <textarea class="form-control" rows="5" id="comentario" name="comentario" value="${chamado.comentario}"></textarea>
                         </td>
                     </tr>
                 </table>
                 <div class="col-sm-5">
                     <input class="btn btn-primary" id="btncadastrar" type="submit" value="Enviar"/>
-                    <input class="btn btn-primary" id="btnatualizar" type="submit" value="Atualizar"/>
-                    <a class="btn btn-primary" id="btncancelar" href="ChamadoServlet?acao=tela">Cancelar</a>
                 </div>
             </form>
         </div>

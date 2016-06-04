@@ -71,7 +71,6 @@
                         <td><label for="perfil">Perfil:</label></td>
                         <td class="col-sm-2">
                             <select class="form-control" name="perfil" id="perfil">
-                                <option selected>Selecione um perfil</option>
                                 <option selected>Gerente</option>
                                 <option selected>Suporte</option>
                                 <option selected>BackOffice</option>
