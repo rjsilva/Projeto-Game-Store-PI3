@@ -27,9 +27,9 @@ public class Conexao {
             //System.out.println("conectado ao banco");
             // Passo 2: Abrir a conexÃ£o
             return DriverManager.getConnection(
-                    "jdbc:derby://localhost:1527/gamebd;SecurityMechanism=3",
-                    "game", // usuario
-                    "game"); // senha
+                    "jdbc:derby://localhost:1527/gamebd1;SecurityMechanism=3",
+                    "gamebd1", // usuario
+                    "gamebd"); // senha
         }
         catch (ClassNotFoundException e) {
             throw new SQLException(e.getMessage());
