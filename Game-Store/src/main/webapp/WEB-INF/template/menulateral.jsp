@@ -29,7 +29,7 @@
                             </ul>
                         </li>
                         <li><a href="VendaServlet?acao=venda">Registrar Venda</a></li>
-                        <li><a href="paginajsp/cancelarvenda.jsp">Cancelar Venda</a></li>
+                        <li><a href="VendaServlet?acao=pesquisarvenda">Cancelar Venda</a></li>
                         <li><a href="ChamadoServlet?acao=abrirchamado">Abrir Chamado</a></li>
                         <li><a href="#">Consultas</a>
                             <ul class="sub">
@@ -72,7 +72,6 @@
                             </ul>
                         </li>
                         <li><a href="VendaServlet?acao=venda">Registrar Venda</a></li>
-                        <li><a href="paginajsp/cancelarvenda.jsp">Cancelar Venda</a></li>
                         <li><a href="ChamadoServlet?acao=abrirchamado">Abrir Chamado</a></li>
                         <li><a href="#">Consultas</a>
                             <ul class="sub">
@@ -98,7 +97,7 @@
                             </ul>
                         </li>
                         <li><a href="VendaServlet?acao=venda">Registrar Venda</a></li>
-                        <li><a href="paginajsp/cancelarvenda.jsp">Cancelar Venda</a></li>
+                        <li><a href="VendaServlet?acao=pesquisarvenda">Cancelar Venda</a></li>
                         <li><a href="ChamadoServlet?acao=abrirchamado">Abrir Chamado</a></li>
                         <li><a href="ChamadoServlet?acao=atenderchamado">Atender Chamado</a></li>
                         <li><a href="PerfilServlet?acao=mostrartelausuario">Criar Usuário</a></li>
@@ -120,7 +119,7 @@
                         </li>
                     </c:otherwise>
                 </c:choose>
-                <li><a href="login1.jsp">Sair</a>
+                <li><a href="login1.jsp">Sair</a></li>
             </ul>
         </nav>
     </body>

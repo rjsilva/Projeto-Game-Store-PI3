@@ -95,6 +95,27 @@ public class VendaServlet extends HttpServlet {
             //request.setAttribute("listafilial", filialDao.buscarPorNome());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/registrarvenda.jsp");
             dispatcher.forward(request, response);
+        } else if (acao.equals("excluir")) {
+
+            String id = request.getParameter("id");
+            Venda venda = new Venda();
+            venda.setId(Long.parseLong(id));
+            if (id != null) {
+                vdao.CancelarVenda(venda);
+                response.sendRedirect("VendaServlet?acao=pesquisarvenda");
+            }
+
+        } else if (acao.equals("pesquisarvenda")) {
+
+            try {
+                List<Venda> listavenda;
+                listavenda = vdao.listarTodos();
+                request.setAttribute("listavenda", listavenda);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cancelarvenda.jsp");
+                dispatcher.forward(request, response);
+            } catch (PersistenceException | SQLException ex) {
+                Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (acao.equals("relatoriovenda")) {
 
             try {
@@ -145,7 +166,6 @@ public class VendaServlet extends HttpServlet {
                         .getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
 
     /**

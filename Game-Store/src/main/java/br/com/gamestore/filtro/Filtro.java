@@ -34,11 +34,11 @@ public class Filtro implements Filter {
         try {
             if (!httpRequest.isRequestedSessionIdValid()) {
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
-                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
+                httpResponse.sendRedirect(httpRequest.getContextPath() + "/login1.jsp");
             } else {
                 chain.doFilter(request, response);
             }
-        } catch (Exception e) {
+        } catch (IOException | ServletException e) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/login1.jsp");
         }

@@ -20,6 +20,9 @@
             #btnatualizar{
                margin-left: 85px;
             }
+            #btncadastrar{
+                margin-left: 125px;
+            }
         </style>
     </head>
     <body onload="desabilitaBotao()">

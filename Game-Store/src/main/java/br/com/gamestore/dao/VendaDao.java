@@ -25,6 +25,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
+
 /**
  *
  * @author rjs
@@ -80,7 +81,10 @@ public class VendaDao {
             stm.setDate(4, new java.sql.Date(System.currentTimeMillis()));
             stm.setInt(5, venda.getQuantidade());
             stm.setDouble(6, preco);
-
+            
+            /**
+             * PEGA A QUANTIDADE DO PRODUTO NA TABELA DE ESTOQUE
+             */
             stm.execute();
             Acessorio ac = new Acessorio();
             int quant = 0, resul = 0;
@@ -133,6 +137,28 @@ public class VendaDao {
             e.printStackTrace();
         }
         return listavenda;
+    }
+
+    public void CancelarVenda(Venda venda) {
+
+        PreparedStatement stm = null;
+
+        try {
+
+            String sql = "DELETE FROM TB_VENDA WHERE ID_VENDA=?";
+
+            Connection conexao = Conexao.obterConexao();
+
+            stm = conexao.prepareStatement(sql);
+            stm.setLong(1, venda.getId());
+            stm.execute();
+
+            stm.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public void imprimirRelatorioVenda(String caminho) throws SQLException, JRException {

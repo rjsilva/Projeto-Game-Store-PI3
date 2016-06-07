@@ -28,7 +28,7 @@ CREATE TABLE TB_CHAMADO (
  CONSTRAINT PK_CHAMADO PRIMARY KEY (ID_CHAMADO)
 );
 INSERT INTO TB_CHAMADO(NOME_PESSOA,EMAIL,ASSUNTO,COMENTARIO,TELEFONE,STATUS,DATA_CHAMADO)
-VALUES('ronaldo','ronaldo@gamestore.com','problema pc','meu pc não esta funcionando','11-9988-9876','em andamento','2016-06-01')
+VALUES('ronaldo','ronaldo@gamestore.com','problema pc','meu pc não esta funcionando','11-9988-9876','EM ANDAMENTO','2016-06-01')
 
 
 
