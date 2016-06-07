@@ -34,7 +34,7 @@ FROM
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="a558567a-2ce6-4828-ad61-5a8df3c718dc" x="0" y="0" width="555" height="79"/>
+				<reportElement uuid="a558567a-2ce6-4828-ad61-5a8df3c718dc" mode="Opaque" x="0" y="0" width="555" height="79" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="24"/>
 				</textElement>
@@ -48,37 +48,37 @@ FROM
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="17b4cf3e-ca6c-455d-b727-20f416b5b270" x="0" y="0" width="72" height="20"/>
+				<reportElement uuid="17b4cf3e-ca6c-455d-b727-20f416b5b270" mode="Opaque" x="0" y="0" width="72" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[ID_VENDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2d597293-63f1-4248-aaea-0525c199ff27" x="72" y="0" width="92" height="20"/>
+				<reportElement uuid="2d597293-63f1-4248-aaea-0525c199ff27" mode="Opaque" x="72" y="0" width="92" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[PRODUTO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f4ffe075-fc90-4968-91cb-b8b93f15b427" x="164" y="0" width="79" height="20"/>
+				<reportElement uuid="f4ffe075-fc90-4968-91cb-b8b93f15b427" mode="Opaque" x="164" y="0" width="79" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[FUNCIONARIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7e668ff1-1857-45b3-8946-4b30faa57696" x="243" y="0" width="59" height="20"/>
+				<reportElement uuid="7e668ff1-1857-45b3-8946-4b30faa57696" mode="Opaque" x="243" y="0" width="59" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[FILIAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bcfc7e7a-f55d-42d9-bef3-b9eae38dce43" x="302" y="0" width="76" height="20"/>
+				<reportElement uuid="bcfc7e7a-f55d-42d9-bef3-b9eae38dce43" mode="Opaque" x="302" y="0" width="76" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[DATA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="437049dd-70b4-4496-b78c-209b311cbbc7" x="378" y="0" width="96" height="20"/>
+				<reportElement uuid="437049dd-70b4-4496-b78c-209b311cbbc7" mode="Opaque" x="378" y="0" width="96" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[PRECO_UNITARIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="35ed0ff0-7fae-467e-98b7-b9f35d24dfa5" x="474" y="0" width="81" height="20"/>
+				<reportElement uuid="35ed0ff0-7fae-467e-98b7-b9f35d24dfa5" mode="Opaque" x="474" y="0" width="81" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[QUANTIDADE]]></text>
 			</staticText>

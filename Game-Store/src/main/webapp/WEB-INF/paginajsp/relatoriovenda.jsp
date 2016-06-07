@@ -45,7 +45,7 @@
                     </tr>
                 </c:forEach>
             </table>
-            <a href="RelatorioServlet?acao=imprimir" class="btn btn-primary btnimprimir">Imprimir</a></td>
+            <a href="RelatorioServlet?acao=venda" class="btn btn-primary btnimprimir">Imprimir</a>
         </div>
     </body>
 </html>

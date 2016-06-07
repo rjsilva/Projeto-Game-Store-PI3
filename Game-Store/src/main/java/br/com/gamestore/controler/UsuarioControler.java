@@ -43,7 +43,7 @@ public class UsuarioControler{
         return valido;
     }
 
-    public void enviarEmail(String login, String senha, String emailusuario) throws EmailException {
+    public void enviarEmail(String senha, String emailusuario) throws EmailException {
 
         
                 //String emailusuario = request.getParameter("email");
@@ -53,8 +53,8 @@ public class UsuarioControler{
                 email.setAuthentication("rkfsystem@gmail.com", "rkfsystemgamestore");
                 email.setSSLOnConnect(true);
                 email.setFrom("rkfsystem@gmail.com");
-                email.setSubject("usuario e senha de acesso ao sistema");
-                email.setMsg("Usuario: " + login + "\n" + "Senha: " + senha.replaceAll("-","").substring(0,5));
+                email.setSubject("senha de acesso ao sistema");
+                email.setMsg("Senha: " + senha.replaceAll("-","").substring(0,5));
                 email.addTo(emailusuario);
                 email.send();
         

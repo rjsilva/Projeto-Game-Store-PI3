@@ -1,5 +1,4 @@
-function validaStatus(){
-    
+function validaStatus(status){
     var id = document.getElementById("id").value;
     if(id == "" || id == "null"){
         
@@ -21,7 +20,7 @@ function desabilitaBotao() {
         document.getElementById("btnatualizar").style.display = 'none';
     }
 }
-//=======VÁLIDA SO CAMPOS EM BRANCO NA TELA DE CADASTRO DE USUÁRIO, FORÇANDO O USUÁRIO A PREENCHER TODOS OS DADOS========//
+//=======VÁLIDA SO CAMPOS EM BRANCO NA TELA DE CADASTRO DE ACESSÓRIO, FORÇANDO O USUÁRIO A PREENCHER TODOS OS DADOS========//
 function validarCampos(frm) {
 
 
@@ -218,9 +217,9 @@ function validarTelaCriarUsuario(frm) {
 
         return false;
     }
-    if (frm.login.value == "" || frm.login.value == null) {
+    if (frm.cpf.value == "" || frm.cpf.value == null) {
 
-        alert("Crie um Login");
+        alert("digite o cpf do usuário");
 
         return false;
 

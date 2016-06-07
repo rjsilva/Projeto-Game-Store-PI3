@@ -5,6 +5,7 @@
  */
 package br.com.gamestore.Servlet;
 
+import br.com.gamestore.dao.AcessorioDao;
 import br.com.gamestore.dao.VendaDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -65,21 +66,39 @@ public class RelatorioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        /**
+         * Recebe a requisição "venda" quando clicado no botão imprimir
+         * relatório venda na página relatoriovenda.jsp. e chama o método
+         * imprimirRelatórioVenda, no vendaDao que está no pacote DAO.
+         */
         String acao = request.getParameter("acao");
+        if (acao.equals("venda")) {
 
-        String caminho = this.getServletContext().getRealPath("/WEB-INF/Relatorio/relatoriovenda.jasper");
-
-        if (acao.equals("imprimir")) {
-
+            String caminho = this.getServletContext().getRealPath("/WEB-INF/Relatorio/relatoriovenda.jasper");
             VendaDao vdao = new VendaDao();
             try {
                 vdao.imprimirRelatorioVenda(caminho);
             } catch (JRException | SQLException ex) {
                 Logger.getLogger(RelatorioServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+            /**
+             * caso a requisição seja "estoque" quando clicado no botão imprimir
+             * relatório estoque na página relatorioestoque.jsp. chama o método
+             * imprimirRelatórioEstoque, no acessorioDao que está no pacote DAO.
+             */
+           response.sendRedirect("VendaServlet?acao=relatoriovenda");
+        } else if (acao.equals("estoque")) {
 
-        response.sendRedirect("VendaServlet?acao=relatoriovenda");
+            String caminho = this.getServletContext().getRealPath("/WEB-INF/Relatorio/relatorioestoque.jasper");
+            AcessorioDao aceDao = new AcessorioDao();
+            try {
+                aceDao.imprimirRelatorioEstoque(caminho);
+            } catch (SQLException | JRException ex) {
+                Logger.getLogger(RelatorioServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            response.sendRedirect("AcessorioServlet?acao=relatorio");
+        }
     }
 
     /**

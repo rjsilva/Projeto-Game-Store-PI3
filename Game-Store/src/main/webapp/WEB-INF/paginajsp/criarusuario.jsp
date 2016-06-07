@@ -64,7 +64,7 @@
                     <tr>
                         <td><label for="login">Login:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="login" name="login" placeholder="digite o login"/>
+                            <input class="form-control" type="text" name="cpf" id="cpf" onblur="javascript: validarCPF(this.value);" onkeypress="javascript: mascara(this, cpf_mask);"  maxlength="14" placeholder="digite o cpf"/>
                         </td>
                     </tr>
                     <tr>

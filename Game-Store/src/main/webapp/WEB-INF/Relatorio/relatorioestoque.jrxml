@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="919ddac1-3e22-4b91-a063-fa292df91b33">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     TB_ESTOQUE."NOME_ACESSORIO" AS NOME_ACESSORIO,
+     TB_ESTOQUE."MARCA" AS MARCA,
+     TB_ESTOQUE."PRECO" AS PRECO,
+     TB_ESTOQUE."TIPO" AS TIPO,
+     TB_ESTOQUE."QUANTIDADE" AS QUANTIDADE,
+     TB_ESTOQUE."NOTA_FISCAL" AS NOTA_FISCAL,
+     TB_ESTOQUE."ID_ACESSORIO" AS CÓDIGO_ACESSORIO
+FROM
+     "GAME"."TB_ESTOQUE" TB_ESTOQUE]]>
+	</queryString>
+	<field name="NOME_ACESSORIO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MARCA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRECO" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TIPO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="QUANTIDADE" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOTA_FISCAL" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CÓDIGO_ACESSORIO" class="java.lang.Long"/>
+	<group name="NOME_ACESSORIO">
+		<groupExpression><![CDATA[$F{NOME_ACESSORIO}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3d43625e-cfd2-4d76-a6b9-dfd287a7cb78" mode="Opaque" x="0" y="0" width="555" height="79" forecolor="#CCCCCC" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE ESTOQUE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8c1fcd9c-14dc-4978-80f5-014b633dc4bd" mode="Opaque" x="0" y="0" width="49" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="false"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c6e4ba04-6107-4405-8bf1-f30df9c4c62f" mode="Opaque" x="49" y="0" width="143" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="false"/>
+				</textElement>
+				<text><![CDATA[ACESSORIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b46be379-5057-4d16-b169-55fce293646d" mode="Opaque" x="192" y="0" width="100" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="false"/>
+				</textElement>
+				<text><![CDATA[MARCA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1970422-8d10-4051-b8fd-8328e0598de4" mode="Opaque" x="292" y="0" width="57" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="false"/>
+				</textElement>
+				<text><![CDATA[TITULO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="69e526c0-2666-451f-8401-3eaf19b85baa" mode="Opaque" x="349" y="0" width="78" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="false"/>
+				</textElement>
+				<text><![CDATA[NOTA_FISCAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c77b3555-a557-4390-b27b-6c62bb281a87" mode="Opaque" x="427" y="0" width="57" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="false"/>
+				</textElement>
+				<text><![CDATA[PRECO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d69f708d-ff80-45f7-9b99-cfb7b7ae84a5" mode="Opaque" x="484" y="0" width="71" height="20" forecolor="#FFFFFF" backcolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isItalic="false"/>
+				</textElement>
+				<text><![CDATA[QUANTIDADE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField pattern="">
+				<reportElement uuid="f39bfdb1-4b6e-4383-9836-2c961ef4d80c" x="0" y="0" width="49" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CÓDIGO_ACESSORIO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="9afbe5a1-d06b-485f-9dc4-54c164b14caf" x="49" y="0" width="143" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOME_ACESSORIO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="38294b11-3ee9-478b-bbe7-9b5418375ca8" x="192" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{MARCA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="8f15b66d-a179-43c4-9ab8-024890c6df03" x="292" y="0" width="57" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TIPO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="f437a763-7e47-4be4-95be-6b2025941d45" x="349" y="0" width="78" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOTA_FISCAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="fa2d6e7a-6b74-43fe-9894-827bfe16acda" x="427" y="0" width="57" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PRECO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="ee420c2d-fc72-45c4-a1e5-b5e8f790ed9c" x="484" y="0" width="71" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{QUANTIDADE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

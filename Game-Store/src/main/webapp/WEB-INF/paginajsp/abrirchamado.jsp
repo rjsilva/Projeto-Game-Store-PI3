@@ -59,7 +59,7 @@
                     <tr>
                         <td><label for="status">Status:</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="status" name="status" placeholder="digite o status" value="${chamado.status}"/>
+                            <input class="form-control" type="text" id="status" name="status" placeholder="digite o status" value="${chamado.status.toUpperCase()}"/>
                         </td>
                     </tr>
                     <tr>

@@ -112,7 +112,7 @@ public class PerfilServlet extends HttpServlet {
 
                 String nome = request.getParameter("funcionario");
                 String filial = request.getParameter("filial");
-                String login = request.getParameter("login");
+                String login = request.getParameter("cpf");
                 UUID uuid = UUID.randomUUID();
                 String senha = uuid.toString();
                 String perfil = request.getParameter("perfil").toUpperCase();
@@ -130,15 +130,15 @@ public class PerfilServlet extends HttpServlet {
 
                 user.setNome(nome);
                 user.getFilial().setId(Integer.parseInt(filial));
-                user.setLogin(login);
-                user.setSenha(senha.replaceAll("-", "").substring(0, 5));
+                user.setLogin(login.replace(".", "").replace("-", ""));
+                user.setSenha(senha.replace("-", "").substring(0,5));
                 user.setNivelacesso(nivelacesso);
                 userDao.cadastrar(user);
 
                 if (user != null) {
 
                     UsuarioControler userControler = new UsuarioControler();
-                    userControler.enviarEmail(login, senha, emailusuario);
+                    userControler.enviarEmail(senha, emailusuario);
                 }
 
             } catch (Exception ex) {

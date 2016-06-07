@@ -14,11 +14,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 /**
  *
@@ -145,9 +151,9 @@ public class AcessorioDao implements GenericDao<Acessorio> {
                 stm.setInt(5, resul);
                 stm.setInt(6, ac.getNota_fiscal());
                 stm.setLong(7, ac.getId());
-                
+
                 stm.execute();
-                
+
             } else {
 
                 String sqlestoque = "UPDATE TB_ESTOQUE SET NOME_ACESSORIO=? , MARCA=? , PRECO=? , TIPO=? , QUANTIDADE=? , NOTA_FISCAL=?"
@@ -314,5 +320,13 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
+    }
+
+    public void imprimirRelatorioEstoque(String caminho) throws SQLException, JRException {
+
+        Map<String, Object> parametro = new HashMap<>();
+        Connection conexao = Conexao.obterConexao();
+        JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametro, conexao);
+        JasperPrintManager.printReport(relatorio, true);
     }
 }
