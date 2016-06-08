@@ -109,7 +109,7 @@ public class VendaDao {
 
     }
 
-    public List<Venda> listarTodos() throws PersistenceException, SQLException {
+    public List<Venda> listarVendas() throws PersistenceException, SQLException {
 
         Statement stmt = null;
         Connection conn = null;
@@ -187,7 +187,7 @@ public class VendaDao {
         }
 
     }
-
+    
     public void imprimirRelatorioVenda(String caminho) throws SQLException, JRException {
 
         Map<String, Object> parametro = new HashMap<>();

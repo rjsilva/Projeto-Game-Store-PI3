@@ -109,7 +109,7 @@ public class VendaServlet extends HttpServlet {
 
             try {
                 List<Venda> listavenda;
-                listavenda = vdao.listarTodos();
+                listavenda = vdao.listarVendas();
                 request.setAttribute("listavenda", listavenda);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cancelarvenda.jsp");
                 dispatcher.forward(request, response);
@@ -119,7 +119,7 @@ public class VendaServlet extends HttpServlet {
         } else if (acao.equals("relatoriovenda")) {
 
             try {
-                List<Venda> listavenda = vdao.listarTodos();
+                List<Venda> listavenda = vdao.listarVendas();
                 request.setAttribute("listavenda", listavenda);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/relatoriovenda.jsp");
                 dispatcher.forward(request, response);
