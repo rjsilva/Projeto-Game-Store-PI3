@@ -32,14 +32,11 @@ import net.sf.jasperreports.engine.JasperPrintManager;
  */
 public class VendaDao {
 
-    private AcessorioDao acdao = new AcessorioDao();
-
     public void registrarVenda(Venda venda) throws SQLException {
-
-        Connection conexao = Conexao.obterConexao();
 
         try {
 
+            Connection conexao = Conexao.obterConexao();
             /**
              * PEGA O NOME DO FUNCIONARIO NA SESSÃO E BUSCA A FILIAL NO QUAL O
              * MESMO TRABALHA
@@ -70,30 +67,34 @@ public class VendaDao {
             nomeProduto = resultprecoproduto.getString("NOME_ACESSORIO");
 
             /**
-             * FAZ O INSERT NA TABELA DE VENDA DE PRODUTO
-             */
-            String sqlvenda = "INSERT INTO TB_VENDA(NOME_PRODUTO,NOME_FUNCIONARIO, NOME_FILIAL,DATA_VENDA, QUANTIDADE_VENDA, PRECOUNITARIO)"
-                    + " VALUES(?,?,?,?,?,?)";
-            PreparedStatement stm = conexao.prepareStatement(sqlvenda);
-            stm.setString(1, nomeProduto);
-            stm.setString(2, nomeUsuario);
-            stm.setString(3, nomeFilial);
-            stm.setDate(4, new java.sql.Date(System.currentTimeMillis()));
-            stm.setInt(5, venda.getQuantidade());
-            stm.setDouble(6, preco);
-            
-            /**
              * PEGA A QUANTIDADE DO PRODUTO NA TABELA DE ESTOQUE
              */
-            stm.execute();
             Acessorio ac = new Acessorio();
-            int quant = 0, resul = 0;
+            int quant, resul, codproduto = 0;
+            PreparedStatement stm = null;
             String sqlproduto = "SELECT * FROM TB_ESTOQUE WHERE ID_ACESSORIO = " + venda.getAcessorio().getNome();
             stm = conexao.prepareStatement(sqlproduto);
             ResultSet result = stm.executeQuery();
             result.next();
+            codproduto = result.getInt("ID_ACESSORIO");
             quant = result.getInt("QUANTIDADE");
             resul = quant - venda.getQuantidade();
+
+            /**
+             * FAZ O INSERT NA TABELA DE VENDA DE PRODUTO
+             */
+            String sqlvenda = "INSERT INTO TB_VENDA(ID_ACESSORIO,NOME_PRODUTO,NOME_FUNCIONARIO, NOME_FILIAL,DATA_VENDA, QUANTIDADE_VENDA, PRECOUNITARIO)"
+                    + " VALUES(?,?,?,?,?,?,?)";
+            stm = conexao.prepareStatement(sqlvenda);
+            stm.setInt(1, codproduto);
+            stm.setString(2, nomeProduto);
+            stm.setString(3, nomeUsuario);
+            stm.setString(4, nomeFilial);
+            stm.setDate(5, new java.sql.Date(System.currentTimeMillis()));
+            stm.setInt(6, venda.getQuantidade());
+            stm.setDouble(7, preco);
+            stm.execute();
+
             String sql2 = "UPDATE TB_ESTOQUE SET QUANTIDADE=? WHERE ID_ACESSORIO= " + venda.getAcessorio().getNome();
             stm = conexao.prepareStatement(sql2);
             stm.setInt(1, resul);
@@ -123,18 +124,20 @@ public class VendaDao {
             while (resultados.next()) {
                 Venda venda = new Venda();
                 venda.setId(resultados.getLong(1));
-                venda.getAcessorio().setNome(resultados.getString(2));
-                venda.getUsuario().setNome(resultados.getString(3));
-                venda.getFilial().setRazao_social(resultados.getString(4));
-                venda.setDtvenda(resultados.getDate(5));
-                venda.setQuantidade(resultados.getInt(6));
-                venda.getAcessorio().setPreco(resultados.getLong(7));
+                venda.getAcessorio().setId(resultados.getInt(2));
+                venda.getAcessorio().setNome(resultados.getString(3));
+                venda.getUsuario().setNome(resultados.getString(4));
+                venda.getFilial().setRazao_social(resultados.getString(5));
+                venda.setDtvenda(resultados.getDate(6));
+                venda.setQuantidade(resultados.getInt(7));
+                venda.getAcessorio().setPreco(resultados.getLong(8));
 
                 listavenda.add(venda);
             }
 
-        } catch (PersistenceException e) {
-            e.printStackTrace();
+        } catch (PersistenceException ex) {
+
+            Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listavenda;
     }
@@ -145,18 +148,42 @@ public class VendaDao {
 
         try {
 
-            String sql = "DELETE FROM TB_VENDA WHERE ID_VENDA=?";
-
+            ResultSet result = null;
             Connection conexao = Conexao.obterConexao();
+
+            int quant, soma, idacessorio, quantVenda = 0;
+
+            String sqlvenda = "SELECT ID_ACESSORIO,QUANTIDADE_VENDA FROM TB_VENDA WHERE ID_VENDA = " + venda.getId();
+            stm = conexao.prepareStatement(sqlvenda);
+            result = stm.executeQuery();
+            result.next();
+            idacessorio = result.getInt("ID_ACESSORIO");
+            quantVenda = result.getInt("QUANTIDADE_VENDA");
+
+            String sqlestoque = "SELECT QUANTIDADE FROM TB_ESTOQUE WHERE ID_ACESSORIO = " + idacessorio;
+            stm = conexao.prepareStatement(sqlestoque);
+            result = stm.executeQuery();
+            result.next();
+            quant = result.getInt("QUANTIDADE");
+            soma = quant + quantVenda;
+
+            String sql = "DELETE FROM TB_VENDA WHERE ID_VENDA=?";
 
             stm = conexao.prepareStatement(sql);
             stm.setLong(1, venda.getId());
             stm.execute();
 
+            String sql2 = "UPDATE TB_ESTOQUE SET QUANTIDADE=? WHERE ID_ACESSORIO= " + idacessorio;
+            stm = conexao.prepareStatement(sql2);
+            stm.setInt(1, soma);
+            stm.execute();
+
             stm.close();
 
         } catch (SQLException ex) {
+
             Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
+
         }
 
     }
