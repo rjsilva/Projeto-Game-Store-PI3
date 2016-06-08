@@ -62,7 +62,7 @@
                         <td>${venda.dtvenda}</td>
                         <td>${venda.acessorio.preco}</td>
                         <td>${venda.quantidade}</td>
-                        <td></td>
+                        <td>${venda.totalvenda}</td>
                         <td><a href="javascript:exclusao(${venda.id})" class="btn btn-danger">Excluir</a></td>
                     </tr>
                 </c:forEach>

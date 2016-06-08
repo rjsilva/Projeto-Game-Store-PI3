@@ -20,6 +20,8 @@ public class Venda implements Serializable{
     
     private int quantidade;
     
+    private double totalvenda;
+    
     private Filial filial;
     
     private Funcionario funcionario;
@@ -132,6 +134,20 @@ public class Venda implements Serializable{
      */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    /**
+     * @return the totalvenda
+     */
+    public double getTotalvenda() {
+        return totalvenda;
+    }
+
+    /**
+     * @param totalvenda the totalvenda to set
+     */
+    public void setTotalvenda(double totalvenda) {
+        this.totalvenda = totalvenda;
     }
     
     

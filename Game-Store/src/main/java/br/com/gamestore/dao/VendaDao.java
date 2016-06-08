@@ -71,6 +71,7 @@ public class VendaDao {
              */
             Acessorio ac = new Acessorio();
             int quant, resul, codproduto = 0;
+            double totalProduto = 0;
             PreparedStatement stm = null;
             String sqlproduto = "SELECT * FROM TB_ESTOQUE WHERE ID_ACESSORIO = " + venda.getAcessorio().getNome();
             stm = conexao.prepareStatement(sqlproduto);
@@ -80,11 +81,12 @@ public class VendaDao {
             quant = result.getInt("QUANTIDADE");
             resul = quant - venda.getQuantidade();
 
+            totalProduto = venda.getQuantidade() * preco;
             /**
              * FAZ O INSERT NA TABELA DE VENDA DE PRODUTO
              */
-            String sqlvenda = "INSERT INTO TB_VENDA(ID_ACESSORIO,NOME_PRODUTO,NOME_FUNCIONARIO, NOME_FILIAL,DATA_VENDA, QUANTIDADE_VENDA, PRECOUNITARIO)"
-                    + " VALUES(?,?,?,?,?,?,?)";
+            String sqlvenda = "INSERT INTO TB_VENDA(ID_ACESSORIO,NOME_PRODUTO,NOME_FUNCIONARIO, NOME_FILIAL,DATA_VENDA, QUANTIDADE_VENDA, PRECOUNITARIO,TOTALVENDA)"
+                    + " VALUES(?,?,?,?,?,?,?,?)";
             stm = conexao.prepareStatement(sqlvenda);
             stm.setInt(1, codproduto);
             stm.setString(2, nomeProduto);
@@ -93,6 +95,7 @@ public class VendaDao {
             stm.setDate(5, new java.sql.Date(System.currentTimeMillis()));
             stm.setInt(6, venda.getQuantidade());
             stm.setDouble(7, preco);
+            stm.setDouble(8, totalProduto);
             stm.execute();
 
             String sql2 = "UPDATE TB_ESTOQUE SET QUANTIDADE=? WHERE ID_ACESSORIO= " + venda.getAcessorio().getNome();
@@ -131,6 +134,7 @@ public class VendaDao {
                 venda.setDtvenda(resultados.getDate(6));
                 venda.setQuantidade(resultados.getInt(7));
                 venda.getAcessorio().setPreco(resultados.getLong(8));
+                venda.setTotalvenda(resultados.getDouble(9));
 
                 listavenda.add(venda);
             }
