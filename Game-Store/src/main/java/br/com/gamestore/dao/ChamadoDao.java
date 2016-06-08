@@ -42,8 +42,10 @@ public class ChamadoDao implements GenericDao<Chamado> {
             stm.setDate(7, new java.sql.Date(System.currentTimeMillis()));
             stm.execute();
             stm.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(FuncionarioDao.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 

@@ -4,6 +4,7 @@
     Author     : rjs
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="br.com.gamestore.modelo.Usuario"%>
 <%@page import="br.com.gamestore.modelo.Acessorio"%>
@@ -51,11 +52,12 @@
                     <tr>
                         <td><label for="preco">Preço(R$):</label></td>
                         <td class="col-sm-2">
-                            <input class="form-control" type="text" id="preco" name="preco" placeholder="digite o preço" onkeyup="moeda(this);" value="${ac.preco}"/>
+                            <fmt:formatNumber var="preco" type="number" maxFractionDigits="3" value="${ac.preco}"></fmt:formatNumber>
+                            <input class="form-control" type="text" id="preco" name="preco" placeholder="digite o preço" onkeyup="moeda(this);" value="${preco}"/>
                         </td>
                     </tr>
                     <tr>
-                        <td><label for="tipo">Descrição:</label></td>
+                        <td><label for="tipo">Título:</label></td>
                         <td class="col-sm-2">
                             <input class="form-control" type="text" id="tipo" name="tipo" placeholder="digite a descrição produto" value="${ac.tipo}"/>
                         </td>

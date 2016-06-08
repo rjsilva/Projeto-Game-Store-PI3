@@ -71,6 +71,10 @@ public class AcessorioServlet extends HttpServlet {
         AcessorioDao acdao = new AcessorioDao();
         Acessorio ac = new Acessorio();
         String acao = request.getParameter("acao");
+        /**
+         * RECEBE A AÇÃO, CASO A AÇÃO SEJA CADASTRO, RETORNA A PÁGINA DE CADASTRO
+         * DE ACESSÓRIO
+         */
 
         if (acao.equals("cadastro")) {
 
@@ -85,9 +89,12 @@ public class AcessorioServlet extends HttpServlet {
 
                 response.sendRedirect("AcessorioServlet?acao=listar");
             }
+            /**
+             * CASO A AÇÃO SEJA LISTAR, RETORNA A PÁGINA DE PRODUTOS
+             */
         } else if (acao.equals("listar")) {
             try {
-                List<Acessorio> lista = acdao.listarTodos();
+                List<Acessorio> lista = acdao.listarTodosProdutos();
                 request.setAttribute("lista", lista);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/estoqueprodutos.jsp");
@@ -96,16 +103,22 @@ public class AcessorioServlet extends HttpServlet {
             } catch (PersistenceException | SQLException ex) {
                 Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //leva os dados 
+            /**
+             *CASO A AÇÃO SEJA ATUALIZAR, LEVA OS DADOS A TELA PARA ATUALIZAR AS
+             * INFORMAÇÕES SOLICITADA PELO USUÁRIO DE ACORDO COM O ID
+             */
         } else if (acao.equals("atualizar")) {
             String id = request.getParameter("id");
-            request.setAttribute("lista", acdao.buscarPorNome());
+            request.setAttribute("lista", acdao.buscarProdutoPorNome());
             ac = acdao.buscarPorId(Integer.parseInt(id));
             request.setAttribute("ac", ac);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/acessoriocadastro.jsp");
             dispatcher.forward(request, response);
 
-            //seta objeto em branco
+            /**
+             * APÓS CADASTRAR UM PRODUTO OS CAMPOS SÃO ZERADOS NO FORMULÁRIO DE CADASTRO
+             * DE PRODUTO
+             */
         } else if (acao.equals("cadastro")) {
 
             Acessorio ace = new Acessorio();
@@ -118,10 +131,14 @@ public class AcessorioServlet extends HttpServlet {
             ace.setNota_fiscal(0);
 
             request.setAttribute("ace", ac);
-            request.setAttribute("lista", acdao.buscarPorNome());
+            request.setAttribute("lista", acdao.buscarProdutoPorNome());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/acessoriocadastro.jsp");
             dispatcher.forward(request, response);
 
+            /**
+             * CASO A AÇÃO SEJA IMPRIMIR RELATÓRIO DE ESTOQUE
+             * ELE IMPRIMIRÁ O RELATÓRIO EM PDF
+             */
         } else if (acao.equals("relatorio")) {
 
             try {
@@ -141,7 +158,8 @@ public class AcessorioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         /**
-         * válida a ação e se o id for nulo ou vazio cadastra funcionário
+         * VÁLIDA O ID, CASO O ID SEJA NULO A AÇÃO SERÁ CADASTRAR PELA PRIMEIRA VEZ.
+         * CASO O ID SEJA DIFERENTE DE NULO A AÇÃO SERÁ ATUALIZAR O PRODUTO DE ACORDO COM O ID.
          */
         String id = request.getParameter("id");
         Acessorio ace = new Acessorio();
@@ -174,8 +192,7 @@ public class AcessorioServlet extends HttpServlet {
             }
 
             /**
-             * se id da ação acima não for vazio, ele já está cadastrado e agora
-             * ele atualiza a ação
+             * ATUALIZA O PRODUTO CASO O ID, SEJA DIRENTE DE NULO
              */
         } else {
 

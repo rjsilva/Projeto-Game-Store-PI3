@@ -69,10 +69,18 @@ public class VendaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        /**
+         * RECEBE A AÇÃO DO USUÁRIO
+         */
         String acao = request.getParameter("acao");
         String getProduto = request.getParameter("getproduto");
         VendaDao vdao = new VendaDao();
 
+        /**
+         * SE A AÇÃO FOR VENDA, ELE RETORNARÁ A QUANTIDADE DO ESTOQUE DO PRODUTO NO CAMPO ESTOQUE NA TELA
+         * DE REGISTRAR VENDA
+         */
         if (acao.equals("venda")) {
 
             AcessorioDao acdao = new AcessorioDao();
@@ -84,17 +92,22 @@ public class VendaServlet extends HttpServlet {
                 int id = Integer.parseInt(nomeproduto);
                 ac = acdao.buscarQuantEstoque(id);
                 request.setAttribute("ac", ac);
+                /**
+                 * LISTA OS PRODUTOS
+                 */
             } else {
 
                 try {
-                    request.getSession().setAttribute("listaproduto", acdao.listarTodos());
+                    request.getSession().setAttribute("listaproduto", acdao.listarTodosProdutos());
                 } catch (PersistenceException | SQLException ex) {
                     Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            //request.setAttribute("listafilial", filialDao.buscarPorNome());
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/registrarvenda.jsp");
             dispatcher.forward(request, response);
+            /**
+             * SE A AÇÃO FOR EXCLUIR, SERÁ EXCLUÍDO A VENDA DE ACORDO COM O ID DA VENDA
+             */
         } else if (acao.equals("excluir")) {
 
             String id = request.getParameter("id");
@@ -105,6 +118,9 @@ public class VendaServlet extends HttpServlet {
                 response.sendRedirect("VendaServlet?acao=pesquisarvenda");
             }
 
+            /**
+             * LISTA TODAS AS VENDAS DA TELA DE CANCELAR VENDA
+             */
         } else if (acao.equals("pesquisarvenda")) {
 
             try {
@@ -116,6 +132,10 @@ public class VendaServlet extends HttpServlet {
             } catch (PersistenceException | SQLException ex) {
                 Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            /**
+             * IMPRIMIRÁ O RELATÓRIO CASO O USUÁRIO CLICAR NO BOTÃO IMPRIMIR RELATÓRIO NA PÁGINA DE
+             * RELATÓRIO DE VENDA
+             */
         } else if (acao.equals("relatoriovenda")) {
 
             try {
@@ -144,10 +164,16 @@ public class VendaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        /**
+         * RECEBE A AÇÃO DO USUÁRIO NO SISTEMA
+         */
         Venda venda = new Venda();
         VendaDao vdao = new VendaDao();
         String acao = request.getParameter("acao");
 
+        /**
+         * SE AÇÃO FOR REGISTAR VENDA
+         */
         if (acao.equals("registrarvenda")) {
             String nomeproduto = request.getParameter("nomeproduto");
             String qtvenda = request.getParameter("quantvenda");

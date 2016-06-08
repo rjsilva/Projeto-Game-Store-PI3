@@ -71,16 +71,22 @@ public class FuncionarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        /**
+         * RECEBE A AÇÃO DO USUÁRIO
+         */
         String acao = request.getParameter("acao");
-
         FuncionarioDao fdao = new FuncionarioDao();
         Funcionario func = new Funcionario();
         FilialDao filialDao = new FilialDao();
 
+        /**
+         * SE AÇÃO DO MENU FOR CADASTRAR FUNCIONÁRIO, O SISTEMA RETORNARÁ A TELA DE CADASTRO FUNCIONÁRIO
+         */
         if (acao.equals("funcionario")) {
 
             try {
-                List<Filial> listaFilial = filialDao.listarTodos();
+                List<Filial> listaFilial = filialDao.listarTodasFiliais();
                 request.getSession().setAttribute("listafilial", listaFilial);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofuncionario.jsp");
                 dispatcher.forward(request, response);
@@ -89,6 +95,9 @@ public class FuncionarioServlet extends HttpServlet {
                 Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+            /**
+             * SE A AÇÃO FOR EXCLUIR, SERÁ EXCLUÍDO O USUÁRIO DE ACORDO COM O ID
+             */
         } else if (acao.equals("excluir")) {
 
             String id = request.getParameter("id");
@@ -99,6 +108,9 @@ public class FuncionarioServlet extends HttpServlet {
                 response.sendRedirect("FuncionarioServlet?acao=listar");
             }
 
+            /**
+             * SE A AÇÃO FOR LISTAR, SERÁ LISTADO A LISTA DE USUÁRIO CADASTRADO NO SISTEMA
+             */
         } else if (acao.equals("listar")) {
 
             try {
@@ -111,13 +123,17 @@ public class FuncionarioServlet extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            /**
+             * SE A AÇÃO FOR ATUALIZAR, SERÁ LEVADO OS DADOS DO USUÁRIO DE ACORDO COM ID, PARA A TELA
+             * DE CADASTRO FUNCIONÁRIO
+             */
         } else if (acao.equals("atualizar")) {
 
             try {
                 String id = request.getParameter("id");
                 func = fdao.buscarPorId(Integer.parseInt(id));
                 request.setAttribute("func", func);
-                List<Filial> listaFilial = filialDao.listarTodos();
+                List<Filial> listaFilial = filialDao.listarTodasFiliais();
                 request.getSession().setAttribute("listafilial", listaFilial);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofuncionario.jsp");
                 dispatcher.forward(request, response);
@@ -125,6 +141,9 @@ public class FuncionarioServlet extends HttpServlet {
                 Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+            /**
+             * SETA OS CAMPOS EM BRANCO APÓS O CADASTRO DO FUNCIONÁRIO
+             */
         } else if (acao.equals("cadastro")) {
 
             func.setNome("");
@@ -161,13 +180,16 @@ public class FuncionarioServlet extends HttpServlet {
             throws ServletException, IOException {
 
         /**
-         * se o id for nulo ou vázio a ação cadastra o funcionário
+         * PEGA O ID, CASO SEJA NULO OU DIFERENTE DE NULO
          */
         String id = request.getParameter("id");
         Date data = null;
         Funcionario funcionario = new Funcionario();
         FuncionarioDao fdao = new FuncionarioDao();
 
+        /**
+         * SE O CAMPO ID FOR NULO, SERÁ CADASTRADO
+         */
         if (id == null || id.isEmpty()) {
 
             try {
@@ -209,7 +231,9 @@ public class FuncionarioServlet extends HttpServlet {
                 Logger.getLogger(FuncionarioServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            //metodo de atualizar as informações
+            /**
+             * SE O CAMPO ID FOR DIFERENTE DE NULO SERÁ ATUALIZADO, AS INFORMAÇÕES DO FUNCIONÁRIO
+             */
         } else {
 
             try {

@@ -45,6 +45,9 @@ public class FilialDao implements GenericDao<Filial> {
 
             stmendereco.executeUpdate();
 
+            /**
+             * PEGA O ID ENDERECO
+             */
             ResultSet rs = stmendereco.getGeneratedKeys();
             if (rs.next()) {
 
@@ -188,7 +191,7 @@ public class FilialDao implements GenericDao<Filial> {
         return null;
     }
 
-    public List<Filial> listarTodos() throws PersistenceException, SQLException {
+    public List<Filial> listarTodasFiliais() throws PersistenceException, SQLException {
 
         Statement stmt = null;
         Connection conn = null;

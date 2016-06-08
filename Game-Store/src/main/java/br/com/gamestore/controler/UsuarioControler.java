@@ -21,6 +21,9 @@ public class UsuarioControler{
 
     public boolean validarUsuario(HttpServletRequest request) throws ControleException {
 
+        /**
+         * FAZ A AUTENTICAÇÃO DO LOGIN E SENHA DO USUÁRIO INFORMADO NA PÁGIA DE LOGIN
+         */
         boolean valido = true;
 
         try {
@@ -43,6 +46,12 @@ public class UsuarioControler{
         return valido;
     }
 
+    /**
+     * ENVIA O EMAIL COM A SENHA DO USUÁRIO, QUANDO O MESMO FOR CRIADO
+     * @param senha
+     * @param emailusuario
+     * @throws EmailException 
+     */
     public void enviarEmail(String senha, String emailusuario) throws EmailException {
 
         

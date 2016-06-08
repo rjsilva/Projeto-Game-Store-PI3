@@ -52,6 +52,9 @@ public class AcessorioDao implements GenericDao<Acessorio> {
             stm.setInt(6, ac.getNota_fiscal());
             stm.execute();
 
+            /**
+             * PEGA O ID DO PRODUTO
+             */
             ResultSet rs = stm.getGeneratedKeys();
             if (rs.next()) {
 
@@ -177,7 +180,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
 
     }
 
-    public List<Acessorio> listarTodos() throws PersistenceException, SQLException {
+    public List<Acessorio> listarTodosProdutos() throws PersistenceException, SQLException {
 
         Statement stmt = null;
         Connection conn = null;
@@ -209,7 +212,7 @@ public class AcessorioDao implements GenericDao<Acessorio> {
         return lista;
     }
 
-    public List<Acessorio> buscarPorNome() {
+    public List<Acessorio> buscarProdutoPorNome() {
 
         String sql = "SELECT * FROM TB_ACESSORIOS";
 

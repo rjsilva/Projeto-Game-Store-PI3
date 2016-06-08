@@ -61,10 +61,8 @@ public class IndexServlet extends HttpServlet {
             throws ServletException, IOException {
         
         /**
-         * aqui recebe a ação ao clicar no mennu home, e redireciona o usuário a tela home(index.jsp
-         * ) do sistema
+         * RECEBE A AÇÃO E RETORNA A PÁGINA HOME DO SISTEMA, NA QUAL O USUÁRIO CLICOU NO MENU DO SISTEMA
          */
-        
         String acao = request.getParameter("acao");
         if (acao.equals("mostrartelaindex")) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/index.jsp");

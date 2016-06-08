@@ -1,8 +1,8 @@
-function validaStatus(status){
+function validaStatus(status) {
     var id = document.getElementById("id").value;
-    if(id == "" || id == "null"){
-        
-       document.getElementById("status").style.display = 'none';
+    if (id == "" || id == "null") {
+
+        document.getElementById("status").style.display = 'none';
     }
 }
 
@@ -198,6 +198,13 @@ function validarCampoAbrirChamado(frm) {
         alert("Detalhe o problema");
         return false;
     }
+    if (frm.id.value != 0 && frm.id.value != "null") {
+
+        alert("chamado enviado com sucesso");
+
+    } else {
+        alert("chamado registrado com sucesso");
+    }
 
     frm.submit();
 }
@@ -237,12 +244,13 @@ function validarTelaCriarUsuario(frm) {
 
         return false;
 
+    } else {
+        
+        alert("usuário criado com sucesso");
     }
 
-    else {
+    frm.submit();
 
-        frm.submit();
-    }
 }
 //====FORMATA O VALOR NO CAMPO INPUT========//
 function moeda(z) {

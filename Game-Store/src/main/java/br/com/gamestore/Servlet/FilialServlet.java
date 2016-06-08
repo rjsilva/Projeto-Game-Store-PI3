@@ -67,15 +67,24 @@ public class FilialServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        /**
+         * RECEBE A AÇÃO DO USUÁRIO
+         */
         String acao = request.getParameter("acao");
         String getCidade = request.getParameter("getCidades");
 
         FilialDao filialDao = new FilialDao();
         Filial filial = new Filial();
 
+        /**
+         * SE A AÇÃO FOR CADASTRAR FILIAL, ELE RETORNARÁ A PAGINA DE CADASTRO DE FILIAL
+         */
         if (acao.equals("mostrartela")) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofilial.jsp");
             dispatcher.forward(request, response);
+         /**
+          * SE AÇÃO FOR EXCLUIR, ELE EXCLUIRÁ FILIAL DE ACORDO COM O ID
+          */
         } else if (acao.equals("excluir")) {
             String id = request.getParameter("id");
             filial.setId(Integer.parseInt(id));
@@ -83,9 +92,12 @@ public class FilialServlet extends HttpServlet {
                 filialDao.excluir(filial);
                 response.sendRedirect("FilialServlet?acao=listar");
             }
+            /**
+             * SE AÇÃO FOR LISTAR, LISTARÁ AS INFORMAÇÕES DA FILIAL
+             */
         } else if (acao.equals("listar")) {
             try {
-                List<Filial> listafilial = filialDao.listarTodos();
+                List<Filial> listafilial = filialDao.listarTodasFiliais();
                 request.setAttribute("listafilial", listafilial);
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/listafilial.jsp");
@@ -94,7 +106,9 @@ public class FilialServlet extends HttpServlet {
             } catch (PersistenceException | SQLException ex) {
                 Logger.getLogger(AcessorioServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //leva os dados a tela de cadastro filial
+            /**
+             * SE AÇÃO FOR ATULIZAR, LEVA OS DADOS A TELA DE CADASTRO FILIAL DE ACORDO COM O ID
+             */
         } else if (acao.equals("atualizar")) {
             String id = request.getParameter("id");
             filial = filialDao.buscarPorId(Integer.parseInt(id));
@@ -102,7 +116,9 @@ public class FilialServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/cadastrofilial.jsp");
             dispatcher.forward(request, response);
 
-            //seta objeto em branco na tela de cadastro filial
+            /**
+             * SETA OS OBJETOS EM BRANCO, APÓS CADASTRO FILIAL
+             */
         } else if (acao.equals("cadastro")) {
 
             filial.setRazao_social("");
@@ -128,10 +144,16 @@ public class FilialServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        /**
+         * RECEBE A INFORMAÇÃO DO ID
+         */
         String id = request.getParameter("id");
         Filial filial = new Filial();
         FilialDao filialDao = new FilialDao();
 
+        /**
+         * CASO O ID, SEJA NULO, SERÁ CADASTRADO A FILIAL
+         */
         if (id.equals("null") || id.isEmpty()) {
 
             String logradouro = request.getParameter("rua");
@@ -157,7 +179,8 @@ public class FilialServlet extends HttpServlet {
             response.sendRedirect("FilialServlet?acao=mostrartela");
 
             /**
-             * ATUALIZAR FILIAL
+             * SE O ID FOR DIFERENTE DE NULO, SERÁ ATUALIZADO AS INFORMAÇÕES DA FILIAL
+             * DE ACORDO COM O ID
              */
         } else {
 

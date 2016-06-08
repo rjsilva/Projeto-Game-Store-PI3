@@ -64,15 +64,21 @@ public class PerfilServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        /**
+         * RECEBE A AÇÃO DO USUÁRIO NO MENU DO SISTEMA
+         */
         String acao = request.getParameter("acao");
         FuncionarioDao funcDao = new FuncionarioDao();
         FilialDao filialDao = new FilialDao();
 
+        /**
+         * CASO A AÇÃO SEJA CRIAR USUÁRIO, O SISTEMA RETORNARÁ O TELA CRIARUSUARIO.JSP
+         */
         if (acao.equals("mostrartelausuario")) {
 
             try {
                 List<Funcionario> listafuncionario = funcDao.listarTodosFuncionario();
-                List<Filial> listafilial = filialDao.listarTodos();
+                List<Filial> listafilial = filialDao.listarTodasFiliais();
                 request.getSession().setAttribute("listafuncionario", listafuncionario);
                 request.getSession().setAttribute("listafilial", listafilial);
             } catch (SQLException ex) {
@@ -80,6 +86,9 @@ public class PerfilServlet extends HttpServlet {
             }
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/criarusuario.jsp");
             dispatcher.forward(request, response);
+            /**
+             * CASO A AÇÃO SEJA LISTAR OS USUÁRIO DO SISTEMA, RETORNARÁ A LISTA DE USUÁRIOS CRIADOS
+             */
         } else if (acao.equals("listarusuarios")) {
             UsuarioDao userDao = new UsuarioDao();
             try {
@@ -102,10 +111,16 @@ public class PerfilServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        /**
+         * RECEBE A INFORMAÇÃO DO CAMPO ID, PÁGINA CRIAR USUÁRIO
+         */
         String id = request.getParameter("id");
         Usuario user = new Usuario();
         UsuarioDao userDao = new UsuarioDao();
 
+        /**
+         * CASO O ID SEJA NULO, O SISTEMA IRÁ CADASTRAR O USUÁRIO
+         */
         if (id.equals("null") || id.isEmpty()) {
 
             try {

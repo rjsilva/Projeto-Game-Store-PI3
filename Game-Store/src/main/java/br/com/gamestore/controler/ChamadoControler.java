@@ -13,7 +13,15 @@ import org.apache.commons.mail.SimpleEmail;
  * @author rjs
  */
 public class ChamadoControler {
+    
+    
 
+    /**
+     * ENVIA EMAIL PARA O USUÁRIO, RESPONDENDO O CHAMADO MESMO
+     * @param email
+     * @param comentario
+     * @throws EmailException 
+     */
     public void enviarEmailChamdo(String email, String comentario) throws EmailException {
 
         //String emailusuario = request.getParameter("email");
@@ -23,7 +31,7 @@ public class ChamadoControler {
         simpleemail.setAuthentication("rkfsystem@gmail.com", "rkfsystemgamestore");
         simpleemail.setSSLOnConnect(true);
         simpleemail.setFrom("rkfsystem@gmail.com");
-        simpleemail.setSubject("usuario e senha de acesso ao sistema");
+        simpleemail.setSubject("RESPOST DO CHAMADO");
         simpleemail.setMsg(comentario);
         simpleemail.addTo(email);
         simpleemail.send();

@@ -25,6 +25,10 @@ public class UsuarioServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        /**
+         * RECEBE A AÇÃO DO USUÁRIO DO SISTEMA
+         */
         String acao = request.getParameter("acao");
         String proxima = null;
         Usuario user = new Usuario();
@@ -33,8 +37,15 @@ public class UsuarioServlet extends HttpServlet {
         String login = request.getParameter("login");
         user.setLogin(login);
 
+        /**
+         * SE A AÇÃO FOR SAIR, O SISTEMA RETORNARÁ A PÁGINA DE LOGIN
+         */
         if ("sair".equals(acao)) {
             proxima = "login1.jsp";
+            /**
+             * SE A AÇÃO FOR LOGAR NO SISTEMA, SERÁ AUTENTICADO O LOGIN E A SENHA, CASO 
+             * AMBOS SEJAM VÁLIDADOS SERÁ RETORNADO A TELE INICIAL DO SISTEMA
+             */
         } else if ("login1".equals(acao)) {
             try {
                 proxima = "/WEB-INF/paginajsp/index.jsp";

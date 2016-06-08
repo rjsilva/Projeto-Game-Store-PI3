@@ -68,15 +68,25 @@ public class ChamadoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        /**
+         * RECEBE A AÇÃO DO USUÁRIO
+         */
         String acao = request.getParameter("acao");
         Chamado chamado = new Chamado();
         ChamadoDao chamadoDao = new ChamadoDao();
 
+        /**
+         * SE A AÇÃO SEJA ABRIRCHAMADO, ELE RETORNARÁ A TELA DE CHAMADO
+         */
         if (acao.equals("abrirchamado")) {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/abrirchamado.jsp");
             dispatcher.forward(request, response);
+            
+            /**
+             * SE A AÇÃO SEJA LISTARCHAMADO, ELE RETORNA A LISTA DE CHAMADOS
+             */
         } else if (acao.equals("listarchamado")) {
 
             try {
@@ -89,6 +99,10 @@ public class ChamadoServlet extends HttpServlet {
             } catch (SQLException ex) {
                 Logger.getLogger(ChamadoServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            /**
+             * SE A AÇÃO SEJA ATENDER CHAMADO, OS DADOS DO CHAMADO SÃO LEVADO, PARA A TELA
+             * ATENDER CHAMADO
+            */
         } else if (acao.equals("atenderchamado")) {
 
             try {
@@ -101,6 +115,9 @@ public class ChamadoServlet extends HttpServlet {
             } catch (PersistenceException | SQLException ex) {
                 Logger.getLogger(ChamadoServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+            /**
+             * SE A AÇÃO EXCLUIR, ELE EXCLUIR O CHAMADO 
+             */
         } else if (acao.equals("excluir")) {
             String id = request.getParameter("id");
             chamado.setId(Integer.parseInt(id));
@@ -109,6 +126,9 @@ public class ChamadoServlet extends HttpServlet {
 
                 response.sendRedirect("ChamadoServlet?acao=atenderchamado");
             }
+            /**
+             * SE A AÇÃO ATUALIZAR, ELE ATUALIZARÁ AS INFORMAÇÕES DO CHAMADO
+             */
         } else if (acao.equals("atualizarchamado")) {
             String id = request.getParameter("id");
             chamado = chamadoDao.buscarPorId(Integer.parseInt(id));
@@ -116,7 +136,9 @@ public class ChamadoServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/abrirchamado.jsp");
             dispatcher.forward(request, response);
 
-            //seta objeto em branco
+            /**
+             * SETA OS OBJETOS EM BRANCO NA TELA DE CHAMADO, ASSIM QUE O MESMO FOR ABERTO
+             */
         } else if (acao.equals("cadastro")) {
 
             chamado.setEmail("");
@@ -141,11 +163,19 @@ public class ChamadoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        /**
+         * RECEBE A AÇÃO E O ID, CASO O ID SEJA NULO SERÁ CADASTRADO, CASO SEJA DIFERENTE DE NULO,
+         * SERÁ ATUALIZADO AS INFORMAÇÕES
+         */
         String acao = request.getParameter("acao");
         String id = request.getParameter("id");
         Chamado chamado = new Chamado();
         ChamadoDao cdao = new ChamadoDao();
 
+        /**
+         * CADASTRA O CHAMADO NA BASE, SE O ID FOR NULO
+         */
         if (id == null || id.equals("")) {
 
             String nomefuncionario = request.getParameter("nomefuncionario");
@@ -170,6 +200,9 @@ public class ChamadoServlet extends HttpServlet {
 
             cdao.cadastrar(chamado);
             response.sendRedirect("ChamadoServlet?acao=abrirchamado");
+            /**
+             * ATUALIZA AS INFORMAÇÕES DO CHAMADO CASO O ID SEJA DIFERENTE DE NULO
+             */
         } else {
 
             try {
