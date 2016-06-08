@@ -69,7 +69,7 @@ public class VendaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         /**
          * RECEBE A AÇÃO DO USUÁRIO
          */
@@ -78,17 +78,16 @@ public class VendaServlet extends HttpServlet {
         VendaDao vdao = new VendaDao();
 
         /**
-         * SE A AÇÃO FOR VENDA, ELE RETORNARÁ A QUANTIDADE DO ESTOQUE DO PRODUTO NO CAMPO ESTOQUE NA TELA
-         * DE REGISTRAR VENDA
+         * SE A AÇÃO FOR VENDA, ELE RETORNARÁ A QUANTIDADE DO ESTOQUE DO PRODUTO
+         * NO CAMPO ESTOQUE NA TELA DE REGISTRAR VENDA
          */
         if (acao.equals("venda")) {
 
             AcessorioDao acdao = new AcessorioDao();
             FilialDao filialDao = new FilialDao();
             Acessorio ac = new Acessorio();
+            String nomeproduto = request.getParameter("idProduto");
             if (getProduto != null && !"".equals(getProduto)) {
-
-                String nomeproduto = request.getParameter("idProduto");
                 int id = Integer.parseInt(nomeproduto);
                 ac = acdao.buscarQuantEstoque(id);
                 request.setAttribute("ac", ac);
@@ -106,7 +105,8 @@ public class VendaServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/paginajsp/registrarvenda.jsp");
             dispatcher.forward(request, response);
             /**
-             * SE A AÇÃO FOR EXCLUIR, SERÁ EXCLUÍDO A VENDA DE ACORDO COM O ID DA VENDA
+             * SE A AÇÃO FOR EXCLUIR, SERÁ EXCLUÍDO A VENDA DE ACORDO COM O ID
+             * DA VENDA
              */
         } else if (acao.equals("excluir")) {
 
@@ -133,8 +133,8 @@ public class VendaServlet extends HttpServlet {
                 Logger.getLogger(VendaServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             /**
-             * IMPRIMIRÁ O RELATÓRIO CASO O USUÁRIO CLICAR NO BOTÃO IMPRIMIR RELATÓRIO NA PÁGINA DE
-             * RELATÓRIO DE VENDA
+             * IMPRIMIRÁ O RELATÓRIO CASO O USUÁRIO CLICAR NO BOTÃO IMPRIMIR
+             * RELATÓRIO NA PÁGINA DE RELATÓRIO DE VENDA
              */
         } else if (acao.equals("relatoriovenda")) {
 
